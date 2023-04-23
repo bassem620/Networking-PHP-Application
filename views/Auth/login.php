@@ -1,6 +1,6 @@
 <?php
 
-require_once "../../models/user.php";
+require_once "../../models/users/user.php";
 require_once "../../controllers/authController.php";
 
 $errMsg = "";
