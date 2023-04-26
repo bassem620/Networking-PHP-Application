@@ -1,5 +1,5 @@
 <?php
-require_once "../../controllers/DBController.php";
+require_once "../controllers/DBController.php";
 class courses{
     protected $db;
 
