@@ -14,7 +14,7 @@
 
     // $db = new courses;
     // $result = $db->getCourses();
-    // echo $result;
+    // print_r($result);
 
     // $pr = new Premium;
     // $pr->id = $_SESSION["id"];
