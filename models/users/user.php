@@ -1,18 +1,18 @@
 <?php 
 class User 
 {
-    protected $id;
-    protected $email;
-    protected $password;
-    protected $firstName;
-    protected $lastName;
-    protected $profileType;
-    protected $openTo;
-    protected $appliedJobs;
+    public $id;
+    public $email;
+    public $password;
+    public $firstName;
+    public $lastName;
+    public $profileType;
+    public $openTo;
+    public $appliedJobs;
 
     function connect()
     {
-        
+
     }
 
     function acceptConnection()
