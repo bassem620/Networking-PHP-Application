@@ -1,6 +1,6 @@
 <?php
 
-class Event
+class Quiz
 {
     public $id;
     public $title;

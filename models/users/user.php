@@ -9,25 +9,5 @@ class User
     public $profileType;
     public $openTo;
     public $appliedJobs;
-
-    function connect()
-    {
-
-    }
-
-    function acceptConnection()
-    {
-
-    }
-
-    function endorse()
-    {
-
-    }
-
-    function upgradeToPremium()
-    {
-
-    }
 }
 ?>
