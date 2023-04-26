@@ -1,6 +1,6 @@
 <?php
 require_once "../controllers/DBController.php";
-class courses{
+class Course{
     protected $db;
 
     public function getCourses(){
@@ -8,10 +8,14 @@ class courses{
         if($this->db->openConnection()){
             $query = "select * from courses";
             $result = $this->db->select($query);
+            if(!$result)
+            {
+                return false;
+            }
             return $result;
         }
         echo "error in connection";
-        return;
+        return false;
     }
 }
 ?>

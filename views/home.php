@@ -12,7 +12,7 @@
     echo "<br/>";
     echo $_SESSION["email"];
 
-    // $db = new courses;
+    // $db = new Course;
     // $result = $db->getCourses();
     // print_r($result);
 
