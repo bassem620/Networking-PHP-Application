@@ -1,33 +1,33 @@
 <?php 
-    class User 
+class User 
+{
+    public $id;
+    public $email;
+    public $password;
+    public $firstName;
+    public $lastName;
+    public $profileType;
+    public $openTo;
+    public $appliedJobs;
+
+    function connect()
     {
-        public $id;
-        public $email;
-        public $password;
-        public $firstName;
-        public $lastName;
-        public $profileType;
-        public $openTo;
-        public $appliedJobs;
 
-        function connect()
-        {
-
-        }
-
-        function acceptConnection()
-        {
-
-        }
-
-        function endorse()
-        {
-
-        }
-
-        function upgradeToPremium()
-        {
-
-        }
     }
+
+    function acceptConnection()
+    {
+
+    }
+
+    function endorse()
+    {
+
+    }
+
+    function upgradeToPremium()
+    {
+
+    }
+}
 ?>
