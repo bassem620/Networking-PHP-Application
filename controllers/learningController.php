@@ -17,5 +17,20 @@ class Course{
         echo "error in connection";
         return false;
     }
+
+    public function getCourse($id){
+        $this->db = new DBController;
+        if($this->db->openConnection()){
+            $query = "select * from courses where id = $id";
+            $result = $this->db->select($query);
+            if(!$result)
+            {
+                return false;
+            }
+            return $result;
+        }
+        echo "error in connection";
+        return false;
+    }
 }
 ?>
