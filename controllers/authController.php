@@ -25,16 +25,32 @@ class AuthController
             $_SESSION["email"] = $result[0]["email"];
             return true;
         }
-        else
-        {
-            echo "Error in database connection";
-            return false;
-        }
+        echo "Error in database connection";
+        return false;
     }
 
     public function register(User $user)
     {
-
+        $this->db=new DBController;
+        if($this->db->openConnection())
+        {
+            $query="insert into users values ('','$user->firstName','$user->lastName','$user->email','$user->password','','','0','','')";
+            $result=$this->db->insert($query);
+            if($result!=false)
+            {
+                session_start();
+                $_SESSION["id"]=$result;
+                $_SESSION["email"]=$user->email;
+                $_SESSION["profileType"]=0;
+                $this->db->closeConnection();
+                return true;
+            }
+            $_SESSION["errMsg"]="Somthing went wrong... try again";
+            $this->db->closeConnection();
+            return false;
+        }
+        echo "Error in Database Connection";
+        return false;
     }
 }
 
