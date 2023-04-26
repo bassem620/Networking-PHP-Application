@@ -1,6 +1,6 @@
 <?php
 
-require_once "./models/users/user.php";
+require_once "user.php";
 class Premium extends User
 {
     public $start_date;

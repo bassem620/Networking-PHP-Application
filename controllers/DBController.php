@@ -49,6 +49,17 @@ class DBController
         }
         return $this->connection->insert_id;
     }
+
+    public function update($qry)
+    {
+        $result=$this->connection->query($qry);
+        if(!$result)
+        {
+            echo "Error : " . mysqli_error($this->connection);
+            return false;
+        }
+        return true;
+    }
     
     public function delete($qry)
     {
