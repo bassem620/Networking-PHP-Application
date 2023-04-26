@@ -14,8 +14,8 @@ if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['firstNam
 
         $user->email = $_POST['email'];
         $user->password = $_POST['password'];
-        $user->password = $_POST['firstName'];
-        $user->password = $_POST['lastName'];
+        $user->firstName = $_POST['firstName'];
+        $user->lastName = $_POST['lastName'];
 
         if(!$auth->register($user))
         {
