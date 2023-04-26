@@ -7,18 +7,24 @@ class PremiumConrtroller
 {
     protected $db;
 
-    public function hideConnections()
+    public function hideConnections(Premium $premium)
     {
         $this->db=new DBController;
         if($this->db->openConnection())
         {
-
+            $query = "UPDATE users SET profile_type = 3 WHERE id = '$premium->id'";
+            $result = $this->db->update($query);
+            if(!$result)
+            {
+                return false;
+            }
+            return true;
         }
         echo "Error in Database Connection";
         return false;
     }
 
-    public function exportConnections()
+    public function exportConnections(Premium $premium)
     {
         $this->db=new DBController;
         if($this->db->openConnection())
