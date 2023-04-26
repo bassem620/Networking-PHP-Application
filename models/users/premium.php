@@ -3,8 +3,8 @@
 require_once "./models/users/user.php";
 class Premium extends User
 {
-    public $start_date;
-    public $end_date;
+    protected $start_date;
+    protected $end_date;
 
     function hideConnections()
     {
