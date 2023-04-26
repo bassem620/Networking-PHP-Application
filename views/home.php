@@ -1,15 +1,24 @@
 <?php
-session_start();
-    
+    require_once "../controllers/premiumController.php";
+    require_once "../controllers/learningController.php";
+    require_once "../models/users/premium.php";
+
+    if(!isset($_SESSION["id"]))
+    {
+        session_start();
+    }
 
     echo $_SESSION["id"];
     echo "<br/>";
     echo $_SESSION["email"];
-    require_once "../controllers/learningController.php";
-    
-    $db = new courses;
-    $result = $db->getCourses();
-    echo $result;
 
-    
+    // $db = new courses;
+    // $result = $db->getCourses();
+    // echo $result;
+
+    // $pr = new Premium;
+    // $pr->id = $_SESSION["id"];
+    // $Premium = new PremiumConrtroller;
+    // $Premium->hideConnections($pr);
+
 ?>
