@@ -1,6 +1,6 @@
 <?php
 
-require_once "../../controllers/DBController.php";
+require_once "../controllers/DBController.php";
 class UserController
 {
     protected $db;
@@ -69,13 +69,19 @@ class UserController
                 $_SESSION["errMsg"] = "Couldn't update user profile";
                 return false;
             }
-            $query2 = "INSERT INTO premium values ('$user->id',  , )";
-            // 1 => Premium
+            $startDate = date("Y-m-d");
+            $endDate = Date('y:m:d', strtotime('+30 days'));
+            $query2 = "INSERT INTO `premium` (`user_id`, `start_date`, `exp_date`) VALUES ('$user->id', '$startDate', '$endDate')";
+            $result = $this->db->insert($query2);
+            if(!$result)
+            {
+                $query3 = "UPDATE users SET profile_type = 0 WHERE id = '$user->id'";
+                $result = $this->db->update($query3);
+                return false;
+            }
             return true;
         }
         echo "Error in database connection";
         return false;
     }
 }
-
-?>
