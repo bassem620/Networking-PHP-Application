@@ -8,7 +8,7 @@ class ProfileController
 {
     protected $db;
 
-    public function insertCertification(User $user)
+    public function insertCertification(User $user, Certificate $cert)
     {
         $this->db = new DBController;
         if($this->db->openConnection())
@@ -27,24 +27,24 @@ class ProfileController
         return false;
     }
 
-    // public function delete(Certificate $certifications)
-    // {
-    //     $this->db = new DBController;
-    //     if($this->db->openConnection())
-    //     {
-    //         $query="delete from certifications where cert_id = '$certifications->id' ";
-    //         $result=$this->db->delete($query);
-    //         if(!$result)
-    //         {
-    //             $_SESSION["errMsg"]="Somthing went wrong... try again";
-    //         $this->db->closeConnection();
-    //             return false;
-    //         }
-    //       return true;
-    //     }
-    //     echo "Error in Database Connection";
-    //     return false;
-    // }
+    public function delete(User $user, Certificate $cert)
+    {
+        $this->db = new DBController;
+        if($this->db->openConnection())
+        {
+            $query="delete from certifications where cert_id = '$cert->id' ";
+            $result=$this->db->delete($query);
+            if(!$result)
+            {
+                $_SESSION["errMsg"]="Somthing went wrong... try again";
+            $this->db->closeConnection();
+                return false;
+            }
+            return true;
+        }
+        echo "Error in Database Connection";
+        return false;
+    }
 
     }
 ?>
