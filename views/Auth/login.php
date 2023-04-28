@@ -48,9 +48,11 @@ if(isset($_POST['email']) && isset($_POST['password']))
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <?php require_once "../components/head.php" ?>
     <title>LinkedIn - Login</title>
 </head>
 <body>
+    <?php require_once "../components/header.php" ?>
     <div class="container d-flex justify-content-center align-items-center vh-100 bg-grey">
         <div class="rounded-5 bg-light shadow h-auto p-5" style="width: 500px;">
             <h2>Login</h2>
@@ -75,5 +77,7 @@ if(isset($_POST['email']) && isset($_POST['password']))
             </form>
         </div>
     </div>
+    <?php require_once "../components/script.php" ?> 
+    <?php require_once "../components/footer.php" ?> 
 </body>
 </html>
