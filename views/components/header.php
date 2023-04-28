@@ -6,12 +6,12 @@
             { ?>
                     <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">Profile</a></li>
-                    <li><a class="active" href="courses.html">Courses</a></li>
-                    <li><a href="trainers.html">Jobs</a></li>
-                    <li><a href="events.html">Events</a></li>
-                    <li><a href="pricing.html">Groups</a></li>
+                    <li><a class="active" href="home.php">Home</a></li>
+                    <li><a href="profile.php">Profile</a></li>
+                    <li><a href="courses.php">Courses</a></li>
+                    <li><a href="jobs.php">Jobs</a></li>
+                    <li><a href="events.php">Events</a></li>
+                    <li><a href="groups.php">Groups</a></li>
                     <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                             <li><a href="#">Drop Down 1</a></li>

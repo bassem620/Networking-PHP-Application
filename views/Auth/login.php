@@ -66,6 +66,7 @@ if(isset($_POST['email']) && isset($_POST['password']))
                     <input type="password" class="form-control" name="password">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="register.php" class="d-block pt-2">Create new account?</a>
                 <?php
                     if($errMsg != "")
                     {
