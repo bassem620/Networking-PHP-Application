@@ -41,7 +41,7 @@ $date = "";
 
         $successMessage = "Group added correctly";
 
-        header("location: /Networking-PHP-Application-main/models/event.php");
+        header("location: /Networking-PHP-Application-main/event.php");
         exit;
 
     } while(false);
@@ -120,7 +120,7 @@ echo "
   <button type="submit" class="btn btn-primary" name="submit" >Submit</button>
   </div>
   <div class="col-sm-3 d-grid">
-<a class="btn btn-outline-primary" href="/Networking-PHP-Application-main/models/event.php" role="button" >Cancel</a>
+<a class="btn btn-outline-primary" href="/Networking-PHP-Application-main/event.php" role="button" >Cancel</a>
   </div>
         </form>
     </div>

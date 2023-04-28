@@ -13,7 +13,7 @@ $sql = "DELETE FROM crud2 WHERE id=$id";
 $connection->query($sql);
 }
 
-header("location: /Networking-PHP-Application-main/models/event.php");
+header("location: /Networking-PHP-Application-main/event.php");
 exit;
 ?>
 

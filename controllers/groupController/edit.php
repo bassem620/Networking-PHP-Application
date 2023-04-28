@@ -30,7 +30,7 @@ if(isset($_POST['submit'])){
     $result = $connection->query($sql);
 
     if ($result) {
-        header("location: /Networking-PHP-Application-main/models/group.php");
+        header("location: /Networking-PHP-Application-main/group.php");
     }
 }
 
@@ -103,7 +103,7 @@ echo "
   <button type="submit" class="btn btn-primary" name="submit" >Update</button>
   </div>
   <div class="col-sm-3 d-grid">
-<a class="btn btn-outline-primary" href="/Networking-PHP-Application-main/models/group.php" role="button" >Cancel</a>
+<a class="btn btn-outline-primary" href="/Networking-PHP-Application-main/group.php" role="button" >Cancel</a>
   </div>
         </form>
     </div>
