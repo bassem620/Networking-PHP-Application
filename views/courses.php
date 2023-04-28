@@ -14,9 +14,9 @@
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
-    <link
+    <!-- <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+        rel="stylesheet"> -->
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -29,14 +29,6 @@
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
-
-    <!-- =======================================================
-  * Template Name: Mentor
-  * Updated: Mar 10 2023 with Bootstrap v5.2.3
-  * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -50,70 +42,40 @@
         </div><!-- End Breadcrumbs -->
 
 
-    <?php
+        <?php
         require_once "../controllers/learningController.php";
-        $result=$this->getCourses();
-        while($row = $result->fetch_assoc()) {
-echo "
- <!-- ======= Courses Section ======= -->
-        <section id=\"courses\" class=\"courses\">
-            <div class=\"container\" data-aos=\"fade-up\">
-
-                <div class=\"row\" data-aos=\"zoom-in\" data-aos-delay=\"100\">
-
-                    <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
-                        <div class=\"course-item\">
-                            <img src=\"assets/img/course-1.jpg\" class=\"img-fluid\" alt=\"...\">
-                            <div class=\"course-content\">
-                                <div class=\"d-flex justify-content-between align-items-center mb-3\">
-                                    <button type=\"button\" class=\"btn btn-success\"
-                                        onclick=\"enrolCourse()\">Enroll</button>
-                                    <!--<p class=\"price\">$169</p>-->
-                                    <p class=\"price\">".$row["price"]."</p>
-                                    <h3><a href=\"course-details.html\">". $row["name"]."</a></h3>
-                                <p>".$row["desc"]."</p>
+        $learn = new Course;
+        $result = $learn->getCourses();
+        foreach ($result as $row) {
+            echo "
+                    <section id=\"courses\" class=\"courses\">
+                        <div class=\"container\" data-aos=\"fade-up\">
+                            <div class=\"row\" data-aos=\"zoom-in\" data-aos-delay=\"100\">
+                                <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
+                                    <div class=\"course-item\">
+                                        <img src=\"assets/img/course-1.jpg\" class=\"img-fluid\" alt=\"...\">
+                                        <div class=\"course-content\">
+                                            <div class=\"d-flex justify-content-between align-items-center mb-3\">
+                                                <button type=\"button\" class=\"btn btn-success\"
+                                                    onclick=\"enrolCourse()\">Enroll</button>
+                                                <p class=\"price\">" . $row["price"] . "</p>
+                                                    <h3><a href=\"course-details.html\">" . $row["name"] . "</a></h3>
+                                                <p>" . $row["desc"] . "</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div> <!-- End Course Item-->";
-
-        /*<!-- ======= Courses Section ======= -->
-        <section id="courses" class="courses">
-            <div class="container" data-aos="fade-up">
-
-                <div class="row" data-aos="zoom-in" data-aos-delay="100">
-
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                        <div class="course-item">
-                            <img src="assets/img/course-1.jpg" class="img-fluid" alt="...">
-                            <div class="course-content">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <button type="button" class="btn btn-success"
-                                        onclick="enrolCourse()">Enroll</button>
-                                    <!--<p class="price">$169</p>-->*/
-                                    
-                                    
-                                    
-                                /*</div>
-
-                                <h3><a href="course-details.html">Website Design</a></h3>
-                                <p>Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae
-                                    dolores dolorem tempore.</p>
-                            </div>
-                        </div>
-                    </div> <!-- End Course Item-->*/
-}
-                                    ?>
-
-                </div>
-
-            </div>
-        </section><!-- End Courses Section -->
-
-    </main><!-- End #main -->
+                    </section>";
+        }
+        ?>
+    </main>
 
     <div id="preloader"></div>
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
