@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+    <?php require_once "components/head.php" ?>
     <title>Courses - Mentor Bootstrap Template</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
@@ -12,11 +12,6 @@
     <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <!-- <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet"> -->
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -32,44 +27,37 @@
 </head>
 
 <body>
-    <main id="main" data-aos="fade-in">
-
-        <!-- ======= Breadcrumbs ======= -->
-        <div class="breadcrumbs">
-            <div class="container">
-                <h2>Courses</h2>
-            </div>
-        </div><!-- End Breadcrumbs -->
-
-
+    <?php require_once "components/header.php" ?>
+    <main id="main" data-aos="fade-in" class="pt-5">
+        <section id="courses" class="courses">
+            <div class="container" data-aos="fade-up">
+                <div class="row" data-aos="zoom-in" data-aos-delay="100">
         <?php
         require_once "../controllers/learningController.php";
         $learn = new Course;
         $result = $learn->getCourses();
         foreach ($result as $row) {
             echo "
-                    <section id=\"courses\" class=\"courses\">
-                        <div class=\"container\" data-aos=\"fade-up\">
-                            <div class=\"row\" data-aos=\"zoom-in\" data-aos-delay=\"100\">
-                                <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
-                                    <div class=\"course-item\">
-                                        <img src=\"assets/img/course-1.jpg\" class=\"img-fluid\" alt=\"...\">
-                                        <div class=\"course-content\">
-                                            <div class=\"d-flex justify-content-between align-items-center mb-3\">
-                                                <button type=\"button\" class=\"btn btn-success\"
-                                                    onclick=\"enrolCourse()\">Enroll</button>
-                                                <p class=\"price\">" . $row["price"] . "</p>
-                                                    <h3><a href=\"course-details.html\">" . $row["name"] . "</a></h3>
-                                                <p>" . $row["desc"] . "</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
+                    <div class=\"course-item\">
+                        <img src=\"assets/img/course-1.jpg\" class=\"img-fluid\" alt=\"...\">
+                        <div class=\"course-content\">
+                            <div class=\"d-flex justify-content-between align-items-center mb-3\">
+                                <button type=\"button\" class=\"btn btn-success\"
+                                    onclick=\"enrolCourse()\">Enroll</button>
+                                <p class=\"price\">" . $row["price"] . "</p>
                             </div>
+                            <h3><a href=\"course-details.html\">" . $row["name"] . "</a></h3>
+                            <p>" . $row["desc"] . "</p>
                         </div>
-                    </section>";
+                    </div>
+                </div>
+            ";
         }
         ?>
+                </div>
+            </div>
+        </section>
     </main>
 
     <div id="preloader"></div>
@@ -86,7 +74,7 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
-
+    <?php require_once "components/footer.php" ?>
 </body>
 
 </html>
