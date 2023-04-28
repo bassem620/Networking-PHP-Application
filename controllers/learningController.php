@@ -42,7 +42,7 @@ class Course{
     public function enrollCourse($course_id, $user_id){
         $this->db = new DBController;
         if($this->db->openConnection()){
-            $query = "INSERT INTO courses_users (course_id, user_id) VALUES ($course_id, $user_id);";
+            $query = "INSERT INTO courses_users VALUES ('$course_id', '$user_id');";
             if($this->db->insert($query)){
             return false;}
             echo "error in enrollment";
