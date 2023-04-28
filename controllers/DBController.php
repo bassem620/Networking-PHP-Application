@@ -38,10 +38,19 @@ class DBController
         }
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+<<<<<<< HEAD
     public function insert($qry)
     {
         $result = $this->connection->query($qry);
         if (!$result) {
+=======
+
+    public function insert($qry)
+    {
+        $result=$this->connection->query($qry);
+        if(!$result)
+        {
+>>>>>>> parent of 0ac507f (abanoub-test1)
             echo "Error : " . mysqli_error($this->connection);
             return false;
         }
@@ -50,19 +59,35 @@ class DBController
 
     public function update($qry)
     {
+<<<<<<< HEAD
         $result = $this->connection->query($qry);
         if (!$result) {
+=======
+        $result=$this->connection->query($qry);
+        if(!$result)
+        {
+>>>>>>> parent of 0ac507f (abanoub-test1)
             echo "Error : " . mysqli_error($this->connection);
             return false;
         }
         return true;
     }
+<<<<<<< HEAD
 
     public function delete($qry)
     {
         $result = $this->connection->query($qry);
         if (!$result) {
             echo "Error : " . mysqli_error($this->connection);
+=======
+    
+    public function delete($qry)
+    {
+        $result=$this->connection->query($qry);
+        if(!$result)
+        {
+            echo "Error : ". mysqli_error($this->connection);
+>>>>>>> parent of 0ac507f (abanoub-test1)
             return false;
         }
         return $result;
