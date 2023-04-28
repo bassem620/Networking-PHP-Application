@@ -23,6 +23,8 @@ class AuthController
             session_start();
             $_SESSION["id"] = $result[0]["id"];
             $_SESSION["email"] = $result[0]["email"];
+            $_SESSION["profileType"] = $result[0]["profile_type"];
+            $_SESSION["openTo"] = $result[0]["open_to"];
             return true;
         }
         echo "Error in database connection";
@@ -39,9 +41,9 @@ class AuthController
             if($result!=false)
             {
                 session_start();
-                $_SESSION["id"]=$result;
-                $_SESSION["email"]=$user->email;
-                $_SESSION["profileType"]=0;
+                $_SESSION["id"] = $result;
+                $_SESSION["email"] = $user->email;
+                $_SESSION["profileType"] = 0;
                 $this->db->closeConnection();
                 return true;
             }

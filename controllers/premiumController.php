@@ -12,7 +12,7 @@ class PremiumConrtroller
         $this->db=new DBController;
         if($this->db->openConnection())
         {
-            $query = "UPDATE users SET profile_type = 3 WHERE id = '$premium->id'";
+            $query = "UPDATE users SET profile_type = 2 WHERE id = '$premium->id'";
             $result = $this->db->update($query);
             if(!$result)
             {
