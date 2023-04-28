@@ -38,8 +38,9 @@ class Course{
         echo "error in connection";
         return false;
     }
-    public function enrollInCourse($course_id, $user_id){
-         $this->db = new DBController;
+
+    public function enrollCourse($course_id, $user_id){
+        $this->db = new DBController;
         if($this->db->openConnection()){
             $query = "INSERT INTO courses_users (course_id, user_id) VALUES ($course_id, $user_id);";
             if($this->db->insert($query)){
@@ -49,7 +50,5 @@ class Course{
         echo "error in connection";
         return false;
     }
-
-    
 }
 ?>
