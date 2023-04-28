@@ -58,7 +58,19 @@ class UserController
         $this->db = new DBController;
         if($this->db->openConnection())
         {
-            //  Code
+            $query1 = "UPDATE users SET profile_type = 1 WHERE id = '$user->id'";
+            $result = $this->db->update($query1);
+            if(!$result)
+            {
+                if(!isset($_SESSION["id"]))
+                {
+                    session_start();
+                }
+                $_SESSION["errMsg"] = "Couldn't update user profile";
+                return false;
+            }
+            $query2 = "INSERT INTO premium values ('$user->id',  , )";
+            // 1 => Premium
             return true;
         }
         echo "Error in database connection";

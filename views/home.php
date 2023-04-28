@@ -1,4 +1,5 @@
 <?php
+    require_once "../controllers/userController.php";
     require_once "../controllers/premiumController.php";
     require_once "../controllers/learningController.php";
     require_once "../models/users/premium.php";
@@ -20,5 +21,10 @@
     // $pr->id = $_SESSION["id"];
     // $Premium = new PremiumConrtroller;
     // $Premium->hideConnections($pr);
+
+    $usr = new User;
+    $usr->id = $_SESSION["id"];
+    $usrCont = new UserController;
+    $usrCont->upgradeToPremium($usr);
 
 ?>
