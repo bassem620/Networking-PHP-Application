@@ -1,6 +1,6 @@
 <?php
 
-class Certificate
+class certificate
 {
     public $id;
     public $user_id;

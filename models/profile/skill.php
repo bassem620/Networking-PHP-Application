@@ -1,6 +1,6 @@
 <?php 
 
-class Skill
+class skill
 {
   public $id;
   public $name;

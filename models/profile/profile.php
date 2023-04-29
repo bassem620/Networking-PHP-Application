@@ -1,6 +1,6 @@
 <?php 
 
-class Profile
+class profile
 {
   public $about;
   public $birthday;
