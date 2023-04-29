@@ -27,7 +27,7 @@ class ProfileController
         return false;
     }
 
-    public function delete(User $user, Certificate $cert)
+    public function deleteCertification(User $user, Certificate $cert)
     {
         $this->db = new DBController;
         if($this->db->openConnection())
