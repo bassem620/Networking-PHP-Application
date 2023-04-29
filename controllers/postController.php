@@ -5,7 +5,7 @@ require_once "../models/post/comment.php";
 require_once "../models/post/post.php";
 require_once "../models/group.php";
 
-class postController
+class PostController
 {
     protected $db;  
 
