@@ -49,7 +49,7 @@ class PostController
     }
 
     // Group Posts
-    public function addPostGroup($user_id, post $post, $group_id)
+    public function addPostGroup($user_id, Post $post, $group_id)
     {
         $this->db = new DBController;
         if($this->db->openConnection())
@@ -88,7 +88,7 @@ class PostController
     }
 
     // Posts
-    public function addPost($user_id, post $post)
+    public function addPost($user_id, Post $post)
     {
         $this->db = new DBController;
         if($this->db->openConnection())
