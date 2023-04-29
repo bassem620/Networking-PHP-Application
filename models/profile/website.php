@@ -1,6 +1,6 @@
 <?php 
 
-class Website
+class website
 {
   public $id;
   public $user_id;
