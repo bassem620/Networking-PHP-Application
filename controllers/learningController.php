@@ -27,7 +27,7 @@ class Course{
             {
                 return false;
             }
-            $query2 = "select * from courses where id = $course_id";
+            $query2 = "select * from courses where course_id = $course_id";
             $result2 = $this->db->select($query2);
             if(!$result2 || count($result2) == 0)
             {
