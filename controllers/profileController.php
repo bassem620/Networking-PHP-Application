@@ -185,7 +185,7 @@ class ProfileController
         $this->db = new DBController;
         if($this->db->openConnection())
         {
-            $query="delete from skills where id = '$ski->id' ";
+            $query="delete from skills where id = '$ski-> skill_id'and user_id='$user-> user_id'";
             $result=$this->db->delete($query);
             if(!$result)
             {
