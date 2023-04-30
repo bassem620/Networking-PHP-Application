@@ -75,6 +75,11 @@ class UserController
             $result = $this->db->insert($query2); 
             if(!$result)
             {
+                if(!isset($_SESSION["id"]))
+                {
+                    session_start();
+                }
+                $_SESSION["errMsg"] = "Couldn't update user profile";
                 return false;
             }
             return true;
