@@ -9,7 +9,7 @@ class GroupController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO group values ('', '$grp->name', 0, '$user_id')";
+            $query = "INSERT INTO groups values ('', '$grp->name', '0' , '$user_id')";
             $result = $this->db->insert($query);
             if (!$result) {
                 return false;
@@ -20,11 +20,11 @@ class GroupController
         return false;
     }
 
-    public function deleteGroup($grp_id)
+    public function deleteGroup($user_id, $grp_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "DELETE FROM groups WHERE id = '$grp_id'";
+            $query = "DELETE FROM groups WHERE id = '$grp_id' AND user_id = '$user_id'";
             $result = $this->db->delete($query);
             if (!$result) {
                 return  false;
@@ -69,7 +69,7 @@ class GroupController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT * from groups INNER JOIN joined_groups ON id=group_id WHERE user_id='$user_id'";
+            $query = "SELECT * FROM groups AS g INNER JOIN joined_groups AS jg ON g.id = jg.group_id WHERE jg.user_id = '$user_id';";
             $result = $this->db->select($query);
             if (!$result) {
                 return false;

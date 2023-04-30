@@ -9,7 +9,7 @@ $groupCont = new GroupController;
 
 // Delete group Button onClick
 if (array_key_exists('delete', $_POST)) {
-    $groupCont->deleteGroup($_POST["delete"]);
+    $groupCont->deleteGroup(1, $_POST["delete"]);
 }
 ?>
 
@@ -58,9 +58,8 @@ if (array_key_exists('delete', $_POST)) {
             </thead>
             <tbody>
                 <?php
-                $result = $groupCont->getJoinedGroups(1);
-                if ($result) 
-                {
+                $result = $groupCont->getJoinedGroups($_SESSION["id"]);
+                if ($result) {
                     foreach ($result as $row) {
                         echo "
                         <tr>
@@ -91,7 +90,7 @@ if (array_key_exists('delete', $_POST)) {
             </div>
             <div class="row" data-aos="zoom-in" data-aos-delay="100">
                 <?php
-                $groups = $groupsCont->getAllEvents();
+                $groups = $groupCont->getAllGroups();
                 if ($groups) {
                     foreach ($groups as $row) {
                         echo "

@@ -56,7 +56,7 @@ if (isset($_POST['name']) && isset($_POST['state'])) {
     <div class="container my-5">
         <h2>New group</h2>
 
-        <form method="POST" action="group.php">
+        <form method="POST" action="createGroup.php">
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Group name</label>
                 <div class="col-sm-6">
