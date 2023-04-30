@@ -22,7 +22,6 @@
     {
         if($_SESSION["profileType"] == 1 || $_SESSION["profileType"] == 2)
         {
-            // $enrolled = $learn->enrollCourse($_POST["enroll"], $_SESSION["id"]);
             if($learn->enrollCourse($_POST["enroll"], $_SESSION["id"]))
             {
                 header("Location: course.php?course=".$_POST["enroll"]);
