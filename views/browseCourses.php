@@ -1,3 +1,39 @@
+<?php
+    require_once "../controllers/learningController.php";
+    if(!isset($_SESSION["id"]))
+    {
+        session_start();
+    }
+
+    // Get Courses
+    $learn = new Course;
+    $result = $learn->getCourses();
+
+    // Check Premium
+    global $checkPremium,$profileType;
+    $checkPremium = "buy";
+    $profileType = $_SESSION["profileType"];
+    if($profileType == 1 || $profileType == 2){
+        $checkPremium = "enroll";
+    }
+
+    // Enroll/Buy Button onClick
+    if(array_key_exists('enroll', $_POST))
+    {
+        if($_SESSION["profileType"] == 1 || $_SESSION["profileType"] == 2)
+        {
+            // $enrolled = $learn->enrollCourse($_POST["enroll"], $_SESSION["id"]);
+            if($learn->enrollCourse($_POST["enroll"], $_SESSION["id"]))
+            {
+                header("Location: course.php?course=".$_POST["enroll"]);
+            }
+        } else 
+        {
+            header("Location: pay.php");
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +41,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <?php require_once "components/head.php" ?>
-    <title>Courses - Mentor Bootstrap Template</title>
+    <title>LinkedIn - Courses</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -27,44 +63,23 @@
 </head>
 
 <body>
-    <?php require_once "components/header.php" ?>
+    <?php require_once "components/header.php" ; ?>
     <main id="main" data-aos="fade-in" class="pt-5">
         <section id="courses" class="courses">
             <div class="container" data-aos="fade-up">
                 <div class="row" data-aos="zoom-in" data-aos-delay="100">
-
-        <?php
-
-        require_once "../controllers/learningController.php";
-
-        if(!isset($_SESSION["id"]))
-        {
-        session_start();
-        }
-        global $checkPremium,$profileType;
-        $checkPremium = "buy";
-        $profileType = $_SESSION["profileType"];
-        if($profileType == 1 || $profileType == 2){
-            $checkPremium = "enroll";
-        }
-        echo "<script>var profileType = '" . $profileType . "';</script>";
-
-        $learn = new Course;
-        $result = $learn->getCourses();
-        
+        <?php        
+        // Courses
         foreach ($result as $row) {
-            
-
             echo "
                 <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
                     <div class=\"course-item\">
                         <img src=\"assets/img/course-1.jpg\" class=\"img-fluid\" alt=\"...\">
                         <div class=\"course-content\">
                             <div class=\"d-flex justify-content-between align-items-center mb-3\">
-                               
-                                <button type=\"button\" class=\"btn btn-success\" 
-                                data-toggle=\"modal\" data-target=\"#myModal\">".$checkPremium."</button>
-                            
+                            <form method=\"POST\" action=\"browseCourses.php\">
+                                <button type=\"submit\" name=\"enroll\" value=\"" . $row["course_id"] . "\" class=\"btn btn-success\" data-toggle=\"modal\" data-target=\"#myModal\">".$checkPremium."</button>
+                            </form>
                                 <p class=\"price\">" . $row["price"] . "</p>
                             </div>
                             <div id=\"alert\"></div>
@@ -76,12 +91,12 @@
             ";
         }
         ?>
-               
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- PreLoader -->
     <div id="preloader"></div>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
         <i class="bi bi-arrow-up-short"></i>
@@ -94,10 +109,10 @@
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="assets/vendor/php-email-form/validate.js"></script>
 
-    <!-- Template Main JS File -->
+    <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
     <?php require_once "components/footer.php" ?>
-    <div id="myModal" class="modal fade">
+    <!-- <div id="myModal" class="modal fade">
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -110,20 +125,20 @@
             </div>
         </div>
     </div>
-     <script>
-                   for(let i=0;i<document.getElementsByClassName("btn btn-success").length;i++){
-                    div = document.getElementsByClassName("btn btn-success")[i]
-                        div.addEventListener("click", function() {
-                        if(profileType == 0){
-                            console.log(profileType+" number "+i);
-                                var myModal = new bootstrap.Modal(document.getElementById('myModal'));
-                                myModal.hide();
-                        }
-                    });}
-                    
-                </script>
+    <script>
+        for(let i=0;i<document.getElementsByClassName("btn btn-success").length;i++){
+        div = document.getElementsByClassName("btn btn-success")[i]
+            div.addEventListener("click", function() {
+            if(profileType == 0){
+                console.log(profileType+" number "+i);
+                    var myModal = new bootstrap.Modal(document.getElementById('myModal'));
+                    myModal.hide();
+            }
+        });}
+        
+    </script> -->
 </body>
-<style>
+<!-- <style>
     body {
 		font-family: 'Varela Round', sans-serif;
 	}
@@ -202,6 +217,6 @@
 		display: inline-block;
 		margin: 100px auto;
 	}
-</style>
+</style> -->
 
 </html>

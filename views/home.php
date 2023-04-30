@@ -1,36 +1,37 @@
 <?php
-    require_once "../controllers/userController.php";
-    require_once "../controllers/premiumController.php";
-    require_once "../controllers/learningController.php";
-    require_once "../models/users/premium.php";
+require_once "../controllers/userController.php";
+require_once "../controllers/premiumController.php";
+require_once "../controllers/learningController.php";
+require_once "../controllers/DBController.php";
+require_once "../models/users/premium.php";
 
-    if(!isset($_SESSION["id"]))
-    {
-        session_start();
-    }
+if (!isset($_SESSION["id"])) {
+    session_start();
+}
 
-    echo $_SESSION["id"];
-    echo "<br/>";
-    echo $_SESSION["email"];
+echo $_SESSION["id"];
+echo "<br/>";
+echo $_SESSION["email"];
 
-    // $db = new Course;
-    // $result = $db->getCourses();
-    // print_r($result);
+// $db = new Course;
+// $result = $db->getCourses();
+// print_r($result);
 
-    // $pr = new Premium;
-    // $pr->id = $_SESSION["id"];
-    // $Premium = new PremiumConrtroller;
-    // $Premium->hideConnections($pr);
+// $pr = new Premium;
+// $pr->id = $_SESSION["id"];
+// $Premium = new PremiumConrtroller;
+// $Premium->hideConnections($pr);
 
-    // $usr = new User;
-    // $usr->id = $_SESSION["id"];
-    // $usrCont = new UserController;
-    // $usrCont->upgradeToPremium($usr);
+// $usr = new User;
+// $usr->id = $_SESSION["id"];
+// $usrCont = new UserController;
+// $usrCont->upgradeToPremium($usr);
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,8 +53,10 @@
     <link href="assets/css/style.css" rel="stylesheet">
     <title>LinkedIn - Home</title>
 </head>
+
 <body>
-    <?php require_once "components/header.php" ?>
+    <?php require_once "components/header.php" 
+    ?>
     <div></div>
 
     <!-- Vendor JS Files -->
@@ -65,6 +68,8 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
-    <?php require_once "components/footer.php" ?> 
+    <?php require_once "components/footer.php" 
+    ?>
 </body>
+
 </html>
