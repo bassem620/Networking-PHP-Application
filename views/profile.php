@@ -130,7 +130,23 @@
                                         <label for="last-name">Last Name</label>
                                         <input type="text" class="form-control" id="last-name">
                                     </div>
-
+                                    <div class="form-group">
+                                        <label for="email">email</label>
+                                        <input type="text" class="form-control" id="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="birthday">birthday</label>
+                                        <input type="text" class="form-control" id="birthday">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">phone</label>
+                                        <input type="text" class="form-control" id="phone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="about">about</label>
+                                        <input type="text" class="form-control" id="about">
+                                        <button class="btn btn-transparent">Edit</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -163,6 +179,45 @@
 
 
                                 </div>
+                                <div>
+                                    <label for="start">Start</label>
+                                    <select name="" id="start">
+                                        <option value="from">From</option>
+                                        <option value="2018">2015</option>
+                                        <option value="2018">2016</option>
+                                        <option value="2018">2017</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2027">2027</option>
+                                        <option value="2028">2028</option>
+                                        <option value="2029">2028</option>
+                                        <option value="2030">2030</option>
+                                    </select>
+                                    <label for="end">End</label>
+                                    <select name="" id="end">
+                                        <option value="to">To</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2027">2027</option>
+                                        <option value="2028">2028</option>
+                                        <option value="2029">2028</option>
+                                        <option value="2030">2030</option>
+                                    </select>
+                                </div>
 
                                 <!-- Submit Button -->
                                 <button class="btn btn-transparent">Add</button>
@@ -180,20 +235,45 @@
                                     <label for="sch.uni">School/University</label>
                                     <input type="text" class="form-control" id="sch.uni">
                                 </div>
+                                
                                 <!-- field of study -->
                                 <div class="form-group">
                                     <label for="fos">Field of study</label>
                                     <input type="text" class="form-control" id="fos">
                                 </div>
 
+
+                                
+
                                 <div class="form-group">
                                     <label for="grade">Grade</label>
                                     <input type="text" class="form-control" id="grade">
                                 </div>
+
+
+
+
+                                <!-- degree-->
+
+                                <div>
+                                    <label for="start">degree</label>
+                                    <select name="" id="degree">
+                                        <option value="2018"></option>
+                                        <option value="2018">Diploma</option>
+                                        <option value="2018">Associate Degree</option>
+                                        <option value="2018">Bachelor Degree</option>
+                                        <option value="2018">Master's Degree</option>
+                                        <option value="2018">Doctorate Degree</option>
+                                    </select>
+                               </div>
+                                
                                 <div>
                                     <label for="start">Start</label>
                                     <select name="" id="start">
                                         <option value="from">From</option>
+                                        <option value="2018">2015</option>
+                                        <option value="2018">2016</option>
+                                        <option value="2018">2017</option>
                                         <option value="2018">2018</option>
                                         <option value="2019">2019</option>
                                         <option value="2020">2020</option>
@@ -265,6 +345,22 @@
                                     <label for="v2">Data Analysis</label>
                                     <input type="checkbox" id="v2" name="v2" value="pm">
                                     <label for="v2">AutoCAD </label>
+                                    <input type="checkbox" id="v2" name="v2" value="pm">
+                                    <label for="v2">video editing</label><br>
+                                    <input type="checkbox" id="v2" name="v2" value="pm">
+                                    <label for="v2">sales</label><br>
+                                    <input type="checkbox" id="v2" name="v2" value="pm">
+                                    <label for="v2">front-end development</label><br>
+                                    <input type="checkbox" id="v2" name="v2" value="pm">
+                                    <label for="v2">back-end development</label><br>
+                                    <input type="checkbox" id="v2" name="v2" value="pm">
+                                    <label for="v2">Arabic</label><br>
+                                    <input type="checkbox" id="v2" name="v2" value="pm">
+                                    <label for="v2">English</label><br>
+                                    <input type="checkbox" id="v2" name="v2" value="pm">
+                                    <label for="v2">German</label><br>
+                                    <input type="checkbox" id="v2" name="v2" value="pm">
+                                    <label for="v2">french</label><br>
                                 </div>
 
 
@@ -297,6 +393,7 @@
                                     </div>
                                     <!-- Submit Button -->
                                     <button class="btn btn-transparent">Add</button>
+                                    <button class="btn btn-transparent">Remove</button>
                                 </form>
                             </div>
                         </div>
