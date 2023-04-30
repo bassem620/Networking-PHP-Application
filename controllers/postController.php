@@ -127,6 +127,50 @@ class PostController
     }
 
 
+    public function addLike($user_id, $post_id)
+    {
+        $this->db = new DBController;
+        if($this->db->openConnection())
+        {
+            $query="INSERT INTO post_likes(`post_id`, `user_id`) VALUES ('$post_id','$user_id')";
+            $result=$this->db->insert($query);
+            if($result)
+            {
+                return $result;
+            }
+            $_SESSION["errMsg"]="Somthing went wrong... try again";
+            $this->db->closeConnection();
+            return false;
+        }
+        echo "Error in Database Connection";
+        return false;
+    }
+
+    public function unlike($post_id , $user_id)
+    {
+        $this->db = new DBController;
+        if($this->db->openConnection())
+        {
+            $query="delete from post_likes where post_id='$post_id' and user_id='$user_id'";
+            $result=$this->db->delete($query);
+            if(!$result)
+            {
+                $_SESSION["errMsg"]="Somthing went wrong... try again";
+                $this->db->closeConnection();
+                return false;
+            }
+            return true;
+        }
+        echo "Error in Database Connection";
+        return false;
+    }
+
+
+
+
+
+
+
 }
 
 
