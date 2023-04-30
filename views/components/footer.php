@@ -36,13 +36,13 @@
                 <div class="col-lg-3 col-md-6 footer-links">
                     <h4>Team Members</h4>
                     <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/Martinayousry">Martina Yousry</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/MarinaAymanHanna">Marina Ayman</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/Georgegithup">George Walid</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/bishoy004">Beshoy Magdy</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/beshoybahaa">Beshoy Bahaa</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/El-Abbady">Abanoub Abbady</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/bassem620">Bassem Saeed</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a target="_blank" href="https://github.com/Martinayousry">Martina Yousry</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a target="_blank" href="https://github.com/MarinaAymanHanna">Marina Ayman</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a target="_blank" href="https://github.com/Georgegithup">George Walid</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a target="_blank" href="https://github.com/bishoy004">Beshoy Magdy</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a target="_blank" href="https://github.com/beshoybahaa">Beshoy Bahaa</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a target="_blank" href="https://github.com/El-Abbady">Abanoub Abbady</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a target="_blank" href="https://github.com/bassem620">Bassem Saeed</a></li>
                     </ul>
                 </div>
 
