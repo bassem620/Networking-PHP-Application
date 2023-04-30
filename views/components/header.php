@@ -5,7 +5,7 @@
         <ul>
             <li><a class="active" href="home.php">Home</a></li>
             <li><a href="profile.php">Profile</a></li>
-            <li><a href="courses.php">Courses</a></li>
+            <li><a href="browseCourses.php">Courses</a></li>
             <li><a href="jobs.php">Jobs</a></li>
             <li><a href="events.php">Events</a></li>
             <li><a href="groups.php">Groups</a></li>
