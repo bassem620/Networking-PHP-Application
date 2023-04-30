@@ -68,7 +68,14 @@ if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['firstNam
     <title>LinkedIn - Register</title>
 </head>
 <body>
-    <?php require_once "../components/header.php" ?>
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center">
+            <h1 class="logo me-auto"><a href="index.html">LinkedIN</a></h1>
+        <a href="login.php" class="get-started-btn">
+            Login
+        </a>
+        </div>
+    </header>
     <div class="container d-flex justify-content-center align-items-center vh-100 bg-grey">
         <div class="rounded-5 bg-light shadow h-auto p-5" style="width: 500px;">
             <h2>Register</h2>

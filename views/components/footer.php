@@ -14,27 +14,35 @@
                     </p>
                 </div>
 
-                <div class="col-lg-2 col-md-6 footer-links">
-                    <h4>Useful Links</h4>
-                    <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Profile</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Courses</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Jobs</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Events</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Groups</a></li>
-                    </ul>
-                </div>
+                <?php 
+                        if(isset($_SESSION["id"]))
+                        {   
+                            ?>
+                            <div class="col-lg-2 col-md-6 footer-links">
+                                <h4>Useful Links</h4>
+                                <ul>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="home.php">Home</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="profile.php">Profile</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="browseCourses.php">Courses</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="jobs.php">Jobs</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="events.php">Events</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="groups.php">Groups</a></li>
+                                </ul>
+                            </div>
+                            <?php
+                        }
+                    ?>
 
                 <div class="col-lg-3 col-md-6 footer-links">
                     <h4>Team Members</h4>
                     <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Martina Yousry</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marina Ayman</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Beshoy Magdy</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Beshoy Bahaa</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Abanoub Abbady</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Bassem Saeed</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/Martinayousry">Martina Yousry</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/MarinaAymanHanna">Marina Ayman</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/Georgegithup">George Walid</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/bishoy004">Beshoy Magdy</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/beshoybahaa">Beshoy Bahaa</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/El-Abbady">Abanoub Abbady</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/bassem620">Bassem Saeed</a></li>
                     </ul>
                 </div>
 
