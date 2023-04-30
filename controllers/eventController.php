@@ -62,11 +62,12 @@ public function deleteEvent($Event_id)
         if($this->db->openConnection())
         {
             $query = "SELECT * FROM events";
-            if(!$this->db->select($query))
+            $result = $this->db->select($query);
+            if(!$result)
             {
                 return false;
             }
-            return true;
+            return $result;
         }
         echo "Error in database connection";
         return false;
