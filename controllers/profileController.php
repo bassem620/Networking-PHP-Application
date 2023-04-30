@@ -124,12 +124,12 @@ class ProfileController
         echo "Error in Database Connection";
         return false;
     }
-    public function insertprofile(User $user, profile $pro)
+    public function editprofile(User $user, profile $pro)
     {
         $this->db = new DBController;
         if($this->db->openConnection())
         {
-            $query="INSERT INTO users(`firstName`, `lastName`, `email`, `password`, `birthday`, `phone`, `about`) VALUES ('$user->firstName','$user->lastName','$user->email','$user->password','$pro->birthday','$pro->phone','$pro->about')";
+            $query="update users set 'firstname'='$user-> firstname','lastname'='$user-> lastname', 'email'='$user->email', 'password'='$user->password', 'birthday'='$pro->birthday', 'phone'='$pro->phone', 'about'='$pro->about' ";
             $result=$this->db->insert($query);
             if($result)
             {
@@ -138,25 +138,6 @@ class ProfileController
             $_SESSION["errMsg"]="Somthing went wrong... try again";
             $this->db->closeConnection();
             return false;
-        }
-        echo "Error in Database Connection";
-        return false;
-    }
-
-    public function deleteprofile(User $user, profile $pro)
-    {
-        $this->db = new DBController;
-        if($this->db->openConnection())
-        {
-            $query="delete from users where id = '$user->id' ";
-            $result=$this->db->delete($query);
-            if(!$result)
-            {
-                $_SESSION["errMsg"]="Somthing went wrong... try again";
-            $this->db->closeConnection();
-                return false;
-            }
-            return true;
         }
         echo "Error in Database Connection";
         return false;
