@@ -70,14 +70,14 @@ if(isset($_POST['title']) && isset($_POST['desc']) && isset($_POST['date']))
             </div>
 
             <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">description</label>
+                <label class="col-sm-3 col-form-label">Description</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" name="desc">
                 </div>
             </div>
 
             <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">date</label>
+                <label class="col-sm-3 col-form-label">Date</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" name="date">
                 </div>
