@@ -155,7 +155,9 @@ CREATE TABLE `groups` (
   `id` int AUTO_INCREMENT NOT NULL,
   `name` varchar(50),
   `state` boolean,
-  PRIMARY KEY (`id`)
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
 CREATE TABLE `joined_groups` (
