@@ -13,6 +13,9 @@ echo $_SESSION["id"];
 echo "<br/>";
 echo $_SESSION["email"];
 
+$pdf = new PremiumConrtroller;
+$result = $pdf->exportConnections($_SESSION["id"]);
+
 // $db = new Course;
 // $result = $db->getCourses();
 // print_r($result);
@@ -55,7 +58,7 @@ echo $_SESSION["email"];
 </head>
 
 <body>
-    <?php require_once "components/header.php" 
+    <?php require_once "components/header.php"
     ?>
     <div></div>
 
@@ -68,7 +71,7 @@ echo $_SESSION["email"];
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
-    <?php require_once "components/footer.php" 
+    <?php require_once "components/footer.php"
     ?>
 </body>
 
