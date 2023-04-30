@@ -45,6 +45,7 @@ class Course{
             $query0 = "SELECT * FROM courses_users WHERE course_id = $course_id AND user_id = $user_id";
             if(count($this->db->select($query0)) > 0)
             {
+                $_SESSION["errMsg"] = "Already enrolled in this course";
                 return false;
             }
             $query = "INSERT INTO courses_users VALUES ('$course_id', '$user_id');";
