@@ -171,7 +171,9 @@ CREATE TABLE `events` (
   `title` varchar(50) not null,
   `desc` varchar(200),
   `date` datetime not null,
-  PRIMARY KEY (`id`)
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
 CREATE TABLE `events_Going` (
