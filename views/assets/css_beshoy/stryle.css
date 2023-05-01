@@ -611,7 +611,7 @@ select.form-control:not([size]):not([multiple]) {
     background: #f2f3f4;
     margin-left: -25px;
     margin-right: -25px;
-    padding: 20px 25px
+    padding: 20px 25px  
 }
 
 .timeline-comment-box .user {
@@ -640,4 +640,4 @@ select.form-control:not([size]):not([multiple]) {
 
 .text-danger, .text-red {
     color: #ff5b57!important;
-}
+}   
