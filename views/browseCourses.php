@@ -40,8 +40,8 @@ if (array_key_exists('getCourse', $_POST)) {
             exit();
         }
         $errMsg = $_SESSION["errMsg"];
-    } else {
-        header("Location: pay.php");
+    } else {#. $_POST["getCourse"]
+        header("Location: pay.php?course=".$_POST["getPrice"]);
         exit();
     }
 }
@@ -150,7 +150,8 @@ if (array_key_exists('getCourse', $_POST)) {
                             <div class=\"trainer d-flex justify-content-between align-items-center\">
                                 <div class=\"trainer-profile d-flex align-items-center\">
                                     <form method=\"POST\" action=\"browseCourses.php\" class=\"w-100\">
-                                        <button type=\"submit\" class='btn btn-success btn-md' name=\"getCourse\" value=" . $row["course_id"] . ">" . $checkPremium . "</button>    
+                                    <input type=\"hidden\" name=\"getPrice\" value=".$row["price"].">
+                                        <button type=\"submit\" class='btn btn-success btn-md' name=\"getCourse\" value=" .$row["course_id"]. ">" . $checkPremium . "</button>    
                                     </form>
                                 </div>
                                 <div class=\"trainer-rank d-flex align-items-center\">
