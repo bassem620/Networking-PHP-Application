@@ -17,19 +17,13 @@ $groupCont = new GroupController;
 
 $errMsg = "";
 
-if (isset($_POST['name']) && isset($_POST['state'])) {
-    if (!empty($_POST['name']) && !empty($_POST['state'])) {
+if (isset($_POST['name']) && isset($_POST['desc'])) {
+    if (!empty($_POST['name']) && !empty($_POST['desc'])) {
         $group = new Group;
         $controller = new GroupController;
 
         $group->name = $_POST['name'];
-        $group->state = "";
-
-        if ($_POST['state'] == "public" || $_POST['state'] == "Public") {
-            $group->state = 0;
-        } else if ($_POST['state'] == "private" || $_POST['state'] == "Private") {
-            $group->state = 1;
-        }
+        $group->desc = $_POST['desc'];
 
         if (!$controller->createGroup($_SESSION["id"], $group)) {
             $errMsg = $_SESSION["errMsg"];
@@ -68,9 +62,9 @@ if (isset($_POST['name']) && isset($_POST['state'])) {
                 </div>
             </div>
             <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">State</label>
+                <label class="col-sm-3 col-form-label">Description</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="state">
+                    <input type="text" class="form-control" name="desc">
                 </div>
             </div>
 

@@ -154,7 +154,7 @@ CREATE TABLE `applied_jobs` (
 CREATE TABLE `groups` (
   `id` int AUTO_INCREMENT NOT NULL,
   `name` varchar(50),
-  `state` boolean,
+  `desc` vcarchar(150),
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -191,6 +191,7 @@ CREATE TABLE `posts` (
   `user_id` int not null,
   `group_id` int,
   `desc` varchar(1000) ,
+  `title` varchar(50),
   `media_url` varchar(100),
   `visibility` boolean,
   PRIMARY KEY (`id`),
