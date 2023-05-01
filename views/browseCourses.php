@@ -35,13 +35,13 @@ if ($_SESSION["profileType"] == 1 || $_SESSION["profileType"] == 2) {
 // Enroll/Buy Button onClick
 if (array_key_exists('getCourse', $_POST)) {
     if ($_SESSION["profileType"] == 1 || $_SESSION["profileType"] == 2) {
-        if ($learn->enrollCourse($_SESSION["id"], $_POST["getCourse"])) {
-            header("Location: course.php?course=" . $_POST["getCourse"]);
+        if ($learn->enrollCourse($_SESSION["id"], $courses[$_POST["getCourse"]]["course_id"])) {
+            header("Location: course.php?id=" . $courses[$_POST["getCourse"]]["course_id"]);
             exit();
         }
         $errMsg = $_SESSION["errMsg"];
-    } else {#. $_POST["getCourse"]
-        header("Location: pay.php?course=".$_POST["getPrice"]);
+    } else {
+        header("Location: course.php?id=" . $courses[$_POST["getCourse"]]["course_id"] . "&price=" . $courses[$_POST["getCourse"]]["price"]);
         exit();
     }
 }
@@ -136,7 +136,7 @@ if (array_key_exists('getCourse', $_POST)) {
             <div class="row" data-aos="zoom-in" data-aos-delay="100">
                 <?php
                 if ($courses) {
-                    foreach ($courses as $row) {
+                    foreach ($courses as $key=>$row) {
                         echo "
                         <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
                         <div class=\"course-item\">
@@ -151,7 +151,7 @@ if (array_key_exists('getCourse', $_POST)) {
                                 <div class=\"trainer-profile d-flex align-items-center\">
                                     <form method=\"POST\" action=\"browseCourses.php\" class=\"w-100\">
                                     <input type=\"hidden\" name=\"getPrice\" value=".$row["price"].">
-                                        <button type=\"submit\" class='btn btn-success btn-md' name=\"getCourse\" value=" .$row["course_id"]. ">" . $checkPremium . "</button>    
+                                        <button type=\"submit\" class='btn btn-success btn-md' name=\"getCourse\" value=" . $key . ">" . $checkPremium . "</button>    
                                     </form>
                                 </div>
                                 <div class=\"trainer-rank d-flex align-items-center\">
