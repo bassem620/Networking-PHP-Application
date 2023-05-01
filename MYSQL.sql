@@ -73,12 +73,12 @@ CREATE TABLE `certifications` (
 CREATE TABLE `messege` (
   `id` int AUTO_INCREMENT NOT NULL,
   `sender_id` int  NOT NULL,
-  `reciver_id` int  NOT NULL,
+  `receiver_id` int  NOT NULL,
   `messege` varchar(100)  NOT NULL,
   `date_time` datetime  NOT NULL,
-  PRIMARY KEY (`id`, `sender_id`, `reciver_id`),
-  FOREIGN KEY (sender_id) REFERENCES users(id), ON DELETE CASCADE,
-  FOREIGN KEY (reciver_id) REFERENCES users(id) ON DELETE CASCADE
+  PRIMARY KEY (`id`, `sender_id`, `receiver_id`),
+  FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `following` (
