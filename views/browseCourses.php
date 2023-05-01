@@ -108,7 +108,7 @@ if (array_key_exists('getCourse', $_POST)) {
                             <div class=\"trainer d-flex justify-content-between align-items-center\">
                                 <div class=\"trainer-profile d-flex align-items-center\">
                                     <form method=\"POST\" action=\"events.php\" class=\"w-100\">
-                                        <a href=\"course.php?course=" . $row["course_id"] . "\" class='btn btn-success btn-md'>Open</a>    
+                                        <a href=\"course.php?id=" . $row["course_id"] . "\" class='btn btn-success btn-md'>Open</a>    
                                     </form>
                                 </div>
                                 <div class=\"trainer-rank d-flex align-items-center\">

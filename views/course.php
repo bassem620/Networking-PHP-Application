@@ -11,7 +11,7 @@ if (!isset($_SESSION["id"])) {
 }
 
 $learn = new LearningController;
-$course = $learn->openEnrolledCourse($_GET["course"], $_SESSION["id"]);
+$course = $learn->openEnrolledCourse($_GET["id"], $_SESSION["id"]);
 
 echo "ID :" . $course[0]['course_id'];
 echo "<br>";
