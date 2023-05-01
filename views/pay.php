@@ -62,7 +62,7 @@ if(isset($_GET["enteredPrice"])){
                     <div class="text-danger" id="errorMessage"><?php echo $errMsg ?></div>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-secondary">close</button>
+                <a href="browseCourses.php" class="btn btn-secondary">close</a>
             </form>
         </div>
     </div>
