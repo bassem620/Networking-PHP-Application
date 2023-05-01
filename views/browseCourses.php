@@ -41,7 +41,7 @@ if (array_key_exists('getCourse', $_POST)) {
         }
         $errMsg = $_SESSION["errMsg"];
     } else {
-        header("Location: course.php?id=" . $courses[$_POST["getCourse"]]["course_id"] . "&price=" . $courses[$_POST["getCourse"]]["price"]);
+        header("Location: pay.php?id=" . $courses[$_POST["getCourse"]]["course_id"] . "&price=" . $courses[$_POST["getCourse"]]["price"]);
         exit();
     }
 }
