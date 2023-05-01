@@ -20,7 +20,7 @@
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
     </nav>
-    <a href="auth/login.php" class="get-started-btn">
+    <a href="auth/logout.php" class="get-started-btn">
         Logout
     </a>
     </div>

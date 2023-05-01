@@ -3,12 +3,18 @@
 require_once "../../models/users/user.php";
 require_once "../../controllers/authController.php";
 
+// Check Session
+if (!isset($_SESSION["id"])) {
+    session_start();
+} else {
+    header("Location: ../home.php");
+    exit();
+}
+
 $errMsg = "";
 
-if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['firstName']) && isset($_POST['lastName']))
-{
-    if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['firstName']) && !empty($_POST['lastName']))
-    {
+if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['firstName']) && isset($_POST['lastName'])) {
+    if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['firstName']) && !empty($_POST['lastName'])) {
         $user = new User;
         $auth = new AuthController;
 
@@ -17,26 +23,13 @@ if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['firstNam
         $user->firstName = $_POST['firstName'];
         $user->lastName = $_POST['lastName'];
 
-        if(!$auth->register($user))
-        {
-            if(!isset($_SESSION["id"]))
-            {
-                session_start();
-            }
+        if (!$auth->register($user)) {
             $errMsg = $_SESSION["errMsg"];
-        }
-        else
-        {
-            if(!isset($_SESSION["id"]))
-            {
-                session_start();
-            }
-            echo "Registered And Logged in as " . $_SESSION["email"];
+        } else {
             header("location: ../home.php");
+            exit();
         }
-    }
-    else
-    {
+    } else {
         $errMsg = "Fill all the credentials";
     }
 }
@@ -67,13 +60,14 @@ if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['firstNam
     <link href="../assets/css/style.css" rel="stylesheet">
     <title>LinkedIn - Register</title>
 </head>
+
 <body>
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
             <h1 class="logo me-auto"><a href="index.html">LinkedIN</a></h1>
-        <a href="login.php" class="get-started-btn">
-            Login
-        </a>
+            <a href="login.php" class="get-started-btn">
+                Login
+            </a>
         </div>
     </header>
     <div class="container d-flex justify-content-center align-items-center vh-100 bg-grey">
@@ -99,17 +93,17 @@ if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['firstNam
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <a href="login.php" class="d-block pt-2">Already have an account?</a>
                 <?php
-                    if($errMsg != "")
-                    {
-                        ?>
-                            <div id="error" class="form-text text-danger pt-2"><?php echo $errMsg; ?></div>
-                        <?php
-                    }
+                if ($errMsg != "") {
+                    ?>
+                        <div id="error" class="form-text text-danger pt-2"><?php echo $errMsg; ?></div>
+                    <?php
+                }
                 ?>
             </form>
         </div>
     </div>
-    <?php require_once "../components/script.php" ?> 
-    <?php require_once "../components/footer.php" ?> 
+    <?php require_once "../components/script.php" ?>
+    <?php require_once "../components/footer.php" ?>
 </body>
+
 </html>

@@ -3,38 +3,31 @@
 require_once "../../models/users/user.php";
 require_once "../../controllers/authController.php";
 
+// Check Session
+if (!isset($_SESSION["id"])) {
+    session_start();
+} else {
+    header("Location: ../home.php");
+    exit();
+}
+
 $errMsg = "";
 
-if(isset($_POST['email']) && isset($_POST['password']))
-{
-    if(!empty($_POST['email']) && !empty($_POST['password']))
-    {
+if (isset($_POST['email']) && isset($_POST['password'])) {
+    if (!empty($_POST['email']) && !empty($_POST['password'])) {
         $user = new User;
         $auth = new AuthController;
 
         $user->email = $_POST['email'];
         $user->password = $_POST['password'];
 
-        if(!$auth->login($user))
-        {
-            if(!isset($_SESSION["id"]))
-            {
-                session_start();
-            }
+        if (!$auth->login($user)) {
             $errMsg = $_SESSION["errMsg"];
-        }
-        else
-        {
-            if(!isset($_SESSION["id"]))
-            {
-                session_start();
-            }
-            echo "logged";
+        } else {
             header("location: ../home.php");
+            exit();
         }
-    }
-    else
-    {
+    } else {
         $errMsg = "Email and password are required";
     }
 }
@@ -65,13 +58,14 @@ if(isset($_POST['email']) && isset($_POST['password']))
     <link href="../assets/css/style.css" rel="stylesheet">
     <title>LinkedIn - Login</title>
 </head>
+
 <body>
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
             <h1 class="logo me-auto"><a href="index.html">LinkedIN</a></h1>
-        <a href="register.php" class="get-started-btn">
-            Register
-        </a>
+            <a href="register.php" class="get-started-btn">
+                Register
+            </a>
         </div>
     </header>
     <div class="container d-flex justify-content-center align-items-center vh-100 bg-grey">
@@ -89,17 +83,17 @@ if(isset($_POST['email']) && isset($_POST['password']))
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <a href="register.php" class="d-block pt-2">Create new account?</a>
                 <?php
-                    if($errMsg != "")
-                    {
-                        ?>
-                            <div id="error" class="form-text text-danger pt-2"><?php echo $errMsg; ?></div>
-                        <?php
-                    }
+                if ($errMsg != "") {
+                    ?>
+                        <div id="error" class="form-text text-danger pt-2"><?php echo $errMsg; ?></div>
+                    <?php
+                }
                 ?>
             </form>
         </div>
     </div>
-    <?php require_once "../components/script.php" ?> 
-    <?php require_once "../components/footer.php" ?> 
+    <?php require_once "../components/script.php" ?>
+    <?php require_once "../components/footer.php" ?>
 </body>
+
 </html>
