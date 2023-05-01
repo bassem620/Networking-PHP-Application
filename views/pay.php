@@ -55,7 +55,7 @@ if(isset($_GET["enteredPrice"])){
             <h2>Pay</h2>
             <form action="pay.php" method="GET">
                 <div class="mb-3">
-                    <label class="form-label">Price</label>
+                    <label class="form-label">Price (<?php echo  $_GET["price"]?>)</label>
                     <input type="text" class="form-control" name="enteredPrice">
                     <input type="hidden" name="price" value = <?php echo $_GET["price"]?>>
                     <input type="hidden" name="id" value =<?php echo $_GET["id"] ?>>
