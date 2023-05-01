@@ -28,7 +28,7 @@ if (!isset($_SESSION["id"])) {
    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
    <link href="assets/css/style.css" rel="stylesheet">
-   <link href="../views/assets/css_beshoy/stryle.css" rel="stylesheet">
+   <link href="../views/assets/css_beshoy/style.css" rel="stylesheet">
    <title>LinkedIn - Home</title>
 </head>
 
@@ -37,7 +37,7 @@ if (!isset($_SESSION["id"])) {
 
    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
    <div class="container-lg">
-      <div class="row">
+      <div class="row pt-5">
          <div class="col-md-12">
             <div id="content" class="content content-full-width">
                <div class="profile-content">
