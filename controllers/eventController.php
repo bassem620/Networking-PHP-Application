@@ -5,12 +5,12 @@ class EventController
 {
     protected $db;
 
-    public function createEvent(Event $event)
+    public function createEvent($user_id, Event $event)
     {
         $this->db = new DBController;
         if($this->db->openConnection())
         {
-            $query = "INSERT INTO [event] values ('', '$event->title', '$event->desc', '$event->date')";
+            $query = "INSERT INTO events values ('', '$event->title', '$event->desc', '$event->date', '$user_id')";
             $result = $this->db->insert($query);
             if(!$result)
             {

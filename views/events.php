@@ -44,17 +44,17 @@
 
 </head>
 <body>
-    <div class="container my-5">
+    <?php require_once "components/header.php" ?> 
+    <div class="container my-5 pt-5">
         <h2>Events</h2>
         <a class="btn btn-primary " href="/linkedIn/views/createEvent.php" role="button">Create a new Event</a>
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>Date</th>
-                    <th>Action</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -66,7 +66,6 @@
                     {
                         echo "
                         <tr>
-                            <td>" . $row["id"] . "</td>
                             <td>" . $row["title"] . "</td>
                             <td>" . $row["desc"] . "</td>
                             <td>" . $row["date"] . "</td>
@@ -83,51 +82,54 @@
             </tbody>
         </table>
     </div>
-</body>
-<!-- ======= Popular Group Section ======= -->
-<section id="popular-courses" class="courses">
-    <div class="container" data-aos="fade-up">
 
-        <div class="section-title" >
-            <br>
-            <h2>All</h2>
-            <p>Events</p>
-        </div>
-        <div class="row" data-aos="zoom-in" data-aos-delay="100">
-            <?php
-            $events = $eventCont->getAllEvents();
-            if($events)
-            {
-                foreach($events as $row)
+    <!-- ======= Popular Group Section ======= -->
+    <section id="popular-courses" class="courses">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title" >
+                <br>
+                <h2>All</h2>
+                <p>Events</p>
+            </div>
+            <div class="row" data-aos="zoom-in" data-aos-delay="100">
+                <?php
+                $events = $eventCont->getAllEvents();
+                if($events)
                 {
-                    echo"
-                    <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
-                    <div class=\"course-item\">
-                        <img src=\"assets/img/course-1.jpg\" class=\"img-fluid\" alt=\"...\">
-                        <div class=\"course-content\">
-                        <div class=\"d-flex justify-content-between align-items-center mb-3\">
-                            <h4>" . $row["date"] . "</h4>
-                        </div>
-                        <h3><a href=\"course-details.html\">" . $row["title"] ."</a></h3>
-                        <p>" . $row["desc"] . "</p>
-                        <div class=\"trainer d-flex justify-content-between align-items-center\">
-                            <div class=\"trainer-profile d-flex align-items-center\">
-                                <div class=\"form-check form-switch\">
-                                    <input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" />
-                                    <label class=\"form-check-label\" for=\"flexSwitchCheckDefault\">Join</label>
+                    foreach($events as $row)
+                    {
+                        echo"
+                        <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
+                        <div class=\"course-item\">
+                            <img src=\"assets/img/course-1.jpg\" class=\"img-fluid\" alt=\"...\">
+                            <div class=\"course-content\">
+                            <div class=\"d-flex justify-content-between align-items-center mb-3\">
+                                <h4>" . $row["date"] . "</h4>
+                            </div>
+                            <h3><a href=\"course-details.html\">" . $row["title"] ."</a></h3>
+                            <p>" . $row["desc"] . "</p>
+                            <div class=\"trainer d-flex justify-content-between align-items-center\">
+                                <div class=\"trainer-profile d-flex align-items-center\">
+                                    <div class=\"form-check form-switch\">
+                                        <input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" />
+                                        <label class=\"form-check-label\" for=\"flexSwitchCheckDefault\">Going</label>
+                                    </div>
+                                </div>
+                                <div class=\"trainer-rank d-flex align-items-center\">
                                 </div>
                             </div>
-                            <div class=\"trainer-rank d-flex align-items-center\">
                             </div>
                         </div>
                         </div>
-                    </div>
-                    </div>
-                    ";
+                        ";
+                    }
                 }
-            }
-            ?>
+                ?>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+    <?php require_once "components/script.php" ?> 
+    <?php require_once "components/footer.php" ?> 
+</body>
 </html>
