@@ -31,7 +31,7 @@ class DBController
     public function select($qry)
     {
         $result = $this->connection->query($qry);
-        if(!$result)
+        if(!isset($result))
         {
             echo "Error : " . mysqli_error($this->connection);
             return false;
@@ -42,7 +42,7 @@ class DBController
     public function insert($qry)
     {
         $result = $this->connection->query($qry);
-        if (!$result) {
+        if (!isset($result)) {
             echo "Error : " . mysqli_error($this->connection);
             return false;
         }
@@ -52,7 +52,7 @@ class DBController
     public function update($qry)
     {
         $result = $this->connection->query($qry);
-        if (!$result) {
+        if (!isset($result)) {
             echo "Error : " . mysqli_error($this->connection);
             return false;
         }
@@ -62,7 +62,7 @@ class DBController
     public function delete($qry)
     {
         $result = $this->connection->query($qry);
-        if (!$result) {
+        if (!isset($result)) {
             echo "Error : " . mysqli_error($this->connection);
             return false;
         }
