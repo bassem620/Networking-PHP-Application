@@ -5,48 +5,68 @@ class UserController
 {
     protected $db;
 
-    public function connect(User $user, $user_id)
+    public function connect($user1_id, $user2_id, $state)
     {
         $this->db = new DBController;
         if($this->db->openConnection())
         {
-            //  Code
+            $query = "INSERT INTO connections VALUES ('$user1_id', '$user2_id', 0)";
+            $result = $this->db->insert($query);
+            if(!$result)
+            {
+                return false;
+            }
             return true;
         }
         echo "Error in database connection";
         return false;
     }
 
-    public function removeConnect(User $user, $user_id)
+    public function removeConnect($user1_id, $user2_id)
     {
         $this->db = new DBController;
         if($this->db->openConnection())
         {
-            //  Code
+            $query = "DELETE FROM connections where user1_id='$user1_id' AND user2_id '$user2_id')";
+            $result = $this->db->delete($query);
+            if(!$result)
+            {
+                return false;
+            }
             return true;
         }
         echo "Error in database connection";
         return false;
     }
 
-    public function acceptConnect(User $user, $user_id)
+    public function acceptConnect($me_id, $user2_id)
     {
         $this->db = new DBController;
         if($this->db->openConnection())
         {
-            //  Code
+            $query = "UPDATE  connections SET state = 1 WHERE user1_id = '$user2_id' AND user2_id = '$me_id')";
+            $result = $this->db->update($query);
+            if(!$result)
+            {
+                return false;
+            }
             return true;
         }
         echo "Error in database connection";
         return false;
     }
 
-    public function endorse(User $user, $user_id, $skill)
+    public function endorse( $user1_id, $user2_id, $skill_id)
     {
         $this->db = new DBController;
         if($this->db->openConnection())
         {
-            //  Code
+            $query = "INSERT INTO endorses VALUES ('$user1_id', '$user2_id', '$skill_id')";
+            $result = $this->db->insert($query);
+            if(!$result)
+            {
+                return false;
+            }
             return true;
         }
         echo "Error in database connection";
