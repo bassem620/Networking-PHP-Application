@@ -1,36 +1,37 @@
 <?php
-    require_once "../controllers/learningController.php";
-    if(!isset($_SESSION["id"]))
-    {
-        session_start();
+require_once "../controllers/learningController.php";
+
+// Check Session
+if (!isset($_SESSION["id"])) {
+    session_start();
+    if (!isset($_SESSION["id"])) {
+        header("Location: auth/login.php");
+        exit();
     }
+}
 
-    // Get Courses
-    $learn = new Course;
-    $result = $learn->getCourses();
+// Get Courses
+$learn = new Course;
+$result = $learn->getCourses();
 
-    // Check Premium
-    global $checkPremium,$profileType;
-    $checkPremium = "buy";
-    $profileType = $_SESSION["profileType"];
-    if($profileType == 1 || $profileType == 2){
-        $checkPremium = "enroll";
-    }
+// Check Premium
+global $checkPremium, $profileType;
+$checkPremium = "buy";
+$profileType = $_SESSION["profileType"];
+if ($profileType == 1 || $profileType == 2) {
+    $checkPremium = "enroll";
+}
 
-    // Enroll/Buy Button onClick
-    if(array_key_exists('enroll', $_POST))
-    {
-        if($_SESSION["profileType"] == 1 || $_SESSION["profileType"] == 2)
-        {
-            if($learn->enrollCourse($_POST["enroll"], $_SESSION["id"]))
-            {
-                header("Location: course.php?course=".$_POST["enroll"]);
-            }
-        } else 
-        {
-            header("Location: pay.php");
+// Enroll/Buy Button onClick
+if (array_key_exists('enroll', $_POST)) {
+    if ($_SESSION["profileType"] == 1 || $_SESSION["profileType"] == 2) {
+        if ($learn->enrollCourse($_POST["enroll"], $_SESSION["id"])) {
+            header("Location: course.php?course=" . $_POST["enroll"]);
         }
+    } else {
+        header("Location: pay.php");
     }
+}
 ?>
 
 <!DOCTYPE html>
@@ -62,22 +63,22 @@
 </head>
 
 <body>
-    <?php require_once "components/header.php" ; ?>
+    <?php require_once "components/header.php"; ?>
     <main id="main" data-aos="fade-in" class="pt-5">
         <section id="courses" class="courses">
             <div class="container" data-aos="fade-up">
                 <div class="row" data-aos="zoom-in" data-aos-delay="100">
-        <?php        
-        // Courses
-        foreach ($result as $row) {
-            echo "
+                    <?php
+                    // Courses
+                    foreach ($result as $row) {
+                        echo "
                 <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
                     <div class=\"course-item\">
                         <img src=\"assets/img/course-1.jpg\" class=\"img-fluid\" alt=\"...\">
                         <div class=\"course-content\">
                             <div class=\"d-flex justify-content-between align-items-center mb-3\">
                             <form method=\"POST\" action=\"browseCourses.php\">
-                                <button type=\"submit\" name=\"enroll\" value=\"" . $row["course_id"] . "\" class=\"btn btn-success\" data-toggle=\"modal\" data-target=\"#myModal\">".$checkPremium."</button>
+                                <button type=\"submit\" name=\"enroll\" value=\"" . $row["course_id"] . "\" class=\"btn btn-success\" data-toggle=\"modal\" data-target=\"#myModal\">" . $checkPremium . "</button>
                             </form>
                                 <p class=\"price\">" . $row["price"] . "</p>
                             </div>
@@ -88,8 +89,8 @@
                     </div>
                 </div>
             ";
-        }
-        ?>
+                    }
+                    ?>
                 </div>
             </div>
         </section>

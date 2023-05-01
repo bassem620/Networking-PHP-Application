@@ -1,31 +1,17 @@
 <?php
 
-
-
+// Check Session
+if (!isset($_SESSION["id"])) {
+    session_start();
+    if (!isset($_SESSION["id"])) {
+        header("Location: auth/login.php");
+        exit();
+    }
+}
 
 ?>
 
-
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
-
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
-
 <html lang="en">
 
 <head>
@@ -59,9 +45,7 @@
     <!-- favicon -->
     <link href="images/favicon.png" rel="shortcut icon">
 
-    <!-- 
-  Essential stylesheets
-  =====================================-->
+    <!-- Essential stylesheets -->
     <link href="../views/assets/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="../views/assets/plugins/bootstrap/bootstrap-slider.css" rel="stylesheet">
     <link href="../views/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -74,14 +58,7 @@
 </head>
 
 <body class="body-wrapper">
-
-    <?php require_once "components/header.php"
-    ?>
-
-
-    <!--==================================
-=            User Profile            =
-===================================-->
+    <?php require_once "components/header.php" ?>
 
     <section class="user-profile section">
         <div class="container pt-5 mt-3">
@@ -235,7 +212,7 @@
                                     <label for="sch.uni">School/University</label>
                                     <input type="text" class="form-control" id="sch.uni">
                                 </div>
-                                
+
                                 <!-- field of study -->
                                 <div class="form-group">
                                     <label for="fos">Field of study</label>
@@ -243,7 +220,7 @@
                                 </div>
 
 
-                                
+
 
                                 <div class="form-group">
                                     <label for="grade">Grade</label>
@@ -265,8 +242,8 @@
                                         <option value="2018">Master's Degree</option>
                                         <option value="2018">Doctorate Degree</option>
                                     </select>
-                               </div>
-                                
+                                </div>
+
                                 <div>
                                     <label for="start">Start</label>
                                     <select name="" id="start">
@@ -403,15 +380,7 @@
         </div>
     </section>
 
-    <!--============================
-=            Footer            =
-=============================-->
-
-
-
-    <!-- 
-Essential Scripts
-=====================================-->
+    <!-- Essential Scripts -->
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/bootstrap/popper.min.js"></script>
     <script src="plugins/bootstrap/bootstrap.min.js"></script>
@@ -434,9 +403,7 @@ Essential Scripts
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
-    <?php require_once "components/footer.php"
-    ?>
-
+    <?php require_once "components/footer.php" ?>
 </body>
 
 </html>

@@ -2,9 +2,14 @@
 
 require_once "../models/event.php";
 require_once "../controllers/eventController.php";
-if(!isset($_SESSION["id"]))
-{
+
+// Check Session
+if (!isset($_SESSION["id"])) {
     session_start();
+    if (!isset($_SESSION["id"])) {
+        header("Location: auth/login.php");
+        exit();
+    }
 }
 
 // Events
@@ -12,10 +17,8 @@ $eventCont = new EventController;
 
 $errMsg = "";
 
-if(isset($_POST['title']) && isset($_POST['desc']) && isset($_POST['date']))
-{
-    if(!empty($_POST['title']) && !empty($_POST['desc']) && !empty($_POST['date']))
-    {
+if (isset($_POST['title']) && isset($_POST['desc']) && isset($_POST['date'])) {
+    if (!empty($_POST['title']) && !empty($_POST['desc']) && !empty($_POST['date'])) {
         $event = new Event;
         $controller = new EventController;
 
@@ -23,22 +26,16 @@ if(isset($_POST['title']) && isset($_POST['desc']) && isset($_POST['date']))
         $event->desc = $_POST['desc'];
         $event->date = $_POST['date'];
 
-        if(!isset($_SESSION["id"]))
-        {
+        if (!isset($_SESSION["id"])) {
             session_start();
         }
 
-        if(!$controller->createEvent($_SESSION["id"], $event))
-        {
+        if (!$controller->createEvent($_SESSION["id"], $event)) {
             $errMsg = $_SESSION["errMsg"];
-        }
-        else
-        {
+        } else {
             header("location:/linkedIn/views/events.php");
         }
-    }
-    else
-    {
+    } else {
         $errMsg = "Invalid credentials";
     }
 }

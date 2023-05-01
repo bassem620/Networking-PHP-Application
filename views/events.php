@@ -1,23 +1,28 @@
 <?php
-    require_once "../controllers/eventController.php";
-    if(!isset($_SESSION["id"]))
-    {
-        session_start();
-    }
+require_once "../controllers/eventController.php";
 
-    // Events
-    $eventCont = new EventController;
-
-    // Delete event Button onClick
-    if(array_key_exists('delete', $_POST))
-    {
-        $eventCont->deleteEvent($_POST["delete"]);
+// Check Session
+if (!isset($_SESSION["id"])) {
+    session_start();
+    if (!isset($_SESSION["id"])) {
+        header("Location: auth/login.php");
+        exit();
     }
+}
+
+// Events
+$eventCont = new EventController;
+
+// Delete event Button onClick
+if (array_key_exists('delete', $_POST)) {
+    $eventCont->deleteEvent($_POST["delete"]);
+}
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,8 +48,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
+
 <body>
-    <?php require_once "components/header.php" ?> 
+    <?php require_once "components/header.php" ?>
     <div class="container my-5 pt-5">
         <h2>Events</h2>
         <a class="btn btn-primary " href="/linkedIn/views/createEvent.php" role="button">Create a new Event</a>
@@ -60,10 +66,8 @@
             <tbody>
                 <?php
                 $result = $eventCont->getMyEvents(5);
-                if($result)
-                {
-                    foreach($result as $row) 
-                    {
+                if ($result) {
+                    foreach ($result as $row) {
                         echo "
                         <tr>
                             <td>" . $row["title"] . "</td>
@@ -87,7 +91,7 @@
     <section id="popular-courses" class="courses">
         <div class="container" data-aos="fade-up">
 
-            <div class="section-title" >
+            <div class="section-title">
                 <br>
                 <h2>All</h2>
                 <p>Events</p>
@@ -95,11 +99,9 @@
             <div class="row" data-aos="zoom-in" data-aos-delay="100">
                 <?php
                 $events = $eventCont->getAllEvents();
-                if($events)
-                {
-                    foreach($events as $row)
-                    {
-                        echo"
+                if ($events) {
+                    foreach ($events as $row) {
+                        echo "
                         <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
                         <div class=\"course-item\">
                             <img src=\"assets/img/course-1.jpg\" class=\"img-fluid\" alt=\"...\">
@@ -107,7 +109,7 @@
                             <div class=\"d-flex justify-content-between align-items-center mb-3\">
                                 <h4>" . $row["date"] . "</h4>
                             </div>
-                            <h3><a href=\"course-details.html\">" . $row["title"] ."</a></h3>
+                            <h3><a href=\"course-details.html\">" . $row["title"] . "</a></h3>
                             <p>" . $row["desc"] . "</p>
                             <div class=\"trainer d-flex justify-content-between align-items-center\">
                                 <div class=\"trainer-profile d-flex align-items-center\">
@@ -129,7 +131,8 @@
             </div>
         </div>
     </section>
-    <?php require_once "components/script.php" ?> 
-    <?php require_once "components/footer.php" ?> 
+    <?php require_once "components/script.php" ?>
+    <?php require_once "components/footer.php" ?>
 </body>
+
 </html>
