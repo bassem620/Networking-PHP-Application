@@ -10,26 +10,39 @@ if (!isset($_SESSION["id"])) {
     }
 }
 
+$errMsg = "";
+
 // Get Courses
-$learn = new Course;
-$result = $learn->getCourses();
+$learn = new LearningController;
+$myCourses = $learn->getMyCourses($_SESSION["id"]);
+$courses = $learn->getCourses($_SESSION["id"]);
+$myCoursesCount = 0;
+$coursesCount = 0;
+if($myCourses){
+    $myCoursesCount = count($myCourses);
+}
+if($courses){
+    $coursesCount = count($courses);
+}
 
 // Check Premium
-global $checkPremium, $profileType;
+global $checkPremium;
 $checkPremium = "buy";
-$profileType = $_SESSION["profileType"];
-if ($profileType == 1 || $profileType == 2) {
+if ($_SESSION["profileType"] == 1 || $_SESSION["profileType"] == 2) {
     $checkPremium = "enroll";
 }
 
 // Enroll/Buy Button onClick
-if (array_key_exists('enroll', $_POST)) {
+if (array_key_exists('getCourse', $_POST)) {
     if ($_SESSION["profileType"] == 1 || $_SESSION["profileType"] == 2) {
-        if ($learn->enrollCourse($_POST["enroll"], $_SESSION["id"])) {
-            header("Location: course.php?course=" . $_POST["enroll"]);
+        if ($learn->enrollCourse($_SESSION["id"], $_POST["getCourse"])) {
+            header("Location: course.php?course=" . $_POST["getCourse"]);
+            exit();
         }
+        $errMsg = $_SESSION["errMsg"];
     } else {
         header("Location: pay.php");
+        exit();
     }
 }
 ?>
@@ -64,37 +77,95 @@ if (array_key_exists('enroll', $_POST)) {
 
 <body>
     <?php require_once "components/header.php"; ?>
-    <main id="main" data-aos="fade-in" class="pt-5">
-        <section id="courses" class="courses">
-            <div class="container" data-aos="fade-up">
-                <div class="row" data-aos="zoom-in" data-aos-delay="100">
-                    <?php
-                    // Courses
-                    foreach ($result as $row) {
+    <!-- ======= My Courses ======= -->
+    <section id="popular-courses" class="courses">
+        <div class="container mt-3" data-aos="fade-up">
+            <p class="text-danger">
+                <?php
+                if ($errMsg !== "") {
+                    echo $errMsg;
+                } else {
+                    echo "";
+                }
+                ?>
+            </p>
+            <div class="section-title">
+                <br>
+                <h2>My</h2>
+                <p>Courses (<?php echo $myCoursesCount?>)</p>
+            </div>
+            <div class="row" data-aos="zoom-in" data-aos-delay="100">
+                <?php
+                if ($myCourses) {
+                    foreach ($myCourses as $row) {
                         echo "
-                <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
-                    <div class=\"course-item\">
-                        <img src=\"assets/img/course-1.jpg\" class=\"img-fluid\" alt=\"...\">
-                        <div class=\"course-content\">
-                            <div class=\"d-flex justify-content-between align-items-center mb-3\">
-                            <form method=\"POST\" action=\"browseCourses.php\">
-                                <button type=\"submit\" name=\"enroll\" value=\"" . $row["course_id"] . "\" class=\"btn btn-success\" data-toggle=\"modal\" data-target=\"#myModal\">" . $checkPremium . "</button>
-                            </form>
-                                <p class=\"price\">" . $row["price"] . "</p>
-                            </div>
-                            <div id=\"alert\"></div>
+                        <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
+                        <div class=\"course-item\">
+                            <img src=\"assets/img/course-1.jpg\" class=\"img-fluid\" alt=\"...\">
+                            <div class=\"course-content\">
                             <h3><a href=\"course-details.html\">" . $row["name"] . "</a></h3>
                             <p>" . $row["desc"] . "</p>
+                            <div class=\"trainer d-flex justify-content-between align-items-center\">
+                                <div class=\"trainer-profile d-flex align-items-center\">
+                                    <form method=\"POST\" action=\"events.php\" class=\"w-100\">
+                                        <a href=\"course.php?course=" . $row["course_id"] . "\" class='btn btn-success btn-md'>Open</a>    
+                                    </form>
+                                </div>
+                                <div class=\"trainer-rank d-flex align-items-center\">
+                                </div>
+                            </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            ";
+                        </div>
+                        ";
                     }
-                    ?>
-                </div>
+                }
+                ?>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+
+    <!-- ======= All Courses ======= -->
+    <section id="popular-courses" class="courses pt-0">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <br>
+                <h2>All</h2>
+                <p>Courses (<?php echo $coursesCount?>)</p>
+            </div>
+            <div class="row" data-aos="zoom-in" data-aos-delay="100">
+                <?php
+                if ($courses) {
+                    foreach ($courses as $row) {
+                        echo "
+                        <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
+                        <div class=\"course-item\">
+                            <img src=\"assets/img/course-1.jpg\" class=\"img-fluid\" alt=\"...\">
+                            <div class=\"course-content\">
+                            <div class=\"d-flex justify-content-between align-items-center mb-3\">
+                                <h4>" . $row["price"] . "</h4>
+                            </div>
+                            <h3><a href=\"course-details.html\">" . $row["name"] . "</a></h3>
+                            <p>" . $row["desc"] . "</p>
+                            <div class=\"trainer d-flex justify-content-between align-items-center\">
+                                <div class=\"trainer-profile d-flex align-items-center\">
+                                    <form method=\"POST\" action=\"browseCourses.php\" class=\"w-100\">
+                                        <button type=\"submit\" class='btn btn-success btn-md' name=\"getCourse\" value=" . $row["course_id"] . ">" . $checkPremium . "</button>    
+                                    </form>
+                                </div>
+                                <div class=\"trainer-rank d-flex align-items-center\">
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        ";
+                    }
+                }
+                ?>
+            </div>
+        </div>
+    </section>
 
     <!-- PreLoader -->
     <div id="preloader"></div>
@@ -112,111 +183,6 @@ if (array_key_exists('enroll', $_POST)) {
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
     <?php require_once "components/footer.php" ?>
-    <!-- <div id="myModal" class="modal fade">
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="alert alert-danger" role="alert">
-                            This is an alert message!
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        for(let i=0;i<document.getElementsByClassName("btn btn-success").length;i++){
-        div = document.getElementsByClassName("btn btn-success")[i]
-            div.addEventListener("click", function() {
-            if(profileType == 0){
-                console.log(profileType+" number "+i);
-                    var myModal = new bootstrap.Modal(document.getElementById('myModal'));
-                    myModal.hide();
-            }
-        });}
-        
-    </script> -->
 </body>
-<!-- <style>
-    body {
-		font-family: 'Varela Round', sans-serif;
-	}
-	.modal-confirm {		
-		color: #636363;
-		width: 325px;
-		margin: 30px auto;
-	}
-	.modal-confirm .modal-content {
-		padding: 20px;
-		border-radius: 5px;
-		border: none;
-	}
-	.modal-confirm .modal-header {
-		border-bottom: none;   
-        position: relative;
-	}
-	.modal-confirm h4 {
-		text-align: center;
-		font-size: 26px;
-		margin: 30px 0 -15px;
-	}
-	.modal-confirm .form-control, .modal-confirm .btn {
-		min-height: 40px;
-		border-radius: 3px; 
-	}
-	.modal-confirm .close {
-        position: absolute;
-		top: -5px;
-		right: -5px;
-	}	
-	.modal-confirm .modal-footer {
-		border: none;
-		text-align: center;
-		border-radius: 5px;
-		font-size: 13px;
-	}	
-	.modal-confirm .icon-box {
-		color: #fff;		
-		position: absolute;
-		margin: 0 auto;
-		left: 0;
-		right: 0;
-		top: -70px;
-		width: 95px;
-		height: 95px;
-		border-radius: 50%;
-		z-index: 9;
-		background: #82ce34;
-		padding: 15px;
-		text-align: center;
-		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-	}
-	.modal-confirm .icon-box i {
-		font-size: 58px;
-		position: relative;
-		top: 3px;
-	}
-	.modal-confirm.modal-dialog {
-		margin-top: 80px;
-	}
-    .modal-confirm .btn {
-        color: #fff;
-        border-radius: 4px;
-		background: #82ce34;
-		text-decoration: none;
-		transition: all 0.4s;
-        line-height: normal;
-        border: none;
-    }
-	.modal-confirm .btn:hover, .modal-confirm .btn:focus {
-		background: #6fb32b;
-		outline: none;
-	}
-	.trigger-btn {
-		display: inline-block;
-		margin: 100px auto;
-	}
-</style> -->
 
 </html>

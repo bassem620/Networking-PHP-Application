@@ -1,14 +1,29 @@
 <?php
 require_once "../controllers/DBController.php";
-class Course
+class LearningController
 {
     protected $db;
 
-    public function getCourses()
+    public function getMyCourses($user_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "select * from courses";
+            $query = "SELECT * FROM courses AS c INNER JOIN courses_users AS u ON c.course_id = u.course_id WHERE u.user_id = '$user_id'";
+            $result = $this->db->select($query);
+            if (!$result || count($result) == 0) {
+                return false;
+            }
+            return $result;
+        }
+        echo "error in connection";
+        return false;
+    }
+
+    public function getCourses($user_id)
+    {
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query = "SELECT * FROM courses WHERE course_id NOT IN (SELECT course_id FROM courses_users WHERE user_id = '$user_id');";
             $result = $this->db->select($query);
             if (!$result || count($result) == 0) {
                 return false;
@@ -39,7 +54,7 @@ class Course
         return false;
     }
 
-    public function enrollCourse($course_id, $user_id)
+    public function enrollCourse($user_id, $course_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
