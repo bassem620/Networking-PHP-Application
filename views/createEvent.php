@@ -26,14 +26,11 @@ if (isset($_POST['title']) && isset($_POST['desc']) && isset($_POST['date'])) {
         $event->desc = $_POST['desc'];
         $event->date = $_POST['date'];
 
-        if (!isset($_SESSION["id"])) {
-            session_start();
-        }
-
         if (!$controller->createEvent($_SESSION["id"], $event)) {
             $errMsg = $_SESSION["errMsg"];
         } else {
             header("location:/linkedIn/views/events.php");
+            exit();
         }
     } else {
         $errMsg = "Invalid credentials";
@@ -49,7 +46,7 @@ if (isset($_POST['title']) && isset($_POST['desc']) && isset($_POST['date'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkedIn - Create event</title>
+    <title>LinkedIn - Create Event</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -80,20 +77,6 @@ if (isset($_POST['title']) && isset($_POST['desc']) && isset($_POST['date'])) {
                 </div>
             </div>
 
-            <?php
-            if (!empty($successMessage)) {
-                echo "
-                    <div class='row mb-3'>
-                    <div class='offset-sm-3 col-sm-6'>
-                    <div class='alert alert-success alert-dismissible fade show' role='alert'>
-                    <strong>$successMessage</strong>
-                    <button type= 'button' class='btn-close' data-bs-dismiss='alert' aria-label='Close' </div>
-                    </div>
-                    </div>
-                ";
-            }
-            ?>
-
             <div class="row mb-3">
                 <div class="offset-sm-3 col-sm-3 d-grid">
                     <button type="submit" class="btn btn-primary" name="submit">Submit</button>
@@ -102,6 +85,15 @@ if (isset($_POST['title']) && isset($_POST['desc']) && isset($_POST['date'])) {
                     <a class="btn btn-outline-primary" href="/linkedIn/views/events.php" role="button">Cancel</a>
                 </div>
             </div>
+            <p class="text-danger">
+                <?php 
+                    if($errMsg !== "") {
+                        echo $errMsg;
+                    } else {
+                        echo "";
+                    }
+                ?>
+            </p>
         </form>
 </body>
 

@@ -24,20 +24,18 @@ if (isset($_POST['name']) && isset($_POST['state'])) {
 
         $group->name = $_POST['name'];
         $group->state = "";
+
         if ($_POST['state'] == "public" || $_POST['state'] == "Public") {
             $group->state = 0;
-        } else {
+        } else if ($_POST['state'] == "private" || $_POST['state'] == "Private") {
             $group->state = 1;
-        }
-
-        if (!isset($_SESSION["id"])) {
-            session_start();
         }
 
         if (!$controller->createGroup($_SESSION["id"], $group)) {
             $errMsg = $_SESSION["errMsg"];
         } else {
-            header("location: /linkedIn/views/groups.php");
+            header("location: groups.php");
+            exit();
         }
     } else {
         $errMsg = "Invalid credentials";
@@ -84,6 +82,15 @@ if (isset($_POST['name']) && isset($_POST['state'])) {
                     <a class="btn btn-outline-primary" href="/linkedIn/views/groups.php" role="button">Cancel</a>
                 </div>
             </div>
+            <p class="text-danger">
+                <?php 
+                    if($errMsg !== "") {
+                        echo $errMsg;
+                    } else {
+                        echo "";
+                    }
+                ?>
+            </p>
         </form>
 </body>
 
