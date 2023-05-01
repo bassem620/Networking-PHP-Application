@@ -220,7 +220,7 @@ CREATE TABLE `courses` (
   `desc` varchar(100),
   `skills` varchar(100),
   `hours` int,
-  `price` decimal(6,3),
+  `price` int NOT NULL,
   PRIMARY KEY (`course_id`)
 );
 
