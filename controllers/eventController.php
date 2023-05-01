@@ -69,7 +69,7 @@ class EventController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT * FROM events WHERE user_id != '$user_id'";
+            $query = "SELECT * FROM events WHERE id NOT IN (SELECT event_id FROM events_going WHERE user_id = '$user_id') AND user_id != '$user_id'";
             $result = $this->db->select($query);
             if (!$result) {
                 return false;
