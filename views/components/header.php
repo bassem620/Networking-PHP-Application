@@ -3,18 +3,16 @@
         <h1 class="logo me-auto"><a href="index.html">LinkedIN</a></h1>
         <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-            <li><a class="active" href="home.php">Home</a></li>
+            <li><a href="home.php">Home</a></li>
             <li><a href="profile.php">Profile</a></li>
+            <li><a href="network.php">Network</a></li>
             <li><a href="browseCourses.php">Courses</a></li>
             <li><a href="jobs.php">Jobs</a></li>
             <li><a href="events.php">Events</a></li>
-            <li><a href="groups.php">Groups</a></li>
-            <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a href="groupsTimeline.php"><span>Groups </span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
-                    <li><a href="#">Drop Down 1</a></li>
-                    <li><a href="#">Drop Down 2</a></li>
-                    <li><a href="#">Drop Down 3</a></li>
-                    <li><a href="#">Drop Down 4</a></li>
+                    <li><a href="groups.php">Manage</a></li>
+                    <li><a href="groupsTimeline.php">Timeline</a></li>
                 </ul>
             </li>
         </ul>
