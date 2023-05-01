@@ -221,6 +221,7 @@ CREATE TABLE `courses` (
   `skills` varchar(100),
   `hours` int,
   `price` int NOT NULL,
+  `url` varchar(300),
   PRIMARY KEY (`course_id`)
 );
 
