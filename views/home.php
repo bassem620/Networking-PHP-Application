@@ -13,8 +13,16 @@ echo $_SESSION["id"];
 echo "<br/>";
 echo $_SESSION["email"];
 
-$pdf = new PremiumConrtroller;
-$result = $pdf->exportConnections($_SESSION["id"]);
+
+
+
+    
+   
+
+
+
+// $pdf = new PremiumConrtroller;
+// $result = $pdf->exportConnections($_SESSION["id"]);
 
 // $db = new Course;
 // $result = $db->getCourses();
@@ -79,34 +87,30 @@ $result = $pdf->exportConnections($_SESSION["id"]);
                      <!-- begin timeline -->
                      <ul class="timeline">
                         <li>
-                           <!-- begin timeline-time -->
-                           <div class="timeline-time">
-                              <span class="date">today</span>
-                              <span class="time">04:20</span>
-                           </div>
+                        
                            <!-- end timeline-time -->
                            <!-- begin timeline-icon -->
                            <div class="timeline-icon">
                               <a href="javascript:;">&nbsp;</a>
                            </div>
+                           
                            <!-- end timeline-icon -->
                            <!-- begin timeline-body -->
                            <div class="timeline-body">
                               <div class="timeline-header">
-                                 <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></span>
-                                 <span class="username"><a href="javascript:;">Sean Ngu</a> <small></small></span>
-                                 <span class="pull-right text-muted">18 Views</span>
+                                 
+                                 <span class="username"><a href="javascript:;">name</a> <small></small></span>
+                                 <span class="pull-right text-muted">000Views</span>
                               </div>
                               <div class="timeline-content">
                                  <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus turpis quis tincidunt luctus.
-                                    Nam sagittis dui in nunc consequat, in imperdiet nunc sagittis.
+                                 post..................
                                  </p>
                               </div>
                               <div class="timeline-likes">
                                  <div class="stats-right">
-                                    <span class="stats-text">259 Shares</span>
-                                    <span class="stats-text">21 Comments</span>
+                                    <span class="stats-text">000Shares</span>
+                                    <span class="stats-text">0000Comments</span>
                                  </div>
                                  <div class="stats">
                                     <span class="fa-stack fa-fw stats-icon">
@@ -117,7 +121,7 @@ $result = $pdf->exportConnections($_SESSION["id"]);
                                     <i class="fa fa-circle fa-stack-2x text-primary"></i>
                                     <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
                                     </span>
-                                    <span class="stats-total">4.3k</span>
+                                    <span class="stats-total">000k</span>
                                  </div>
                               </div>
                               <div class="timeline-footer">
@@ -126,7 +130,7 @@ $result = $pdf->exportConnections($_SESSION["id"]);
                                  <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
                               </div>
                               <div class="timeline-comment-box">
-                                 <div class="user"><img src="https://bootdey.com/img/Content/avatar/avatar3.png"></div>
+                                 
                                  <div class="input">
                                     <form action="">
                                        <div class="input-group">
