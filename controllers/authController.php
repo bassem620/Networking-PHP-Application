@@ -10,13 +10,11 @@ class AuthController
     public function login(User $user)
     {
         $this->db = new DBController;
-        if($this->db->openConnection())
-        {
+        if ($this->db->openConnection()) {
             $query = "SELECT * FROM users WHERE email ='$user->email' AND password ='$user->password'";
             $result = $this->db->select($query);
             session_start();
-            if(!isset($result) || count($result) == 0)
-            {
+            if (!isset($result) || count($result) == 0) {
                 $_SESSION["errMsg"] = "Wrong email or password. Please try again";
                 return false;
             }
@@ -31,21 +29,19 @@ class AuthController
 
     public function register(User $user)
     {
-        $this->db=new DBController;
-        if($this->db->openConnection())
-        {
-            $query="insert into users values ('','$user->firstName','$user->lastName','$user->email','$user->password','','','0','','')";
-            $result=$this->db->insert($query);
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query = "insert into users values ('','$user->firstName','$user->lastName','$user->email','$user->password','','','0','','')";
+            $result = $this->db->insert($query);
             session_start();
-            if(isset($result))
-            {
+            if (isset($result)) {
                 $_SESSION["id"] = $result;
                 $_SESSION["email"] = $user->email;
                 $_SESSION["profileType"] = 0;
                 $this->db->closeConnection();
                 return true;
             }
-            $_SESSION["errMsg"]="Somthing went wrong... try again";
+            $_SESSION["errMsg"] = "Somthing went wrong... try again";
             $this->db->closeConnection();
             return false;
         }
@@ -53,5 +49,3 @@ class AuthController
         return false;
     }
 }
-
-?>

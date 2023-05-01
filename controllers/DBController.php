@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class DBController
 {
@@ -11,18 +11,16 @@ class DBController
     public function openConnection()
     {
         $this->connection = new mysqli($this->dbHost, $this->dbUser, $this->dbPassword, $this->dbName);
-        if($this->connection->connect_error)
-        {
+        if ($this->connection->connect_error) {
             echo "Error in connection : " . $this->connection->error;
             return false;
-        } 
+        }
         return true;
     }
 
     public function closeConnection()
     {
-        if($this->connection)
-        {
+        if ($this->connection) {
             $this->connection->close();
         }
         echo "Connection already closed";
@@ -31,14 +29,13 @@ class DBController
     public function select($qry)
     {
         $result = $this->connection->query($qry);
-        if(!isset($result))
-        {
+        if (!isset($result)) {
             echo "Error : " . mysqli_error($this->connection);
             return false;
         }
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-    
+
     public function insert($qry)
     {
         $result = $this->connection->query($qry);
@@ -69,5 +66,3 @@ class DBController
         return $result;
     }
 }
-
-?>

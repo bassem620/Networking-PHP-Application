@@ -7,8 +7,7 @@ class SearchController
     public function searchMember(User $user, $text)
     {
         $this->db = new DBController;
-        if($this->db->openConnection())
-        {
+        if ($this->db->openConnection()) {
             //  Code
             return true;
         }
@@ -19,8 +18,7 @@ class SearchController
     public function searchJob(User $user, $text)
     {
         $this->db = new DBController;
-        if($this->db->openConnection())
-        {
+        if ($this->db->openConnection()) {
             //  Code
             return true;
         }
@@ -31,8 +29,7 @@ class SearchController
     public function searchEvent(User $user, $text)
     {
         $this->db = new DBController;
-        if($this->db->openConnection())
-        {
+        if ($this->db->openConnection()) {
             //  Code
             return true;
         }
@@ -43,8 +40,7 @@ class SearchController
     public function searchGroup(User $user, $text)
     {
         $this->db = new DBController;
-        if($this->db->openConnection())
-        {
+        if ($this->db->openConnection()) {
             //  Code
             return true;
         }
@@ -52,5 +48,3 @@ class SearchController
         return false;
     }
 }
-
-?>
