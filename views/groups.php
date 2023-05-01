@@ -10,7 +10,7 @@ if (!isset($_SESSION["id"])) {
     }
 }
 
-// Events
+// Groups
 $groupCont = new GroupController;
 
 // Delete group Button onClick

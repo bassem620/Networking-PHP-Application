@@ -98,10 +98,24 @@ class GroupController
 
     public function getMyGroups($user_id)
     {
-        $query = "SELECT * from groups WHERE user_id='$user_id'";
         $this->db = new DBController;
         if ($this->db->openConnection()) {
             $query = "SELECT * from groups WHERE user_id='$user_id'";
+            $result = $this->db->select($query);
+            if (!$result) {
+                return false;
+            }
+            return $result;
+        }
+        echo "Error in database connection";
+        return false;
+    }
+
+    public function getGroupsPosts($user_id)
+    {
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query = "SELECT * from posts WHERE group_id IN (SELECT group_id FROM joined_groups WHERE user_id='$user_id')";
             $result = $this->db->select($query);
             if (!$result) {
                 return false;
