@@ -15,8 +15,19 @@ $eventCont = new EventController;
 
 // Delete event Button onClick
 if (array_key_exists('delete', $_POST)) {
-    $eventCont->deleteEvent($_POST["delete"]);
+    $eventCont->deleteEvent($_SESSION["id"], $_POST["delete"]);
 }
+
+// Going event Button onClick
+if (array_key_exists('going', $_POST)) {
+    $eventCont->goingEvent($_SESSION["id"], $_POST["going"]);
+}
+
+// Cancel Going event Button onClick
+if (array_key_exists('cancelGoing', $_POST)) {
+    $eventCont->cancelGoingEvent($_SESSION["id"], $_POST["cancelGoing"]);
+}
+
 ?>
 
 
@@ -27,7 +38,7 @@ if (array_key_exists('delete', $_POST)) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Events</title>
+    <title>LinkedIn - Events</title>
 
     <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon">
@@ -52,7 +63,7 @@ if (array_key_exists('delete', $_POST)) {
 <body>
     <?php require_once "components/header.php" ?>
     <div class="container my-5 pt-5">
-        <h2>Events</h2>
+        <h2>My Events</h2>
         <a class="btn btn-primary " href="/linkedIn/views/createEvent.php" role="button">Create a new Event</a>
         <table class="table">
             <thead>
@@ -65,7 +76,7 @@ if (array_key_exists('delete', $_POST)) {
             </thead>
             <tbody>
                 <?php
-                $result = $eventCont->getMyEvents(5);
+                $result = $eventCont->getMyEvents($_SESSION["id"]);
                 if ($result) {
                     foreach ($result as $row) {
                         echo "
@@ -87,20 +98,20 @@ if (array_key_exists('delete', $_POST)) {
         </table>
     </div>
 
-    <!-- ======= Popular Group Section ======= -->
+    <!-- ======= Going Events ======= -->
     <section id="popular-courses" class="courses">
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">
                 <br>
-                <h2>All</h2>
+                <h2>Going</h2>
                 <p>Events</p>
             </div>
             <div class="row" data-aos="zoom-in" data-aos-delay="100">
                 <?php
-                $events = $eventCont->getAllEvents();
-                if ($events) {
-                    foreach ($events as $row) {
+                $goingEvents = $eventCont->getGoingEvents($_SESSION["id"]);
+                if ($goingEvents) {
+                    foreach ($goingEvents as $row) {
                         echo "
                         <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
                         <div class=\"course-item\">
@@ -113,10 +124,9 @@ if (array_key_exists('delete', $_POST)) {
                             <p>" . $row["desc"] . "</p>
                             <div class=\"trainer d-flex justify-content-between align-items-center\">
                                 <div class=\"trainer-profile d-flex align-items-center\">
-                                    <div class=\"form-check form-switch\">
-                                        <input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" />
-                                        <label class=\"form-check-label\" for=\"flexSwitchCheckDefault\">Going</label>
-                                    </div>
+                                    <form method=\"POST\" action=\"events.php\" class=\"w-100\">
+                                        <button type=\"submit\" class='btn btn-success btn-md' name=\"cancelGoing\" value=" . $row["id"] . ">Cancel</button>    
+                                    </form>
                                 </div>
                                 <div class=\"trainer-rank d-flex align-items-center\">
                                 </div>
@@ -131,6 +141,51 @@ if (array_key_exists('delete', $_POST)) {
             </div>
         </div>
     </section>
+
+    <!-- ======= All Events ======= -->
+    <section id="popular-courses" class="courses">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <br>
+                <h2>All</h2>
+                <p>Events</p>
+            </div>
+            <div class="row" data-aos="zoom-in" data-aos-delay="100">
+                <?php
+                $events = $eventCont->getAllEvents($_SESSION["id"]);
+                if ($events) {
+                    foreach ($events as $row) {
+                        echo "
+                        <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
+                        <div class=\"course-item\">
+                            <img src=\"assets/img/course-1.jpg\" class=\"img-fluid\" alt=\"...\">
+                            <div class=\"course-content\">
+                            <div class=\"d-flex justify-content-between align-items-center mb-3\">
+                                <h4>" . $row["date"] . "</h4>
+                            </div>
+                            <h3><a href=\"course-details.html\">" . $row["title"] . "</a></h3>
+                            <p>" . $row["desc"] . "</p>
+                            <div class=\"trainer d-flex justify-content-between align-items-center\">
+                                <div class=\"trainer-profile d-flex align-items-center\">
+                                    <form method=\"POST\" action=\"events.php\" class=\"w-100\">
+                                        <button type=\"submit\" class='btn btn-success btn-md' name=\"going\" value=" . $row["id"] . ">Going</button>    
+                                    </form>
+                                </div>
+                                <div class=\"trainer-rank d-flex align-items-center\">
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        ";
+                    }
+                }
+                ?>
+            </div>
+        </div>
+    </section>
+
     <?php require_once "components/script.php" ?>
     <?php require_once "components/footer.php" ?>
 </body>

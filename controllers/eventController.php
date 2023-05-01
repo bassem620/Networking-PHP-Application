@@ -20,11 +20,11 @@ class EventController
         return false;
     }
 
-    public function deleteEvent($Event_id)
+    public function deleteEvent($user_id, $Event_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "DELETE FROM events WHERE id = '$Event_id'";
+            $query = "DELETE FROM events WHERE id = '$Event_id' AND user_id = '$user_id'";
             $result = $this->db->delete($query);
             if (!$result) {
                 return  false;
@@ -35,11 +35,11 @@ class EventController
         return false;
     }
 
-    public function events_Going($user_id, $event_id)
+    public function goingEvent($user_id, $event_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO events_Going values ('$user_id', '$event_id')";
+            $query = "INSERT INTO events_going values ('$user_id', '$event_id')";
             $result = $this->db->insert($query);
             if (!$result) {
                 return  false;
@@ -50,11 +50,26 @@ class EventController
         return false;
     }
 
-    public function getAllEvents()
+    public function cancelGoingEvent($user_id, $event_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT * FROM events";
+            $query = "DELETE FROM events_going WHERE user_id = '$user_id' AND event_id = '$event_id'";
+            $result = $this->db->delete($query);
+            if (!$result) {
+                return  false;
+            }
+            return true;
+        }
+        echo "Error in database connection";
+        return false;
+    }
+
+    public function getAllEvents($user_id)
+    {
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query = "SELECT * FROM events WHERE user_id != '$user_id'";
             $result = $this->db->select($query);
             if (!$result) {
                 return false;
@@ -69,11 +84,12 @@ class EventController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT * from events INNER JOIN events_Going ON id=event_id WHERE user_id='$user_id'";
-            if (!$this->db->select($query)) {
+            $query = "SELECT * from events AS e INNER JOIN events_Going AS eg ON e.id=eg.event_id WHERE eg.user_id='$user_id'";
+            $result = $this->db->select($query);
+            if (!$result) {
                 return false;
             }
-            return true;
+            return $result;
         }
         echo "Error in database connection";
         return false;
