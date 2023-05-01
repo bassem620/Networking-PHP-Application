@@ -17,7 +17,7 @@ CREATE TABLE `premium`(
   `start_date` date NOT NULL,
   `exp_date` date NOT NULL,
   PRIMARY KEY (`user_id`),
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `websites` (
@@ -26,7 +26,7 @@ CREATE TABLE `websites` (
   `link` varchar(100) NOT NULL,
   `type` varchar(50) NOT NULL,
   PRIMARY KEY (`id`, `user_id`),
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `educations` (
@@ -39,7 +39,7 @@ CREATE TABLE `educations` (
   `end_date` datetime,
   `grade` varchar(50),
   PRIMARY KEY (`id`, `user_id`),
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `positions` (
@@ -54,7 +54,7 @@ CREATE TABLE `positions` (
   `currently_working` boolean DEFAULT 1 NOT NULL,
   `industry` varchar(50),
   PRIMARY KEY (`id`, `user_id`),
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `certifications` (
@@ -67,7 +67,7 @@ CREATE TABLE `certifications` (
   `cred_id` varchar(50)  NOT NULL,
   `cred_url` varchar(100) NOT NULL,
   PRIMARY KEY (`id`, `user_id`),
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `messege` (
@@ -77,16 +77,16 @@ CREATE TABLE `messege` (
   `messege` varchar(100)  NOT NULL,
   `date_time` datetime  NOT NULL,
   PRIMARY KEY (`id`, `sender_id`, `reciver_id`),
-  FOREIGN KEY (sender_id) REFERENCES users(id),
-  FOREIGN KEY (reciver_id) REFERENCES users(id)
+  FOREIGN KEY (sender_id) REFERENCES users(id), ON DELETE CASCADE,
+  FOREIGN KEY (reciver_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `following` (
   `user1_id` int,
   `user2_id` int,
   PRIMARY KEY (`user1_id`, `user2_id`),
-  FOREIGN KEY (user1_id) REFERENCES users(id),
-  FOREIGN KEY (user2_id) REFERENCES users(id)
+  FOREIGN KEY (user1_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (user2_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `connections` (
@@ -94,8 +94,8 @@ CREATE TABLE `connections` (
   `user2_id` int,
   `state` boolean DEFAULT 0,
   PRIMARY KEY (`user1_id`, `user2_id`),
-  FOREIGN KEY (user1_id) REFERENCES users(id),
-  FOREIGN KEY (user2_id) REFERENCES users(id)
+  FOREIGN KEY (user1_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (user2_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `skills` (
@@ -108,16 +108,16 @@ CREATE TABLE `user_skills` (
   `user_id` int NOT NULL,
   `skill_id` int  NOT NULL,
   PRIMARY KEY (`user_id`, `skill_id`),
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (skill_id) REFERENCES skills(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (skill_id) REFERENCES skills(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `cert_skills` (
   `skill_id` int NOT NULL,
   `cert_id` int NOT NULL,
   PRIMARY KEY (`skill_id`, `cert_id`),
-  FOREIGN KEY (skill_id) REFERENCES skills(id),
-  FOREIGN KEY (cert_id) REFERENCES certifications(id)
+  FOREIGN KEY (skill_id) REFERENCES skills(id) ON DELETE CASCADE,
+  FOREIGN KEY (cert_id) REFERENCES certifications(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `endorses` (
@@ -125,9 +125,9 @@ CREATE TABLE `endorses` (
   `user2_id` int NOT NULL,
   `skill_id` int NOT NULL,
   PRIMARY KEY (`user1_id`, `user2_id`, `skill_id`),
-  FOREIGN KEY (user1_id) REFERENCES users(id),
-  FOREIGN KEY (user2_id) REFERENCES users(id),
-  FOREIGN KEY (skill_id) REFERENCES skills(id)
+  FOREIGN KEY (user1_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (user2_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (skill_id) REFERENCES skills(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `jobs` (
@@ -140,15 +140,15 @@ CREATE TABLE `jobs` (
   `location` varchar(50),
   `creator_id` int  NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (creator_id) REFERENCES users(id)
+  FOREIGN KEY (creator_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `applied_jobs` (
   `user_id` int,
   `job_id` int,
   PRIMARY KEY (`user_id`, `job_id`),
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (job_id) REFERENCES jobs(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `groups` (
@@ -157,15 +157,15 @@ CREATE TABLE `groups` (
   `state` boolean,
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY(user_id) REFERENCES users(id)
+  FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `joined_groups` (
   `user_id` int,
   `group_id` int,
   PRIMARY KEY (`user_id`, `group_id`),
-  FOREIGN KEY(user_id) REFERENCES users(id),
-  FOREIGN KEY(group_id) REFERENCES groups(id)
+  FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY(group_id) REFERENCES groups(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `events` (
@@ -175,15 +175,15 @@ CREATE TABLE `events` (
   `date` datetime not null,
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY(user_id) REFERENCES users(id)
+  FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `events_Going` (
   `user_id` int,
   `event_id` int,
   PRIMARY KEY (`user_id`, `event_id`),
-  foreign key(user_id) references users(id),
-  foreign key(event_id) references `events`(id)
+  foreign key(user_id) references users(id) ON DELETE CASCADE,
+  foreign key(event_id) references `events`(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `posts` (
@@ -194,7 +194,7 @@ CREATE TABLE `posts` (
   `media_url` varchar(100),
   `visibility` boolean,
   PRIMARY KEY (`id`),
-  foreign key(group_id) references `groups`(id)
+  foreign key(group_id) references `groups`(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `post_comments` (
@@ -202,16 +202,16 @@ CREATE TABLE `post_comments` (
   `user_id` int NOT NULL,
   `comment`  varchar(200) NOT NULL,
   PRIMARY KEY (`post_id`, `user_id`),
-  foreign key (post_id) references posts(id),
-  foreign key(user_id) references users(id)
+  foreign key (post_id) references posts(id) ON DELETE CASCADE,
+  foreign key(user_id) references users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `post_Likes` (
   `post_id` int NOT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`post_id`, `user_id`),
-  foreign key(user_id) references users(id),
-  foreign key(post_id) references posts(id)
+  foreign key(user_id) references users(id) ON DELETE CASCADE,
+  foreign key(post_id) references posts(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `courses` (
@@ -235,16 +235,16 @@ CREATE TABLE `course_quiz` (
   `course_id` int not null,
   `quiz_id` int not null,
   PRIMARY KEY (`course_id`, `quiz_id`),
-  foreign key(course_id) references courses(course_id),
-  foreign key(quiz_id) references quizzes(course_quiz_id)
+  foreign key(course_id) references courses(course_id) ON DELETE CASCADE,
+  foreign key(quiz_id) references quizzes(course_quiz_id) ON DELETE CASCADE
 );
 
 CREATE TABLE `courses_users` (
   `course_id` int not null,
   `user_id` int not null,
   PRIMARY KEY (`course_id`, `user_id`),
-  foreign key(course_id) references courses(course_id),
-  foreign key(user_id) references users(id)
+  foreign key(course_id) references courses(course_id) ON DELETE CASCADE,
+  foreign key(user_id) references users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `review_courses` (
@@ -252,14 +252,14 @@ CREATE TABLE `review_courses` (
   `course_id` int not null,
   `review` decimal(1,1) not null,
   PRIMARY KEY (`user_id`, `course_id`),
-  foreign key(course_id) references courses(course_id),
-  foreign key(user_id) references users(id)
+  foreign key(course_id) references courses(course_id) ON DELETE CASCADE,
+  foreign key(user_id) references users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `saved_courses` (
   `user_id` int not null,
   `course_id` int not null,
   PRIMARY KEY (`user_id`, `course_id`),
-  foreign key(course_id) references courses(course_id),
-  foreign key(user_id) references users(id)
+  foreign key(course_id) references courses(course_id) ON DELETE CASCADE,
+  foreign key(user_id) references users(id) ON DELETE CASCADE
 );
