@@ -98,13 +98,14 @@ if (array_key_exists('getCourse', $_POST)) {
                 <?php
                 if ($myCourses) {
                     foreach ($myCourses as $row) {
+                        $desc = substr($row["desc"], 0, 70) . "...";
                         echo "
                         <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
                         <div class=\"course-item\">
                             <img src=\"assets/img/course-1.jpg\" class=\"img-fluid\" alt=\"...\">
                             <div class=\"course-content\">
                             <h3><a href=\"course-details.html\">" . $row["name"] . "</a></h3>
-                            <p>" . $row["desc"] . "</p>
+                            <p>" . $desc . "</p>
                             <div class=\"trainer d-flex justify-content-between align-items-center\">
                                 <div class=\"trainer-profile d-flex align-items-center\">
                                     <form method=\"POST\" action=\"events.php\" class=\"w-100\">
@@ -137,6 +138,7 @@ if (array_key_exists('getCourse', $_POST)) {
                 <?php
                 if ($courses) {
                     foreach ($courses as $key=>$row) {
+                        $desc = substr($row["desc"], 0, 70) . "...";
                         echo "
                         <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\">
                         <div class=\"course-item\">
@@ -146,7 +148,7 @@ if (array_key_exists('getCourse', $_POST)) {
                                 <h4>" . $row["price"] . "</h4>
                             </div>
                             <h3><a href=\"course-details.html\">" . $row["name"] . "</a></h3>
-                            <p>" . $row["desc"] . "</p>
+                            <p>" . $desc . "</p>
                             <div class=\"trainer d-flex justify-content-between align-items-center\">
                                 <div class=\"trainer-profile d-flex align-items-center\">
                                     <form method=\"POST\" action=\"browseCourses.php\" class=\"w-100\">
