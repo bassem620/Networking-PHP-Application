@@ -1,6 +1,6 @@
 <?php
 require_once "../controllers/userController.php";
-
+require_once "../controllers/postController.php";
 // Check Session
 if (!isset($_SESSION["id"])) {
    session_start();
@@ -9,6 +9,9 @@ if (!isset($_SESSION["id"])) {
       exit();
    }
 }
+
+$postsControllers = new PostController;
+$post = $postsControllers->getPosts($_SESSION["id"]);
 
 ?>
 
@@ -45,43 +48,56 @@ if (!isset($_SESSION["id"])) {
                      <div class="tab-pane fade active show" id="profile-post">
                         <ul class="timeline">
                            <li>
-                              <div class="timeline-body">
-                                 <div class="timeline-header">
-                                    <span class="username"><a href="javascript:;">name</a></span>
+                              <?php
+                              if ($post) {
+                                 foreach ($post as $key=>$row) {
+                                    $getComments = $postsControllers->getComments($row["id"]);
+                                    $getLikes = $postsControllers->getLikes($row["id"]);
+                                    $commentCounts =0;
+                                    if($getComments != null){
+                                    $commentCounts = count($getComments);}
+                                    $LikesCounts = 0;
+                                    if($getLikes != null){
+                                       $LikesCounts = count($getLikes);}
+                                    echo "
+                              <div class=\"timeline-body mb-5\">
+                                 <div class=\"timeline-header\">
+                                    <span class=\"username\"><a href=\"javascript:;\">" . $row["firstName"] . $row["lastName"] . "</a></span>
                                  </div>
-                                 <div class="timeline-content">
+                                 <div class=\"timeline-content\">
                                     <p>
-                                       post..................
+                                       ".$row["desc"]."
                                     </p>
                                  </div>
-                                 <div class="timeline-likes">
-                                    <div class="stats-right">
-                                       <span class="stats-text">0000Comments</span>
+                                 <div class=\"timeline-likes\">
+                                    <div class=\"stats-right\">
+                                       <span class=\"stats-text\">". $commentCounts."</span>
                                     </div>
-                                    <div class="stats">
-                                       <span class="stats-total">000k</span>
-                                       <span class="fa-stack fa-fw stats-icon">
-                                          <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                                          <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
+                                    <div class=\"stats\">
+                                       <span class=\"stats-total\">".$LikesCounts."</span>
+                                       <span class=\"fa-stack fa-fw stats-icon\">
+                                          <i class=\"fa fa-circle fa-stack-2x text-primary\"></i>
+                                          <i class=\"fa fa-thumbs-up fa-stack-1x fa-inverse\"></i>
                                        </span>
                                     </div>
                                  </div>
-                                 <div class="timeline-footer">
-                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
+                                 <div class=\"timeline-footer\">
+                                    <a href=\"javascript:;\" class=\"m-r-15 text-inverse-lighter\"><i class=\"fa fa-thumbs-up fa-fw fa-lg m-r-3\"></i> Like</a>
                                  </div>
-                                 <div class="timeline-comment-box">
-                                    <div class="input">
-                                       <form action="">
-                                          <div class="input-group">
-                                             <input type="text" class="form-control rounded-corner" placeholder="Write a comment...">
-                                             <span class="input-group-btn p-l-10">
-                                                <button class="btn btn-primary f-s-12 rounded-corner" type="button">Comment</button>
+                                 <div class=\"timeline-comment-box\">
+                                    <div class=\"input\">
+                                       <form action=\"\">
+                                          <div class=\"input-group\">
+                                             <input type=\"text\" class=\"form-control rounded-corner\" placeholder=\"Write a comment...\">
+                                             <span class=\"input-group-btn p-l-10\">
+                                                <button class=\"btn btn-primary f-s-12 rounded-corner\" type=\"button\">Comment</button>
                                              </span>
                                           </div>
                                        </form>
                                     </div>
                                  </div>
-                              </div>
+                              </div>";}}
+                              ?>
                            </li>
                         </ul>
                      </div>

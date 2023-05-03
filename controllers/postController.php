@@ -138,30 +138,26 @@ class PostController
         if ($this->db->openConnection()) {
             $query = "delete from post_likes where post_id='$post_id' and user_id='$user_id'";
             $result = $this->db->delete($query);
-            if (!$result) {
-                $_SESSION["errMsg"] = "Somthing went wrong... try again";
-                $this->db->closeConnection();
+            if (!$result || count($result) == 0) {
                 return false;
             }
-            return true;
+            return $result;
         }
-        echo "Error in Database Connection";
+        echo "error in connection";
         return false;
     }
 
     public function getPosts($user_id){
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT `users`.`firstName` , `users`.`lastName` , `posts`.`desc` , `posts`.`media_url` FROM posts INNER JOIN users on `users`.`id`= `posts`.`user_id` WHERE `posts`.`group_id` is null AND not `posts`.`user_id` = ".$user_id.";";
-            $result = $this->db->delete($query);
-            if (!$result) {
-                $_SESSION["errMsg"] = "Somthing went wrong... try again";
-                $this->db->closeConnection();
+            $query = "SELECT `users`.`firstName` , `users`.`lastName` , `posts`.`id` , `posts`.`desc` , `posts`.`media_url` FROM posts INNER JOIN users on `users`.`id`= `posts`.`user_id` WHERE `posts`.`group_id` is null AND not `posts`.`user_id` = ".$user_id.";";
+            $result = $this->db->select($query);
+            if (!$result || count($result) == 0) {
                 return false;
             }
-            return true;
+            return $result;
         }
-        echo "Error in Database Connection";
+        echo "error in connection";
         return false;
     }
 
@@ -170,15 +166,13 @@ class PostController
         $this->db = new DBController;
         if ($this->db->openConnection()) {
             $query = "SELECT `comment` FROM `post_comments` where `post_id` = ".$post_id.";";
-            $result = $this->db->delete($query);
-            if (!$result) {
-                $_SESSION["errMsg"] = "Somthing went wrong... try again";
-                $this->db->closeConnection();
-                return false;
+            $result = $this->db->select($query);
+            if (!$result || count($result) == 0) {
+                return null;
             }
-            return true;
+            return $result;
         }
-        echo "Error in Database Connection";
+        echo "error in connection";
         return false;
     }
     public function getLikes($post_id)
@@ -186,15 +180,13 @@ class PostController
         $this->db = new DBController;
         if ($this->db->openConnection()) {
             $query = "SELECT `users`.`firstName` , `users`.`lastName` from `post_likes` inner join `users` on `users`.`id` = `post_likes`.`user_id` where `post_likes`.`post_id` = ".$post_id.";";
-            $result = $this->db->delete($query);
-            if (!$result) {
-                $_SESSION["errMsg"] = "Somthing went wrong... try again";
-                $this->db->closeConnection();
-                return false;
+            $result = $this->db->select($query);
+            if (!$result || count($result) == 0) {
+                return null;
             }
-            return true;
+            return $result;
         }
-        echo "Error in Database Connection";
+        echo "error in connection";
         return false;
     }
 }
