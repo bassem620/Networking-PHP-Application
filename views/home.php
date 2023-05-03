@@ -9,9 +9,6 @@ if (!isset($_SESSION["id"])) {
       exit();
    }
 }
-require_once "../controllers/premiumController.php";
- $pre= new PremiumConrtroller;
- $pre->exportConnections(1);
 
 ?>
 
