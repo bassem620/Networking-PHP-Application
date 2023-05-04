@@ -32,8 +32,7 @@ if ($_GET["fn"] == "personalInfo") {
     $profile->phone = $_POST["phone"];
     $profile->birthday = $_POST["birthday"];
     $result = $profileController->editProfile($user, $profile);
-    if($result)
-    {
+    if ($result) {
         header("Location: profile.php?id=" . $_SESSION["id"]);
         exit();
     }
@@ -45,8 +44,7 @@ if ($_GET["fn"] == "addWebsite") {
     $web->type = $_POST["type"];
     $web->link = $_POST["url"];
     $result = $profileController->addWebsite($_SESSION["id"], $web);
-    if($result)
-    {
+    if ($result) {
         header("Location: profile.php?id=" . $_SESSION["id"]);
         exit();
     }
@@ -59,14 +57,13 @@ if ($_GET["fn"] == "addCert") {
     $cert->organization = $_POST["organization"];
     $cert->issue_date = $_POST["issueDate"];
     $cert->exp_date = '';
-    if($_POST["expDate"]){
+    if ($_POST["expDate"]) {
         $cert->exp_date = $_POST["expDate"];
     }
     $cert->cred_url = $_POST["credUrl"];
     $cert->cred_id = $_POST["credId"];
     $result = $profileController->addCertification($_SESSION["id"], $cert);
-    if($result)
-    {
+    if ($result) {
         header("Location: profile.php?id=" . $_SESSION["id"]);
         exit();
     }
@@ -80,14 +77,13 @@ if ($_GET["fn"] == "addPos") {
     $pos->start_date = $_POST["start"];
     $pos->end_date = $_POST["end"];
     $pos->currently_working = 0;
-    if($_POST["curr"]) {
+    if ($_POST["curr"]) {
         $pos->end_date = "0000-00-00";
         $pos->currently_working = 1;
     }
     $pos->industry = $_POST["industry"];
     $result = $profileController->addPosition($_SESSION["id"], $pos);
-    if($result)
-    {
+    if ($result) {
         header("Location: profile.php?id=" . $_SESSION["id"]);
         exit();
     }
@@ -96,8 +92,7 @@ if ($_GET["fn"] == "addPos") {
 // Add Skill
 if ($_GET["fn"] == "addSkill") {
     $result = $profileController->addSkill($_SESSION["id"], $_POST["skill"]);
-    if($result)
-    {
+    if ($result) {
         header("Location: editProfile.php");
         exit();
     }
@@ -106,8 +101,7 @@ if ($_GET["fn"] == "addSkill") {
 // Remove Skill
 if ($_GET["fn"] == "rmSkill") {
     $result = $profileController->deleteSkill($_SESSION["id"], $_POST["skill"]);
-    if($result)
-    {
+    if ($result) {
         header("Location: editProfile.php");
         exit();
     }
@@ -124,8 +118,7 @@ if ($_GET["fn"] == "addEdu") {
     $edu->end_date = $_POST["end"];
     $edu->grade = $_POST["grade"];
     $result = $profileController->addEducation($_SESSION["id"], $edu);
-    if($result)
-    {
+    if ($result) {
         header("Location: editProfile.php");
         exit();
     }

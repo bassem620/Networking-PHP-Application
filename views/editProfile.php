@@ -126,7 +126,7 @@ $mySkills = $profileController->getMySkills($_SESSION["id"]);
                                         <input type="phone" class="form-control" name="phone" value=<?php echo $profile->phone; ?>>
                                     </div>
                                     <div>
-                                    <label for="openTo">Open To</label>
+                                        <label for="openTo">Open To</label>
                                         <select name="openTo" id="openTo">
                                             <option value="work">Work</option>
                                             <option value="work">Hiring</option>
@@ -150,10 +150,10 @@ $mySkills = $profileController->getMySkills($_SESSION["id"]);
                                     <select class="form-select" aria-label="Default select example" name="skill">
                                         <option disabled selected>Select Skill</option>
                                         <?php
-                                            foreach($skills as $key => $skill) {
-                                                ?><option value=<?php echo $skill["id"] ?>><?php echo $skill["name"]?></option><?php
-                                            }
-                                        ?>
+                                        foreach ($skills as $key => $skill) {
+                                        ?><option value=<?php echo $skill["id"] ?>><?php echo $skill["name"] ?></option><?php
+                                                                                                                    }
+                                                                                                                        ?>
                                     </select>
                                     <button type="submit" class="btn btn-transparent">Add</button>
                                 </form>
@@ -166,10 +166,10 @@ $mySkills = $profileController->getMySkills($_SESSION["id"]);
                                     <select class="form-select" aria-label="Default select example" name="skill">
                                         <option disabled selected>Select Skill</option>
                                         <?php
-                                            foreach($mySkills as $key => $skill) {
-                                                ?><option value=<?php echo $skill["id"] ?>><?php echo $skill["name"]?></option><?php
-                                            }
-                                        ?>
+                                        foreach ($mySkills as $key => $skill) {
+                                        ?><option value=<?php echo $skill["id"] ?>><?php echo $skill["name"] ?></option><?php
+                                                                                                                    }
+                                                                                                                        ?>
                                     </select>
                                     <button type="submit" class="btn btn-transparent">Remove</button>
                                 </form>
@@ -232,7 +232,7 @@ $mySkills = $profileController->getMySkills($_SESSION["id"]);
                         <div class="col-lg-6 col-md-6">
                             <div class="widget change-password">
                                 <h3 class="widget-header user">Education</h3>
-                                <form  action="editProfileLogic.php?fn=addEdu" method="POST">
+                                <form action="editProfileLogic.php?fn=addEdu" method="POST">
                                     <div class="form-group">
                                         <label for="schoolName">School/University</label>
                                         <input type="text" class="form-control" name="schoolName">
