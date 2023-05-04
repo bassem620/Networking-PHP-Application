@@ -52,4 +52,24 @@ if ($_GET["fn"] == "addWebsite") {
     }
 }
 
+// Add Certificate
+if ($_GET["fn"] == "addCert") {
+    $cert = new Certificate;
+    $cert->name = $_POST["name"];
+    $cert->organization = $_POST["organization"];
+    $cert->issue_date = $_POST["issueDate"];
+    $cert->exp_date = '';
+    if($_POST["expDate"]){
+        $cert->exp_date = $_POST["expDate"];
+    }
+    $cert->cred_url = $_POST["credUrl"];
+    $cert->cred_id = $_POST["credId"];
+    $result = $profileController->addCertification($_SESSION["id"], $cert);
+    if($result)
+    {
+        header("Location: profile.php?id=" . $_SESSION["id"]);
+        exit();
+    }
+}
+
 print_r($_POST);

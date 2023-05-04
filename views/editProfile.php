@@ -248,20 +248,32 @@ $profile->about = $result[0]["about"];
                         <div class="col-lg-6 col-md-6">
                             <div class="widget change-email mb-0">
                                 <h3 class="widget-header user">Certifications</h3>
-                                <form action="#">
+                                <form action="editProfileLogic.php?fn=addCert" method="POST">
                                     <div class="form-group">
                                         <label for="name">Name</label>
                                         <input type="text" class="form-control" name="name">
                                     </div>
                                     <div class="form-group">
                                         <label for="organization">Organization</label>
-                                        <input type="email" class="form-control" name="organization">
+                                        <input type="text" class="form-control" name="organization">
                                     </div>
                                     <div class="form-group">
-                                        <label for="issue_date">Issue date</label>
+                                        <label for="organization">Credential ID</label>
+                                        <input type="text" class="form-control" name="credId">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="organization">Credential URL</label>
+                                        <input type="text" class="form-control" name="credUrl">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="issueDate">Issue date</label>
                                         <input type="date" class="form-control" name="issueDate">
                                     </div>
-                                    <button class="btn btn-transparent">Add</button>
+                                    <div class="form-group">
+                                        <label for="expDate">Expire date</label>
+                                        <input type="date" class="form-control" name="expDate">
+                                    </div>
+                                    <button type="submit" class="btn btn-transparent">Add</button>
                                 </form>
                             </div>
                         </div>

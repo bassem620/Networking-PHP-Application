@@ -13,11 +13,11 @@ class ProfileController
 {
     protected $db;
 
-    public function addCertification(User $user, Certificate $cert)
+    public function addCertification($user_id, Certificate $cert)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO certifications ( `user_id`, `name`, `organization`, `issue_date`, `exp_date`, `cred_id`, `cred_url`) VALUES ('$user-> user_id','$cert-> name','$cert->organization','$cert->issue_date','$cert->exp_date','$cert->cred_id','$cert->cred_url');";
+            $query = "INSERT INTO certifications ( `user_id`, `name`, `organization`, `issue_date`, `exp_date`, `cred_id`, `cred_url`) VALUES ('$user_id','$cert->name','$cert->organization','$cert->issue_date','$cert->exp_date','$cert->cred_id','$cert->cred_url');";
             $result = $this->db->insert($query);
             if ($result) {
                 return $result;
@@ -30,11 +30,11 @@ class ProfileController
         return false;
     }
 
-    public function deleteCertification(User $user, Certificate $cert)
+    public function deleteCertification($user_id, Certificate $cert)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "delete from certifications where cert_id = '$cert->id' ";
+            $query = "DELETE FROM certifications WHERE user_id = '$user_id' AND cert_id = '$cert->id'";
             $result = $this->db->delete($query);
             if (!$result) {
                 $_SESSION["errMsg"] = "Somthing went wrong... try again";
@@ -46,6 +46,7 @@ class ProfileController
         echo "Error in Database Connection";
         return false;
     }
+    
     public function addEducation(User $user, education $educ)
     {
         $this->db = new DBController;
