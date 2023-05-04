@@ -31,9 +31,8 @@ $profile->about = $result[0]["about"];
 
 $checkResult = $userController->checkConnection($_SESSION["id"], $_GET["id"]);
 $pending = null;
-if($checkResult) {
-    if($checkResult[0]["state"] == 0) 
-    {
+if ($checkResult) {
+    if ($checkResult[0]["state"] == 0) {
         $pending = true;
     } else {
         $pending = false;
@@ -64,7 +63,7 @@ if($checkResult) {
 
     <!-- ** Basic Page Needs ** -->
     <meta charset="utf-8">
-    <title><?php echo $user->firstName . " " . $user->lastName ; ?></title>
+    <title><?php echo $user->firstName . " " . $user->lastName; ?></title>
 
     <!-- ** Mobile Specific Metas ** -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -102,74 +101,84 @@ if($checkResult) {
                                 <img src="../views/assets/img/about.jpg" alt="" class="">
                             </div>
                             <!-- User Name -->
-                            <h5 class="text-center"><?php echo $user->firstName . " " . $user->lastName ; ?></h5>
+                            <h5 class="text-center"><?php echo $user->firstName . " " . $user->lastName; ?></h5>
                             <?php
-                                // Premium Badge
-                                if($user->profileType > 0) { ?>
-                                    <h6 class="text-center">
-                                        (Premium User)
-                                    </h6> <?php
-                                }
-                            ?>
-                                <div class="d-flex justify-content-center align-items-center">
-                                    <!-- Buttons -->
-                                    <?php
-                                    if($_GET["id"] == $_SESSION["id"]) { ?>
-                                        <a href="editProfile.php" class="get-started-btn">
-                                            Edit Profile
+                            // Premium Badge
+                            if ($user->profileType > 0) { ?>
+                                <h6 class="text-center">
+                                    (Premium User)
+                                </h6> <?php
+                                    }
+                                        ?>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <!-- Buttons -->
+                                <?php
+                                if ($_GET["id"] == $_SESSION["id"]) { ?>
+                                    <a href="editProfile.php" class="get-started-btn">
+                                        Edit Profile
+                                    </a> <?php
+                                        } else {
+                                            if (!$checkResult) { ?>
+                                        <a href="auth/logout.php" class="get-started-btn">
+                                            Connect
                                         </a> <?php
-                                    } else {
-                                        if(!$checkResult) { ?>
-                                            <a href="auth/logout.php" class="get-started-btn">
-                                                Connect
-                                            </a> <?php
-                                        } else if($pending){ ?>
-                                            <a href="auth/logout.php" class="get-started-btn" >
-                                                Pending
-                                            </a> <?php
-                                        } else { ?>
-                                            <a href="auth/logout.php" class="get-started-btn">
-                                                Remove
-                                            </a> <?php
+                                            } else if ($pending) { ?>
+                                        <a href="auth/logout.php" class="get-started-btn">
+                                            Pending
+                                        </a> <?php
+                                            } else { ?>
+                                        <a href="auth/logout.php" class="get-started-btn">
+                                            Remove
+                                        </a> <?php
+                                            }
                                         }
-                                    }
-                                    // Subscription
-                                    if($_GET["id"] == $_SESSION["id"] && $user->profileType == 0) { ?>
-                                        <a href="auth/logout.php" class="get-started-btn">
-                                            Upgrade To Premium
-                                        </a> <?php
-                                    } else if ($_GET["id"] == $_SESSION["id"]) { ?>
-                                        <a href="auth/logout.php" class="get-started-btn">
-                                            Cancel Subscription
-                                        </a> <?php
-                                    }
-                                    ?>
-                                </div>
+                                        // Subscription
+                                        if ($_GET["id"] == $_SESSION["id"] && $user->profileType == 0) { ?>
+                                    <a href="auth/logout.php" class="get-started-btn">
+                                        Upgrade To Premium
+                                    </a> <?php
+                                        } else if ($_GET["id"] == $_SESSION["id"]) { ?>
+                                    <a href="auth/logout.php" class="get-started-btn">
+                                        Cancel Subscription
+                                    </a> <?php
+                                        }
+                                            ?>
+                            </div>
                         </div>
                         <!-- Dashboard Links -->
                         <div class="widget user-dashboard-menu">
                             <ul>
-                                <li class="m-3"><h6 class="d-inline">Email: </h6> <?php echo $user->email; ?></li>
-                                <?php 
-                                    if($profile->birthday) { ?>
-                                        <li class="m-3"><h6 class="d-inline">Birthday: </h6> <?php echo $profile->birthday; ?></li><?php
-                                    }
-                                ?>
-                                <?php 
-                                    if($user->openTo) { ?>
-                                        <li class="m-3"><h6 class="d-inline">Open To: </h6> <?php echo $user->openTo; ?></li><?php
-                                    }
-                                ?>
-                                <?php 
-                                    if($profile->phone) { ?>
-                                        <li class="m-3"><h6 class="d-inline">Phone: </h6> <?php echo "+20" . $profile->phone; ?></li><?php
-                                    }
-                                ?>
-                                <?php 
-                                    if($profile->about) { ?>
-                                        <li class="m-3"><h6 class="d-inline">About: </h6> <?php echo $profile->about; ?></li><?php
-                                    }
-                                ?>
+                                <li class="m-3">
+                                    <h6 class="d-inline">Email: </h6> <?php echo $user->email; ?>
+                                </li>
+                                <?php
+                                if ($profile->birthday) { ?>
+                                    <li class="m-3">
+                                        <h6 class="d-inline">Birthday: </h6> <?php echo $profile->birthday; ?>
+                                    </li><?php
+                                        }
+                                            ?>
+                                <?php
+                                if ($user->openTo) { ?>
+                                    <li class="m-3">
+                                        <h6 class="d-inline">Open To: </h6> <?php echo $user->openTo; ?>
+                                    </li><?php
+                                        }
+                                            ?>
+                                <?php
+                                if ($profile->phone) { ?>
+                                    <li class="m-3">
+                                        <h6 class="d-inline">Phone: </h6> <?php echo "+20" . $profile->phone; ?>
+                                    </li><?php
+                                        }
+                                            ?>
+                                <?php
+                                if ($profile->about) { ?>
+                                    <li class="m-3">
+                                        <h6 class="d-inline">About: </h6> <?php echo $profile->about; ?>
+                                    </li><?php
+                                        }
+                                            ?>
                             </ul>
                         </div>
                     </div>

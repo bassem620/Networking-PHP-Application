@@ -31,17 +31,18 @@ class PremiumConrtroller
             $result1 = $this->db->select($query1);
             $query2 = "SELECT `users`.`firstName`, `users`.`lastName` FROM users INNER join connections on `users`.`id`= `connections`.`user1_id` where `connections`.`user2_id` = 1;";
             $result2 = $this->db->select($query2);
-            $result=array_merge($result1, $result2);
+            $result = array_merge($result1, $result2);
             ob_end_clean();
             $pdf = new FPDF();
             // Define alias for number of pages
             $pdf->AddPage();
             $pdf->SetFont('Times', '', 14);
-            $counter=1;
-            foreach ($result as $row){
-                $pdf->Cell(0, 10, $counter.") "
-                    . $row["firstName"]." " . $row["lastName"], 0, 1);
-                $counter++;}
+            $counter = 1;
+            foreach ($result as $row) {
+                $pdf->Cell(0, 10, $counter . ") "
+                    . $row["firstName"] . " " . $row["lastName"], 0, 1);
+                $counter++;
+            }
             $pdf->Output();
         }
         echo "Error in Database Connection";

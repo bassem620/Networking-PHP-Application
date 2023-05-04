@@ -206,16 +206,16 @@ $profile->about = $result[0]["about"];
                                             <?php
                                             for ($i = 1990; $i <= date("Y"); $i++) { ?>
                                                 <option value=<?php echo $i ?>><?php echo $i ?></option> <?php
-                                                }
-                                                ?>
+                                                                                                        }
+                                                                                                            ?>
                                         </select>
                                         <label for="end">End</label>
                                         <select name="end" id="end">
                                             <?php
                                             for ($i = 1990; $i <= date("Y"); $i++) { ?>
                                                 <option value=<?php echo $i ?>><?php echo $i ?></option> <?php
-                                                }
-                                                ?>
+                                                                                                        }
+                                                                                                            ?>
                                         </select>
                                     </div>
                                     <button class="btn btn-transparent">Add</button>
