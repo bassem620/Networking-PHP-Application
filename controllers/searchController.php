@@ -4,47 +4,16 @@ class SearchController
 {
     protected $db;
 
-    public function searchMember(User $user, $text)
+    public function searchMember($text)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            //  Code
-            return true;
-        }
-        echo "Error in database connection";
-        return false;
-    }
-
-    public function searchJob(User $user, $text)
-    {
-        $this->db = new DBController;
-        if ($this->db->openConnection()) {
-            //  Code
-            return true;
-        }
-        echo "Error in database connection";
-        return false;
-    }
-
-    public function searchEvent(User $user, $text)
-    {
-        $this->db = new DBController;
-        if ($this->db->openConnection()) {
-            //  Code
-            return true;
-        }
-        echo "Error in database connection";
-        return false;
-    }
-
-    public function searchGroup(User $user, $text)
-    {
-        $this->db = new DBController;
-        if ($this->db->openConnection()) {
-            //  Code
-            return true;
-        }
-        echo "Error in database connection";
-        return false;
+            $query = "SELECT * FROM users WHERE firstName LIKE '%$text%' OR lastName LIKE '%$text%'";
+            $result = $this->db->select($query);
+            if(!$result) {
+                return false;
+            }
+            return $result;
+        }   
     }
 }
