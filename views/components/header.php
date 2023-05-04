@@ -4,7 +4,7 @@
         <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
             <li><a href="home.php">Home</a></li>
-            <li><a href="profile.php">Profile</a></li>
+            <li><a href=<?php echo "profile.php?id=" . $_SESSION["id"]?>>Profile</a></li>
             <li><a href="network.php">Network</a></li>
             <li><a href="browseCourses.php">Courses</a></li>
             <li><a href="jobs.php">Jobs</a></li>
