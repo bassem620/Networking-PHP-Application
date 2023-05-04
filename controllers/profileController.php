@@ -30,11 +30,11 @@ class ProfileController
         return false;
     }
 
-    public function deleteCertification($user_id, Certificate $cert)
+    public function deleteCertification($user_id, $cert_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "DELETE FROM certifications WHERE user_id = '$user_id' AND cert_id = '$cert->id'";
+            $query = "DELETE FROM certifications WHERE user_id = '$user_id' AND cert_id = '$cert_id'";
             $result = $this->db->delete($query);
             if (!$result) {
                 $_SESSION["errMsg"] = "Somthing went wrong... try again";
@@ -46,12 +46,12 @@ class ProfileController
         echo "Error in Database Connection";
         return false;
     }
-    
-    public function addEducation(User $user, education $educ)
+
+    public function addEducation($user_id, Education $edu)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO educations(`user_id`, `school`, `degree`, `field of study`, `start_date`, `end_date`, `grade`) VALUES ('$user -> user_id','$educ->school','$educ->degree','$educ-> field of study','$educ->start_date','$educ->end_date','$educ->grade')";
+            $query = "INSERT INTO educations(`user_id`, `school`, `degree`, `field of study`, `start_date`, `end_date`, `grade`) VALUES ('$user_id','$edu->school','$edu->degree','$edu-> field of study','$edu->start_date','$edu->end_date','$edu->grade')";
             $result = $this->db->insert($query);
             if ($result) {
                 return $result;
@@ -64,11 +64,11 @@ class ProfileController
         return false;
     }
 
-    public function deleteEducation(User $user, education $educ)
+    public function deleteEducation($user_id, $edu_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "delete from educations where id = '$educ->id' ";
+            $query = "DELETE FROM educations WHERE user_id = '$user_id' AND id = '$edu_id' ";
             $result = $this->db->delete($query);
             if (!$result) {
                 $_SESSION["errMsg"] = "Somthing went wrong... try again";
@@ -80,11 +80,12 @@ class ProfileController
         echo "Error in Database Connection";
         return false;
     }
-    public function addPosition(User $user, position $pos)
+
+    public function addPosition($user_id, Position $pos)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO `positions`(`user_id`, `title`, `type`, `company`, `location`, `start_date`, `end_date`, `currently_working`, `industry`) VALUES ('$user-> user_id','$pos->title','$pos->type','$pos->company','$pos->location','$pos->start_date','$pos->end_date','$pos->currently_working','$pos->industry')";
+            $query = "INSERT INTO `positions` (`user_id`, `title`, `type`, `company`, `location`, `start_date`, `end_date`, `currently_working`, `industry`) VALUES ('$user_id','$pos->title','$pos->type','$pos->company','','$pos->start_date','$pos->end_date','$pos->currently_working','$pos->industry')";
             $result = $this->db->insert($query);
             if ($result) {
                 return $result;
@@ -97,11 +98,11 @@ class ProfileController
         return false;
     }
 
-    public function deletePosition(User $user, position $pos)
+    public function deletePosition($user_id, $pos_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "delete from positions where id = '$pos->id' ";
+            $query = "DELETE FROM positions WHERE user_id = '$user_id' AND id = '$pos_id' ";
             $result = $this->db->delete($query);
             if (!$result) {
                 $_SESSION["errMsg"] = "Somthing went wrong... try again";
@@ -114,7 +115,7 @@ class ProfileController
         return false;
     }
 
-    public function editProfile(User $user, profile $pro)
+    public function editProfile(User $user, Profile $pro)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
@@ -131,11 +132,11 @@ class ProfileController
         return false;
     }
 
-    public function addSkill(User $user, skill $ski)
+    public function addSkill($user_id, $skill_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO skills(`name`) VALUES ('$ski-> name')";
+            $query = "INSERT INTO user_skills(user_id, skill_id) VALUES ('$user_id', '$skill_id')";
             $result = $this->db->insert($query);
             if ($result) {
                 return $result;
@@ -148,11 +149,11 @@ class ProfileController
         return false;
     }
 
-    public function deleteSkill(User $user, skill $ski)
+    public function deleteSkill($user_id, $skill_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "delete from skills where id = '$ski-> skill_id'and user_id='$user-> user_id'";
+            $query = "DELETE FROM skills WHERE id = '$skill_id' AND user_id='$user_id'";
             $result = $this->db->delete($query);
             if (!$result) {
                 $_SESSION["errMsg"] = "Somthing went wrong... try again";
@@ -165,7 +166,7 @@ class ProfileController
         return false;
     }
 
-    public function addWebsite($user_id, website $web)
+    public function addWebsite($user_id, Website $web)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {

@@ -1,6 +1,6 @@
 <?php 
 
-class position 
+class Position 
 {
   public $id;
   public $user_id;

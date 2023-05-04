@@ -72,4 +72,25 @@ if ($_GET["fn"] == "addCert") {
     }
 }
 
+// Add Position
+if ($_GET["fn"] == "addPos") {
+    $pos = new Position;
+    $pos->title = $_POST["title"];
+    $pos->company = $_POST["company"];
+    $pos->start_date = $_POST["start"];
+    $pos->end_date = $_POST["end"];
+    $pos->currently_working = 0;
+    if($_POST["curr"]) {
+        $pos->end_date = "0000-00-00";
+        $pos->currently_working = 1;
+    }
+    $pos->industry = $_POST["industry"];
+    $result = $profileController->addPosition($_SESSION["id"], $pos);
+    if($result)
+    {
+        header("Location: profile.php?id=" . $_SESSION["id"]);
+        exit();
+    }
+}
+
 print_r($_POST);
