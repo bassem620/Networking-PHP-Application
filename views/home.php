@@ -71,7 +71,7 @@ $post = $postsControllers->getPosts($_SESSION["id"]);
                                  </div>
                                  <div class=\"timeline-likes\">
                                     <div class=\"stats-right\">
-                                       <span class=\"stats-text\">". $commentCounts."</span>
+                                       <span class=\"stats-text\">". $commentCounts." comments</span>
                                     </div>
                                     <div class=\"stats\">
                                        <span class=\"stats-total\">".$LikesCounts."</span>
