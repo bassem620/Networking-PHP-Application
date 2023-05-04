@@ -228,26 +228,26 @@ $mySkills = $profileController->getMySkills($_SESSION["id"]);
                             </div>
                         </div>
 
-                        <!-- Education CHECK -->
+                        <!-- Education -->
                         <div class="col-lg-6 col-md-6">
                             <div class="widget change-password">
                                 <h3 class="widget-header user">Education</h3>
-                                <form action="">
+                                <form  action="editProfileLogic.php?fn=addEdu" method="POST">
                                     <div class="form-group">
                                         <label for="schoolName">School/University</label>
-                                        <input type="text" class="form-control" id="schoolName">
+                                        <input type="text" class="form-control" name="schoolName">
                                     </div>
                                     <div class="form-group">
                                         <label for="fos">Field of study</label>
-                                        <input type="text" class="form-control" id="fos" name="fos">
+                                        <input type="text" class="form-control" name="fos" name="fos">
                                     </div>
                                     <div class="form-group">
                                         <label for="grade">Grade</label>
-                                        <input type="text" class="form-control" id="grade" name="grade">
+                                        <input type="text" class="form-control" name="grade" name="grade">
                                     </div>
                                     <div>
                                         <label for="degree">degree</label>
-                                        <select name="degree" id="degree">
+                                        <select name="degree" name="degree">
                                             <option value="Diploma">Diploma</option>
                                             <option value="Associate Degree">Associate Degree</option>
                                             <option value="Bachelor Degree">Bachelor Degree</option>
@@ -256,24 +256,16 @@ $mySkills = $profileController->getMySkills($_SESSION["id"]);
                                         </select>
                                     </div>
                                     <div>
-                                        <label for="start">Start</label>
-                                        <select name="start" id="start">
-                                            <?php
-                                            for ($i = 1990; $i <= date("Y"); $i++) { ?>
-                                                <option value=<?php echo $i ?>><?php echo $i ?></option> <?php
-                                                                                                        }
-                                                                                                            ?>
-                                        </select>
-                                        <label for="end">End</label>
-                                        <select name="end" id="end">
-                                            <?php
-                                            for ($i = 1990; $i <= date("Y"); $i++) { ?>
-                                                <option value=<?php echo $i ?>><?php echo $i ?></option> <?php
-                                                                                                        }
-                                                                                                            ?>
-                                        </select>
+                                        <div class="form-group">
+                                            <label for="start">Start date</label>
+                                            <input type="date" class="form-control" name="start">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="end">Expire date</label>
+                                            <input type="date" class="form-control" name="end">
+                                        </div>
                                     </div>
-                                    <button class="btn btn-transparent">Add</button>
+                                    <button type="submit" class="btn btn-transparent">Add</button>
                                 </form>
                             </div>
                         </div>

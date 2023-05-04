@@ -113,4 +113,22 @@ if ($_GET["fn"] == "rmSkill") {
     }
 }
 
+// Add Education
+if ($_GET["fn"] == "addEdu") {
+    $edu = new Education;
+    $edu->user_id = $_SESSION["id"];
+    $edu->school = $_POST["schoolName"];
+    $edu->degree = $_POST["degree"];
+    $edu->field_of_study = $_POST["fos"];
+    $edu->start_date = $_POST["start"];
+    $edu->end_date = $_POST["end"];
+    $edu->grade = $_POST["grade"];
+    $result = $profileController->addEducation($_SESSION["id"], $edu);
+    if($result)
+    {
+        header("Location: editProfile.php");
+        exit();
+    }
+}
+
 print_r($_POST);

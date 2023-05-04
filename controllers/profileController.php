@@ -51,7 +51,7 @@ class ProfileController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO educations(`user_id`, `school`, `degree`, `field of study`, `start_date`, `end_date`, `grade`) VALUES ('$user_id','$edu->school','$edu->degree','$edu-> field of study','$edu->start_date','$edu->end_date','$edu->grade')";
+            $query = "INSERT INTO educations(`user_id`, `school`, `degree`, `field of study`, `start_date`, `end_date`, `grade`) VALUES ('$user_id','$edu->school','$edu->degree','$edu->field_of_study','$edu->start_date','$edu->end_date','$edu->grade')";
             $result = $this->db->insert($query);
             if ($result) {
                 return $result;

@@ -1,6 +1,6 @@
 <?php 
 
-class education
+class Education
 {
   public $id;
   public $user_id;
