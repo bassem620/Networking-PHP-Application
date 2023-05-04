@@ -1,6 +1,7 @@
 <?php
 
 require_once "../controllers/userController.php";
+require_once "../controllers/profileController.php";
 require_once "../models/profile/profile.php";
 require_once "../models/users/user.php";
 
@@ -14,6 +15,7 @@ if (!isset($_SESSION["id"])) {
 }
 
 $userController = new UserController;
+$profileController = new ProfileController;
 $result = $userController->getUser($_SESSION["id"]);
 $user = new User;
 $profile = new Profile;
@@ -28,6 +30,9 @@ $user->openTo = $result[0]["open_to"];
 $profile->birthday = $result[0]["birthday"];
 $profile->phone = $result[0]["phone"];
 $profile->about = $result[0]["about"];
+
+$skills = $profileController->getAllSkills($_SESSION["id"]);
+$mySkills = $profileController->getMySkills($_SESSION["id"]);
 
 ?>
 
@@ -136,6 +141,57 @@ $profile->about = $result[0]["about"];
                             </div>
                         </div>
 
+                        <!-- Skills & Websites -->
+                        <div class="col-lg-6 col-md-6">
+                            <!-- Add Skills -->
+                            <div class="widget change-password">
+                                <h3 class="widget-header user">Add Skill</h3>
+                                <form action="editProfileLogic.php?fn=addSkill" method="POST">
+                                    <select class="form-select" aria-label="Default select example" name="skill">
+                                        <option disabled selected>Select Skill</option>
+                                        <?php
+                                            foreach($skills as $key => $skill) {
+                                                ?><option value=<?php echo $skill["id"] ?>><?php echo $skill["name"]?></option><?php
+                                            }
+                                        ?>
+                                    </select>
+                                    <button type="submit" class="btn btn-transparent">Add</button>
+                                </form>
+                            </div>
+
+                            <!-- Remove Skills -->
+                            <div class="widget change-password">
+                                <h3 class="widget-header user">Remove Skill</h3>
+                                <form action="editProfileLogic.php?fn=rmSkill" method="POST">
+                                    <select class="form-select" aria-label="Default select example" name="skill">
+                                        <option disabled selected>Select Skill</option>
+                                        <?php
+                                            foreach($mySkills as $key => $skill) {
+                                                ?><option value=<?php echo $skill["id"] ?>><?php echo $skill["name"]?></option><?php
+                                            }
+                                        ?>
+                                    </select>
+                                    <button type="submit" class="btn btn-transparent">Remove</button>
+                                </form>
+                            </div>
+
+                            <!-- Websites-->
+                            <div class="widget change-email mb-0">
+                                <h3 class="widget-header user">Websites</h3>
+                                <form action="editProfileLogic.php?fn=addWebsite" method="POST">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" name="type">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="organization">URL</label>
+                                        <input type="text" class="form-control" name="url">
+                                    </div>
+                                    <button type="submit" class="btn btn-transparent">Add</button>
+                                </form>
+                            </div>
+                        </div>
+
                         <!-- Position -->
                         <div class="col-lg-6 col-md-6">
                             <div class="widget change-password">
@@ -222,20 +278,6 @@ $profile->about = $result[0]["about"];
                             </div>
                         </div>
 
-                        <!-- skills CHECK -->
-                        <div class="col-lg-6 col-md-6">
-                            <div class="widget change-password">
-                                <h3 class="widget-header user">Skills</h3>
-                                <form action="">
-                                    <div class="form-group">
-                                        <label for="title">Skills </label>
-                                        <input type="checkbox" id="v1" name="v1" value="e">
-                                    </div>
-                                    <button class="btn btn-transparent">Save</button>
-                                </form>
-                            </div>
-                        </div>
-
                         <!-- Certifications-->
                         <div class="col-lg-6 col-md-6">
                             <div class="widget change-email mb-0">
@@ -270,23 +312,6 @@ $profile->about = $result[0]["about"];
                             </div>
                         </div>
 
-                        <!-- Websites-->
-                        <div class="col-lg-6 col-md-6">
-                            <div class="widget change-email mb-0">
-                                <h3 class="widget-header user">Websites</h3>
-                                <form action="editProfileLogic.php?fn=addWebsite" method="POST">
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="text" class="form-control" name="type">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="organization">URL</label>
-                                        <input type="text" class="form-control" name="url">
-                                    </div>
-                                    <button type="submit" class="btn btn-transparent">Add</button>
-                                </form>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

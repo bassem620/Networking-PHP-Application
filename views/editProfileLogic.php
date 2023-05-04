@@ -93,4 +93,24 @@ if ($_GET["fn"] == "addPos") {
     }
 }
 
+// Add Skill
+if ($_GET["fn"] == "addSkill") {
+    $result = $profileController->addSkill($_SESSION["id"], $_POST["skill"]);
+    if($result)
+    {
+        header("Location: editProfile.php");
+        exit();
+    }
+}
+
+// Remove Skill
+if ($_GET["fn"] == "rmSkill") {
+    $result = $profileController->deleteSkill($_SESSION["id"], $_POST["skill"]);
+    if($result)
+    {
+        header("Location: editProfile.php");
+        exit();
+    }
+}
+
 print_r($_POST);

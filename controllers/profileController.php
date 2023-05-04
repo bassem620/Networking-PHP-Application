@@ -132,6 +132,32 @@ class ProfileController
         return false;
     }
 
+    public function getAllSkills($user_id)
+    {
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query = "SELECT * FROM skills WHERE id NOT IN (SELECT skill_id FROM user_skills WHERE skill_id != $user_id)";
+            $result = $this->db->select($query);
+            if (!$result) {
+                return false;
+            }
+            return $result;
+        }
+    }
+
+    public function getMySkills($user_id)
+    {
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query = "SELECT * FROM skills WHERE id IN (SELECT skill_id FROM user_skills WHERE skill_id != $user_id)";
+            $result = $this->db->select($query);
+            if (!$result) {
+                return false;
+            }
+            return $result;
+        }
+    }
+
     public function addSkill($user_id, $skill_id)
     {
         $this->db = new DBController;
@@ -153,7 +179,7 @@ class ProfileController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "DELETE FROM skills WHERE id = '$skill_id' AND user_id='$user_id'";
+            $query = "DELETE FROM user_skills WHERE skill_id = '$skill_id' AND user_id='$user_id'";
             $result = $this->db->delete($query);
             if (!$result) {
                 $_SESSION["errMsg"] = "Somthing went wrong... try again";
