@@ -46,7 +46,7 @@ class ProfileController
         echo "Error in Database Connection";
         return false;
     }
-    public function inserteducation(User $user, education $educ)
+    public function insertEducation(User $user, education $educ)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
@@ -63,7 +63,7 @@ class ProfileController
         return false;
     }
 
-    public function deleteeducation(User $user, education $educ)
+    public function deleteEducation(User $user, education $educ)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
@@ -79,7 +79,7 @@ class ProfileController
         echo "Error in Database Connection";
         return false;
     }
-    public function insertposition(User $user, position $pos)
+    public function insertPosition(User $user, position $pos)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
@@ -96,7 +96,7 @@ class ProfileController
         return false;
     }
 
-    public function deleteposition(User $user, position $pos)
+    public function deletePosition(User $user, position $pos)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
@@ -112,7 +112,7 @@ class ProfileController
         echo "Error in Database Connection";
         return false;
     }
-    public function editprofile(User $user, profile $pro)
+    public function editProfile(User $user, profile $pro)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
@@ -128,7 +128,7 @@ class ProfileController
         echo "Error in Database Connection";
         return false;
     }
-    public function insertskill(User $user, skill $ski)
+    public function insertSkill(User $user, skill $ski)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
@@ -145,7 +145,7 @@ class ProfileController
         return false;
     }
 
-    public function deleteskill(User $user, skill $ski)
+    public function deleteSkill(User $user, skill $ski)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
@@ -161,7 +161,7 @@ class ProfileController
         echo "Error in Database Connection";
         return false;
     }
-    public function insertwebsite(User $user, website $web)
+    public function insertWebsite(User $user, website $web)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
@@ -178,7 +178,7 @@ class ProfileController
         return false;
     }
 
-    public function deletewebsite(User $user, website $web)
+    public function deleteWebsite(User $user, website $web)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
