@@ -41,60 +41,69 @@ $posts = $groupCont->getGroupsPosts($_SESSION["id"]);
     <?php require_once "components/header.php"; ?>
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <div class="container-lg">
+    <div class="container-lg pt-5">
+        <h3 class="pt-4 fw-bold">Groups Posts (<?php 
+            if($posts) {
+                echo count($posts); 
+            } else {
+                echo "0";
+            }
+        ?>) </h3>
         <div class="row pt-5">
             <?php 
-            foreach($posts as $key => $post) {
-                echo "
-                <div class=\"col-md-12\">
-                <div id=\"content\" class=\"content content-full-width\">
-                    <div class=\"profile-content\">
-                        <div class=\"tab-content p-0\">
-                            <div class=\"tab-pane fade active show\" id=\"profile-post\">
-                                <ul class=\"timeline\">
-                                    <li>
-                                        <div class=\"timeline-body\">
-                                            <div class=\"timeline-header\">
-                                                <span class=\"username\"><a href=\"javascript:;\">" . $post["title"] ."</a></span>
-                                            </div>
-                                            <div class=\"timeline-content\">
-                                                <p>
-                                                    " . $post["desc"] ."
-                                                </p>
-                                            </div>
-                                            <div class=\"timeline-likes\">
-                                                <div class=\"stats\">
-                                                    <span class=\"stats-total\">000k</span>
-                                                    <span class=\"fa-stack fa-fw stats-icon\">
-                                                        <i class=\"fa fa-circle fa-stack-2x text-primary\"></i>
-                                                        <i class=\"fa fa-thumbs-up fa-stack-1x fa-inverse\"></i>
-                                                    </span>
+            if($posts) {
+                foreach($posts as $key => $post) {
+                    echo "
+                    <div class=\"col-md-12\">
+                    <div id=\"content\" class=\"content content-full-width\">
+                        <div class=\"profile-content\">
+                            <div class=\"tab-content p-0\">
+                                <div class=\"tab-pane fade active show\" id=\"profile-post\">
+                                    <ul class=\"timeline\">
+                                        <li>
+                                            <div class=\"timeline-body\">
+                                                <div class=\"timeline-header\">
+                                                    <span class=\"username\"><a href=\"javascript:;\">" . $post["title"] ."</a></span>
+                                                </div>
+                                                <div class=\"timeline-content\">
+                                                    <p>
+                                                        " . $post["desc"] ."
+                                                    </p>
+                                                </div>
+                                                <div class=\"timeline-likes\">
+                                                    <div class=\"stats\">
+                                                        <span class=\"stats-total\">000k</span>
+                                                        <span class=\"fa-stack fa-fw stats-icon\">
+                                                            <i class=\"fa fa-circle fa-stack-2x text-primary\"></i>
+                                                            <i class=\"fa fa-thumbs-up fa-stack-1x fa-inverse\"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class=\"timeline-footer\">
+                                                    <a href=\"javascript:;\" class=\"m-r-15 text-inverse-lighter\"><i class=\"fa fa-thumbs-up fa-fw fa-lg m-r-3\"></i> Like</a>
+                                                </div>
+                                                <div class=\"timeline-comment-box\">
+                                                    <div class=\"input\">
+                                                        <form action=\"\">
+                                                            <div class=\"input-group\">
+                                                                <input type=\"text\" class=\"form-control rounded-corner\" placeholder=\"Write a comment...\">
+                                                                <span class=\"input-group-btn p-l-10\">
+                                                                    <button class=\"btn btn-primary f-s-12 rounded-corner\" type=\"button\">Comment</button>
+                                                                </span>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class=\"timeline-footer\">
-                                                <a href=\"javascript:;\" class=\"m-r-15 text-inverse-lighter\"><i class=\"fa fa-thumbs-up fa-fw fa-lg m-r-3\"></i> Like</a>
-                                            </div>
-                                            <div class=\"timeline-comment-box\">
-                                                <div class=\"input\">
-                                                    <form action=\"\">
-                                                        <div class=\"input-group\">
-                                                            <input type=\"text\" class=\"form-control rounded-corner\" placeholder=\"Write a comment...\">
-                                                            <span class=\"input-group-btn p-l-10\">
-                                                                <button class=\"btn btn-primary f-s-12 rounded-corner\" type=\"button\">Comment</button>
-                                                            </span>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-                ";
+                    ";
+                }
             }
             ?>
         </div>
