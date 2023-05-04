@@ -13,7 +13,7 @@ class ProfileController
 {
     protected $db;
 
-    public function insertCertification(User $user, Certificate $cert)
+    public function addCertification(User $user, Certificate $cert)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
@@ -46,7 +46,7 @@ class ProfileController
         echo "Error in Database Connection";
         return false;
     }
-    public function insertEducation(User $user, education $educ)
+    public function addEducation(User $user, education $educ)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
@@ -79,7 +79,7 @@ class ProfileController
         echo "Error in Database Connection";
         return false;
     }
-    public function insertPosition(User $user, position $pos)
+    public function addPosition(User $user, position $pos)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
@@ -112,11 +112,12 @@ class ProfileController
         echo "Error in Database Connection";
         return false;
     }
+
     public function editProfile(User $user, profile $pro)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "update users set 'firstname'='$user-> firstname','lastname'='$user-> lastname', 'email'='$user->email', 'password'='$user->password', 'birthday'='$pro->birthday', 'phone'='$pro->phone', 'about'='$pro->about' ";
+            $query = "UPDATE users SET firstName='$user->firstName',lastName='$user->lastName', email='$user->email', password='$user->password', open_to = '$user->openTo', birthday='$pro->birthday', phone='$pro->phone', about='$pro->about' WHERE id='$user->id'";
             $result = $this->db->insert($query);
             if ($result) {
                 return $result;
@@ -128,7 +129,8 @@ class ProfileController
         echo "Error in Database Connection";
         return false;
     }
-    public function insertSkill(User $user, skill $ski)
+
+    public function addSkill(User $user, skill $ski)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
@@ -161,11 +163,12 @@ class ProfileController
         echo "Error in Database Connection";
         return false;
     }
-    public function insertWebsite(User $user, website $web)
+
+    public function addWebsite($user_id, website $web)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO websites(`user_id`, `link`, `type`) VALUES ('$user-> user_id','$web->link','$web->type')";
+            $query = "INSERT INTO websites (`user_id`, `link`, `type`) VALUES ('$user_id', '$web->link', '$web->type')";
             $result = $this->db->insert($query);
             if ($result) {
                 return $result;
@@ -178,11 +181,11 @@ class ProfileController
         return false;
     }
 
-    public function deleteWebsite(User $user, website $web)
+    public function deleteWebsite($user_id, $web_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "delete from websites where id = '$user->id' ";
+            $query = "DELETE FROM websites where user_id = '$user_id' AND id= '$web_id'";
             $result = $this->db->delete($query);
             if (!$result) {
                 $_SESSION["errMsg"] = "Somthing went wrong... try again";
