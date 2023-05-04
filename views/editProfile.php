@@ -96,14 +96,14 @@ $profile->about = $result[0]["about"];
                         <div class="col-lg-6 col-md-6">
                             <div class="widget personal-info">
                                 <h3 class="widget-header user"> Personal Information</h3>
-                                <form action="#">
+                                <form action="editProfileLogic.php?fn=personalInfo" method="POST">
                                     <div class="form-group">
                                         <label for="first-name">First Name</label>
                                         <input type="text" class="form-control" name="firstName" value=<?php echo $user->firstName ?>>
                                     </div>
                                     <div class="form-group">
                                         <label for="last-name">Last Name</label>
-                                        <input type="text" class="form-control" name="lasstName" value=<?php echo $user->lastName ?>>
+                                        <input type="text" class="form-control" name="lastName" value=<?php echo $user->lastName ?>>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email</label>
@@ -120,11 +120,18 @@ $profile->about = $result[0]["about"];
                                         <label for="phone">Phone (+20)</label>
                                         <input type="phone" class="form-control" name="phone" value=<?php echo $profile->phone; ?>>
                                     </div>
+                                    <div>
+                                    <label for="openTo">Open To</label>
+                                        <select name="openTo" id="openTo">
+                                            <option value="work">Work</option>
+                                            <option value="work">Hiring</option>
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <label for="floatingTextarea2">About</label>
-                                        <textarea class="form-control" id="floatingTextarea2" style="height: 100px">value=<?php echo $profile->about; ?></textarea>
+                                        <textarea class="form-control" id="floatingTextarea2" name="about" style="height: 100px">value=<?php echo $profile->about; ?></textarea>
                                     </div>
-                                    <button class="btn btn-transparent">Update</button>
+                                    <button type="submit" class="btn btn-transparent">Update</button>
                                 </form>
                             </div>
                         </div>
@@ -263,16 +270,16 @@ $profile->about = $result[0]["about"];
                         <div class="col-lg-6 col-md-6">
                             <div class="widget change-email mb-0">
                                 <h3 class="widget-header user">Websites</h3>
-                                <form action="#">
+                                <form action="editProfileLogic.php?fn=addWebsite" method="POST">
                                     <div class="form-group">
                                         <label for="name">Name</label>
-                                        <input type="text" class="form-control" name="name">
+                                        <input type="text" class="form-control" name="type">
                                     </div>
                                     <div class="form-group">
                                         <label for="organization">URL</label>
                                         <input type="text" class="form-control" name="url">
                                     </div>
-                                    <button class="btn btn-transparent">Add</button>
+                                    <button type="submit" class="btn btn-transparent">Add</button>
                                 </form>
                             </div>
                         </div>
