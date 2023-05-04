@@ -38,7 +38,7 @@ class PremiumConrtroller
             $pdf->AddPage();
             $pdf->SetFont('Times', '', 14);
             $counter=1;
-             foreach ($result as $row){
+            foreach ($result as $row){
                 $pdf->Cell(0, 10, $counter.") "
                     . $row["firstName"]." " . $row["lastName"], 0, 1);
                 $counter++;}
