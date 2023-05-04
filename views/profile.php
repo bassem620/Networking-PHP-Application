@@ -1,11 +1,42 @@
 <?php
 
+require_once "../controllers/userController.php";
+require_once "../models/profile/profile.php";
+require_once "../models/users/user.php";
+
 // Check Session
 if (!isset($_SESSION["id"])) {
     session_start();
     if (!isset($_SESSION["id"])) {
         header("Location: auth/login.php");
         exit();
+    }
+}
+
+$userController = new UserController;
+$result = $userController->getUser($_GET["id"]);
+$user = new User;
+$profile = new Profile;
+
+$user->id = $result[0]["id"];
+$user->email = $result[0]["email"];
+$user->firstName = $result[0]["firstName"];
+$user->lastName = $result[0]["lastName"];
+$user->profileType = $result[0]["profile_type"];
+$user->openTo = $result[0]["open_to"];
+
+$profile->birthday = $result[0]["birthday"];
+$profile->phone = $result[0]["phone"];
+$profile->about = $result[0]["about"];
+
+$checkResult = $userController->checkConnection($_SESSION["id"], $_GET["id"]);
+$pending = null;
+if($checkResult) {
+    if($checkResult[0]["state"] == 0) 
+    {
+        $pending = true;
+    } else {
+        $pending = false;
     }
 }
 
@@ -33,7 +64,7 @@ if (!isset($_SESSION["id"])) {
 
     <!-- ** Basic Page Needs ** -->
     <meta charset="utf-8">
-    <title>Classimax | Classified Marketplace Template</title>
+    <title><?php echo $user->firstName . " " . $user->lastName ; ?></title>
 
     <!-- ** Mobile Specific Metas ** -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -63,321 +94,87 @@ if (!isset($_SESSION["id"])) {
     <section class="user-profile section">
         <div class="container pt-5 mt-3">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-12">
                     <div class="sidebar">
-                        <!-- User Widget -->
                         <div class="widget user">
                             <!-- User Image -->
                             <div class="image d-flex justify-content-center">
                                 <img src="../views/assets/img/about.jpg" alt="" class="">
                             </div>
                             <!-- User Name -->
-                            <h5 class="text-center">Samanta Doe</h5>
+                            <h5 class="text-center"><?php echo $user->firstName . " " . $user->lastName ; ?></h5>
+                            <?php
+                                // Premium Badge
+                                if($user->profileType > 0) { ?>
+                                    <h6 class="text-center">
+                                        (Premium User)
+                                    </h6> <?php
+                                }
+                            ?>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <!-- Buttons -->
+                                    <?php
+                                    if($_GET["id"] == $_SESSION["id"]) { ?>
+                                        <a href="editProfile.php" class="get-started-btn">
+                                            Edit Profile
+                                        </a> <?php
+                                    } else {
+                                        if(!$checkResult) { ?>
+                                            <a href="auth/logout.php" class="get-started-btn">
+                                                Connect
+                                            </a> <?php
+                                        } else if($pending){ ?>
+                                            <a href="auth/logout.php" class="get-started-btn" >
+                                                Pending
+                                            </a> <?php
+                                        } else { ?>
+                                            <a href="auth/logout.php" class="get-started-btn">
+                                                Remove
+                                            </a> <?php
+                                        }
+                                    }
+                                    // Subscription
+                                    if($_GET["id"] == $_SESSION["id"] && $user->profileType == 0) { ?>
+                                        <a href="auth/logout.php" class="get-started-btn">
+                                            Upgrade To Premium
+                                        </a> <?php
+                                    } else if ($_GET["id"] == $_SESSION["id"]) { ?>
+                                        <a href="auth/logout.php" class="get-started-btn">
+                                            Cancel Subscription
+                                        </a> <?php
+                                    }
+                                    ?>
+                                </div>
                         </div>
                         <!-- Dashboard Links -->
                         <div class="widget user-dashboard-menu">
                             <ul>
-                                <li><a href="index.html">Savings Dashboard</a></li>
-                                <li><a href="index.html">Saved Offer <span>(5)</span></a></li>
-                                <li><a href="index.html">Favourite Stores <span>(3)</span></a></li>
-                                <li><a href="index.html">Recommended</a></li>
+                                <li class="m-3"><h6 class="d-inline">Email: </h6> <?php echo $user->email; ?></li>
+                                <?php 
+                                    if($profile->birthday) { ?>
+                                        <li class="m-3"><h6 class="d-inline">Birthday: </h6> <?php echo $profile->birthday; ?></li><?php
+                                    }
+                                ?>
+                                <?php 
+                                    if($user->openTo) { ?>
+                                        <li class="m-3"><h6 class="d-inline">Open To: </h6> <?php echo $user->openTo; ?></li><?php
+                                    }
+                                ?>
+                                <?php 
+                                    if($profile->phone) { ?>
+                                        <li class="m-3"><h6 class="d-inline">Phone: </h6> <?php echo "+20" . $profile->phone; ?></li><?php
+                                    }
+                                ?>
+                                <?php 
+                                    if($profile->about) { ?>
+                                        <li class="m-3"><h6 class="d-inline">About: </h6> <?php echo $profile->about; ?></li><?php
+                                    }
+                                ?>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8">
-                    <!-- Edit Profile Welcome Text -->
-                    <div class="widget welcome-message">
-                        <h2>profile</h2>
-
-                    </div>
-                    <!-- Personal Info -->
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="widget personal-info">
-                                <h3 class="widget-header user"> Personal Information</h3>
-                                <form action="#">
-                                    <!-- First Name -->
-                                    <div class="form-group">
-                                        <label for="first-name">First Name</label>
-                                        <input type="text" class="form-control" id="first-name">
-                                    </div>
-                                    <!-- Last Name -->
-                                    <div class="form-group">
-                                        <label for="last-name">Last Name</label>
-                                        <input type="text" class="form-control" id="last-name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">email</label>
-                                        <input type="text" class="form-control" id="email">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="birthday">birthday</label>
-                                        <input type="text" class="form-control" id="birthday">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="phone">phone</label>
-                                        <input type="text" class="form-control" id="phone">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="about">about</label>
-                                        <input type="text" class="form-control" id="about">
-                                        <button class="btn btn-transparent">Edit</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <!-- position -->
-                            <div class="widget change-password">
-                                <h3 class="widget-header user">position</h3>
-
-                                <!-- title -->
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <input type="text" class="form-control" id="titel">
-                                </div>
-                                <!-- company -->
-                                <div class="form-group">
-                                    <label for="company">Company</label>
-                                    <input type="text" class="form-control" id="company">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="industry">Industry</label>
-                                    <input type="text" class="form-control" id="industry">
-                                </div>
-                                <div class="form-group">
-                                    <label for="currently_working">Currently working</label>
-                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="yes">
-                                    <label for="vehicle1">Yes</label>
-                                    <input type="checkbox" id="vehicle2" name="vehicle2" value="no">
-                                    <label for="vehicle2">No</label>
-
-
-                                </div>
-                                <div>
-                                    <label for="start">Start</label>
-                                    <select name="" id="start">
-                                        <option value="from">From</option>
-                                        <option value="2018">2015</option>
-                                        <option value="2018">2016</option>
-                                        <option value="2018">2017</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2021">2021</option>
-                                        <option value="2022">2022</option>
-                                        <option value="2023">2023</option>
-                                        <option value="2024">2024</option>
-                                        <option value="2025">2025</option>
-                                        <option value="2026">2026</option>
-                                        <option value="2027">2027</option>
-                                        <option value="2028">2028</option>
-                                        <option value="2029">2028</option>
-                                        <option value="2030">2030</option>
-                                    </select>
-                                    <label for="end">End</label>
-                                    <select name="" id="end">
-                                        <option value="to">To</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2021">2021</option>
-                                        <option value="2022">2022</option>
-                                        <option value="2023">2023</option>
-                                        <option value="2024">2024</option>
-                                        <option value="2025">2025</option>
-                                        <option value="2026">2026</option>
-                                        <option value="2027">2027</option>
-                                        <option value="2028">2028</option>
-                                        <option value="2029">2028</option>
-                                        <option value="2030">2030</option>
-                                    </select>
-                                </div>
-
-                                <!-- Submit Button -->
-                                <button class="btn btn-transparent">Add</button>
-                                <button class="btn btn-transparent">Remove</button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <!-- education -->
-                            <div class="widget change-password">
-                                <h3 class="widget-header user">Education</h3>
-
-                                <!-- title -->
-                                <div class="form-group">
-                                    <label for="sch.uni">School/University</label>
-                                    <input type="text" class="form-control" id="sch.uni">
-                                </div>
-
-                                <!-- field of study -->
-                                <div class="form-group">
-                                    <label for="fos">Field of study</label>
-                                    <input type="text" class="form-control" id="fos">
-                                </div>
-
-
-
-
-                                <div class="form-group">
-                                    <label for="grade">Grade</label>
-                                    <input type="text" class="form-control" id="grade">
-                                </div>
-
-
-
-
-                                <!-- degree-->
-
-                                <div>
-                                    <label for="start">degree</label>
-                                    <select name="" id="degree">
-                                        <option value="2018"></option>
-                                        <option value="2018">Diploma</option>
-                                        <option value="2018">Associate Degree</option>
-                                        <option value="2018">Bachelor Degree</option>
-                                        <option value="2018">Master's Degree</option>
-                                        <option value="2018">Doctorate Degree</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label for="start">Start</label>
-                                    <select name="" id="start">
-                                        <option value="from">From</option>
-                                        <option value="2018">2015</option>
-                                        <option value="2018">2016</option>
-                                        <option value="2018">2017</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2021">2021</option>
-                                        <option value="2022">2022</option>
-                                        <option value="2023">2023</option>
-                                        <option value="2024">2024</option>
-                                        <option value="2025">2025</option>
-                                        <option value="2026">2026</option>
-                                        <option value="2027">2027</option>
-                                        <option value="2028">2028</option>
-                                        <option value="2029">2028</option>
-                                        <option value="2030">2030</option>
-                                    </select>
-                                    <label for="end">End</label>
-                                    <select name="" id="end">
-                                        <option value="to">To</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2021">2021</option>
-                                        <option value="2022">2022</option>
-                                        <option value="2023">2023</option>
-                                        <option value="2024">2024</option>
-                                        <option value="2025">2025</option>
-                                        <option value="2026">2026</option>
-                                        <option value="2027">2027</option>
-                                        <option value="2028">2028</option>
-                                        <option value="2029">2028</option>
-                                        <option value="2030">2030</option>
-                                    </select>
-                                </div>
-
-                                <!-- Submit Button -->
-                                <button class="btn btn-transparent">Add</button>
-                                <button class="btn btn-transparent">Remove</button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <!-- skilles -->
-                            <div class="widget change-password">
-                                <h3 class="widget-header user">Skilles</h3>
-
-                                <!-- skilles -->
-                                <div class="form-group">
-                                    <label for="title">Skilles: </label>
-                                    <input type="checkbox" id="v1" name="v1" value="e">
-                                    <label for="v1">Engineering</label>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">Project Managment</label>
-                                    <input type="checkbox" id="v3" name="v3" value="en">
-                                    <label for="v2">English</label>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">Research Skills</label>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">Marketing</label><br>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">Adobe Photoshop</label>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">Communication</label><br>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">Strategy</label>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">Analytical Skills</label>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">Finance</label><br>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">Data Analysis</label>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">AutoCAD </label>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">video editing</label><br>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">sales</label><br>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">front-end development</label><br>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">back-end development</label><br>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">Arabic</label><br>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">English</label><br>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">German</label><br>
-                                    <input type="checkbox" id="v2" name="v2" value="pm">
-                                    <label for="v2">french</label><br>
-                                </div>
-
-
-                                <!-- Submit Button -->
-                                <button class="btn btn-transparent">Save</button>
-
-                                </form>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6">
-                            <!-- certifications-->
-                            <div class="widget change-email mb-0">
-                                <h3 class="widget-header user">Certifications</h3>
-                                <form action="#">
-                                    <!-- name-->
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="text" class="form-control" id="name">
-                                    </div>
-                                    <!-- organization -->
-                                    <div class="form-group">
-                                        <label for="organization">Organization</label>
-                                        <input type="email" class="form-control" id="organization">
-                                    </div>
-                                    <!-- date -->
-                                    <div class="form-group">
-                                        <label for="issue_date">Issue date</label>
-                                        <input type="date" class="form-control" id="issue_date">
-                                    </div>
-                                    <!-- Submit Button -->
-                                    <button class="btn btn-transparent">Add</button>
-                                    <button class="btn btn-transparent">Remove</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
     </section>
 
     <!-- Essential Scripts -->

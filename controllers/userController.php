@@ -107,4 +107,30 @@ class UserController
             return $result;
         }  
     }
+
+    public function getUser($user_id)
+    {
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query = "SELECT * FROM users WHERE id = '$user_id'";
+            $result = $this->db->select($query);
+            if(!$result) {
+                return false;
+            }
+            return $result;
+        }  
+    }
+
+    public function checkConnection ($user_id, $conn_id) 
+    {
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query = "SELECT `state` FROM connections WHERE (user1_id = $user_id AND user2_id = $conn_id) OR (user2_id = $user_id AND user1_id = $conn_id)";
+            $result = $this->db->select($query);
+            if(!$result) {
+                return false;
+            }
+            return $result;
+        }  
+    }
 }
