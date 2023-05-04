@@ -35,8 +35,8 @@ CREATE TABLE `educations` (
   `school` varchar(50) NOT NULL,
   `degree` varchar(50) NOT NULL,
   `field of study` varchar(50) NOT NULL,
-  `start_date` datetime NOT NULL,
-  `end_date` datetime,
+  `start_date` date NOT NULL,
+  `end_date` date,
   `grade` varchar(50),
   PRIMARY KEY (`id`, `user_id`),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
