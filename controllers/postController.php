@@ -165,7 +165,7 @@ class PostController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT `comment` FROM `post_comments` where `post_id` = ".$post_id.";";
+            $query = "select `users`.`firstName` , `users`.`lastName` , `post_comments`.`comment` from post_comments inner join users on `users`.`id` = `post_comments`.`user_id` where `post_id` =".$post_id.";";
             $result = $this->db->select($query);
             if (!$result || count($result) == 0) {
                 return null;

@@ -49,6 +49,7 @@ $post = $postsControllers->getPosts($_SESSION["id"]);
                         <ul class="timeline">
                            <li>
                               <?php
+                              $counter = 0;
                               if ($post) {
                                  foreach ($post as $key=>$row) {
                                     $getComments = $postsControllers->getComments($row["id"]);
@@ -62,7 +63,7 @@ $post = $postsControllers->getPosts($_SESSION["id"]);
                                     echo "
                               <div class=\"timeline-body mb-5\">
                                  <div class=\"timeline-header\">
-                                    <span class=\"username\"><a href=\"javascript:;\">" . $row["firstName"] . $row["lastName"] . "</a></span>
+                                    <span class=\"username\"><a href=\"javascript:;\">" . $row["firstName"]." " . $row["lastName"] . "</a></span>
                                  </div>
                                  <div class=\"timeline-content\">
                                     <p>
@@ -71,7 +72,7 @@ $post = $postsControllers->getPosts($_SESSION["id"]);
                                  </div>
                                  <div class=\"timeline-likes\">
                                     <div class=\"stats-right\">
-                                       <span class=\"stats-text\">". $commentCounts." comments</span>
+                                       <span class=\"stats-text\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal".$counter."\">". $commentCounts." comments</span>
                                     </div>
                                     <div class=\"stats\">
                                        <span class=\"stats-total\">".$LikesCounts."</span>
@@ -96,7 +97,44 @@ $post = $postsControllers->getPosts($_SESSION["id"]);
                                        </form>
                                     </div>
                                  </div>
-                              </div>";}}
+                              </div>
+                              
+                              <!-- modal of comments -->
+                              <div class=\"modal fade\" id=\"exampleModal".$counter."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"
+                                 aria-hidden=\"true\">
+                                 <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">
+                                    <div class=\"modal-content\">
+                                       <div class=\"modal-header\">
+                                          <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Comments</h5>
+                                          <button type=\"button\" class=\"close\" data-bs-dismiss=\"modal\" aria-label=\"Close\">
+                                             <span aria-hidden=\"true\">&times;</span>
+                                          </button>
+                                       </div>
+                                       <div class=\"modal-body\">";
+                                       if($getComments!=null)
+                                       foreach ($getComments as $key1=>$row1) {
+                                          echo "<h5>".$row1["firstName"]." ". $row1["lastName"]."</h5>
+                                          <p> &thinsp;&thinsp;&thinsp;&thinsp;".$row1["comment"]."</p>
+                                          <hr>
+                                       ";}
+                                       echo "</div><div class=\"modal-footer\">
+                                       <div class=\"input-group\">
+                                             <input type=\"text\" class=\"form-control rounded-corner\" placeholder=\"Write a comment...\">
+                                             <span class=\"input-group-btn \">
+                                                <button class=\"btn btn-primary f-s-12 rounded-corner\" onclick=\"addComment()\" type=\"button\">Comment</button>
+                                             </span>
+                                             
+                                          
+                                          <button type=\"button\" class=\"btn btn-secondary pl-5 \" data-bs-dismiss=\"modal\">Close</button>
+                                       </div> 
+                                      </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              
+                              ";
+                              $counter++;}}
+                              
                               ?>
                            </li>
                         </ul>
@@ -114,8 +152,12 @@ $post = $postsControllers->getPosts($_SESSION["id"]);
    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
    <script src="assets/vendor/php-email-form/validate.js"></script>
    <script src="assets/js/main.js"></script>
-   <?php require_once "components/footer.php"
-   ?>
+   <?php require_once "components/footer.php"?>
+
+   
+   
+        
+
 </body>
 
 </html>
