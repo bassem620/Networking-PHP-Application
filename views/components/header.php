@@ -10,7 +10,7 @@
             <li class="dropdown"><a href="browseJobs.php"><span>Jobs</span><i class="bi bi-chevron-down"></i></a>
                 <ul>
                     <li><a href="browseJobs.php">Jobs</a></li>
-                    <li><a href="groupsTimeline.php">Post a Job</a></li>
+                    <li><a href="postJob.php">Post a Job</a></li>
                 </ul>
             </li>
             <li><a href="events.php">Events</a></li>

@@ -9,7 +9,7 @@ class JobController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO jobs VALUES ('', '$job->id', '$job->title','$job->desc','','$job->salary','$job->company','$job->location', '$user_id')";
+            $query = "INSERT INTO  `jobs` (`id`, `title`, `desc`, `req.`, `salary`, `company`, `location`, `creator_id`) VALUES ('null', '$job->title','$job->desc','$job->req','$job->salary','$job->company','$job->location', '$user_id');";
             $result = $this->db->insert($query);
             if (!$result) {
                 return false;
@@ -93,6 +93,21 @@ class JobController
         $this->db = new DBController;
         if ($this->db->openConnection()) {
             $query = "SELECT * FROM `jobs` WHERE `id` = " . $job_id . ";";
+            $result = $this->db->select($query);
+            if (!$result || count($result) == 0) {
+                return null;
+            }
+            return $result;
+        }
+        echo "error in connection";
+        return false;
+    }
+
+    public function getMyOffers($user_id)
+    {
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query = "SELECT * FROM `jobs` WHERE `creator_id` = " . $user_id . ";";
             $result = $this->db->select($query);
             if (!$result || count($result) == 0) {
                 return null;
