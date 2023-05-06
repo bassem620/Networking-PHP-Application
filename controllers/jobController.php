@@ -1,4 +1,5 @@
 <?php
+require_once "../controllers/DBController.php";
 
 class JobController
 {
@@ -55,6 +56,50 @@ class JobController
             return true;
         }
         echo "Error in database connection";
+        return false;
+    }
+    public function getJobs($user_id)
+    {
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query = "SELECT * FROM `jobs` WHERE NOT `creator_id` = " . $user_id . " AND NOT EXISTS ( SELECT * FROM `applied_jobs` WHERE `applied_jobs`.`job_id` = `jobs`.`id` AND `applied_jobs`.`user_id` = ".$user_id." );";
+            $result = $this->db->select($query);
+            if (!$result || count($result) == 0) {
+                return null;
+            }
+            return $result;
+        }
+        echo "error in connection";
+        return false;
+    }
+
+    public function getAllMyAppliedJobs($user_id)
+    {
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query = "SELECT `jobs`.`id`,`jobs`.`title`,`jobs`.`desc`,`jobs`.`req.`,`jobs`.`salary`,`jobs`.`company`,`jobs`.`location`,`jobs`.`creator_id` FROM `jobs`INNER JOIN `applied_jobs` on `jobs`.`id` = `applied_jobs`.`job_id` where `applied_jobs`.`user_id` = ".$user_id.";";
+            $result = $this->db->select($query);
+            if (!$result || count($result) == 0) {
+                return null;
+            }
+            return $result;
+        }
+        echo "error in connection";
+        return false;
+    }
+
+    public function getJob($job_id)
+    {
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query = "SELECT * FROM `jobs` WHERE `id` = " . $job_id . ";";
+            $result = $this->db->select($query);
+            if (!$result || count($result) == 0) {
+                return null;
+            }
+            return $result;
+        }
+        echo "error in connection";
         return false;
     }
 }

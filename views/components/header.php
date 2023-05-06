@@ -7,7 +7,12 @@
             <li><a href=<?php echo "profile.php?id=" . $_SESSION["id"]?>>Profile</a></li>
             <li><a href="network.php">Network</a></li>
             <li><a href="browseCourses.php">Courses</a></li>
-            <li><a href="jobs.php">Jobs</a></li>
+            <li class="dropdown"><a href="browseJobs.php"><span>Jobs</span><i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a href="browseJobs.php">Jobs</a></li>
+                    <li><a href="groupsTimeline.php">Post a Job</a></li>
+                </ul>
+            </li>
             <li><a href="events.php">Events</a></li>
             <li class="dropdown"><a href="groupsTimeline.php"><span>Groups </span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
