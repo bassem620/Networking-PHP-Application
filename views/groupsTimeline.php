@@ -18,7 +18,7 @@ $myGroups = $groupCont->getJoinedGroups($_SESSION["id"]);
 $postsControllers = new PostController;
 if (isset($_POST["postDesc"]) && isset($_POST["group"])) {
     if (!empty($_POST["postDesc"]) && !empty($_POST["group"])) {
-        if ($postsControllers->addPost($_SESSION["id"], $_POST['postDesc'], $_POST["group"])) {
+        if ($postsControllers->addPostGroup($_SESSION["id"], $_POST['postDesc'], $_POST["group"])) {
             header("location: groupsTimeline.php");
         } else {
             $errMsg = $_SESSION["errMsg"];
@@ -75,7 +75,7 @@ if (isset($_POST["postDesc"]) && isset($_POST["group"])) {
                                     <span class="username">Create Post</span>
                                  </div>
                                  <div class="timeline-content">
-                                    <form method="POST" action="home.php">
+                                    <form method="POST" action="groupsTimeline.php">
                                           <div class="input-group">
                                              <input type="text" class="form-control rounded-corner" name="postDesc" placeholder="add description for post">
                                           </div>
