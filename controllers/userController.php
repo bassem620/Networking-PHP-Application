@@ -89,6 +89,7 @@ class UserController
                 $_SESSION["errMsg"] = "Couldn't update user profile";
                 return false;
             }
+            $_SESSION["profileType"] = 1; 
             return true;
         }
         echo "Error in database connection";

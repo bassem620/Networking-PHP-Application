@@ -34,12 +34,10 @@ if ($_GET["fn"] == "rmRequest") {
 }
 
 // Upgrade To Premium
-// if ($_GET["fn"] == "upgradeToPremium") {
-//     if ($result) {
-//         header("Location: profile.php?fn=" . $_SESSION["id"]);
-//         exit();
-//     }
-// }
+if ($_GET["fn"] == "upgradeToPremium") {
+    header("Location: pay.php?id=0&price=500");
+    exit();
+}
 
 // Cancel Subscription
 if ($_GET["fn"] == "cancelSubscription") {
@@ -59,18 +57,20 @@ if ($_GET["fn"] == "exportConnections") {
     }
 }
 
-// // Hide Connections
-// if ($_GET["fn"] == "hideConnections") {
-//     if ($result) {
-//         header("Location: profile.php?fn=" . $_SESSION["id"]);
-//         exit();
-//     }
-// }
+// Hide Connections
+if ($_GET["fn"] == "hideConnections") {
+    $result = $premiumController->hideConnections($_SESSION["id"]);
+    if ($result) {
+        header("Location: profile.php?id=" . $_SESSION["id"]);
+        exit();
+    }
+}
 
-// // Show Connections
-// if ($_GET["fn"] == "showConnections") {
-//     if ($result) {
-//         header("Location: profile.php?fn=" . $_SESSION["id"]);
-//         exit();
-//     }
-// }
+// Show Connections
+if ($_GET["fn"] == "showConnections") {
+    $result = $premiumController->showConnections($_SESSION["id"]);
+    if ($result) {
+        header("Location: profile.php?id=" . $_SESSION["id"]);
+        exit();
+    }
+}

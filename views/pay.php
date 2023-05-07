@@ -1,5 +1,7 @@
 <?php
 require_once "../controllers/learningController.php";
+require_once "../controllers/userController.php";
+
 // Check Session
 if (!isset($_SESSION["id"])) {
     session_start();
@@ -8,10 +10,23 @@ if (!isset($_SESSION["id"])) {
         exit();
     }
 }
+
+// Check Profile Type
+if($_SESSION["profileType"] > 0 && $_GET["id"] == 0) {
+    header("Location: profile.php?id=" . $_SESSION["id"]);
+    exit();
+}
+
 $errMsg = "";
 $learn = new LearningController;
+$user = new UserController;
+
 if(isset($_GET["enteredPrice"])){
     if($_GET["enteredPrice"]==$_GET["price"]){
+        if($_GET["id"] == 0 && $user->upgradeToPremium($_SESSION["id"])) {
+            header("Location: profile.php?id=" . $_SESSION["id"]);
+            exit();
+        }
         if ($learn->enrollCourse($_SESSION["id"], $_GET["id"])) {
             header("Location: course.php?id=" . $_GET["id"]);
             exit();

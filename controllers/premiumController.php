@@ -8,15 +8,32 @@ class PremiumConrtroller
 {
     protected $db;
 
-    public function hideConnections(Premium $premium)
+    public function hideConnections($premium_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "UPDATE users SET profile_type = 2 WHERE id = '$premium->id'";
+            $query = "UPDATE users SET profile_type = 2 WHERE id = '$premium_id'";
             $result = $this->db->update($query);
             if (!$result) {
                 return false;
             }
+            $_SESSION["profileType"] = 2; 
+            return true;
+        }
+        echo "Error in Database Connection";
+        return false;
+    }
+
+    public function showConnections($premium_id)
+    {
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query = "UPDATE users SET profile_type = 1 WHERE id = '$premium_id'";
+            $result = $this->db->update($query);
+            if (!$result) {
+                return false;
+            }
+            $_SESSION["profileType"] = 1; 
             return true;
         }
         echo "Error in Database Connection";
@@ -66,6 +83,7 @@ class PremiumConrtroller
             if (!$result2) {
                 return false;
             }
+            $_SESSION["profileType"] = 0; 
             return true;
         }
         echo "Error in Database Connection";
