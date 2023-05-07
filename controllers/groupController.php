@@ -114,7 +114,7 @@ class GroupController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT posts.id, posts.desc, posts.title, posts.media_url, posts.visibility, users.firstName, users.lastName FROM posts JOIN users ON posts.user_id = users.id WHERE group_id IN (SELECT group_id FROM joined_groups WHERE user_id='$user_id')  ORDER BY id DESC";
+            $query = "SELECT posts.id, posts.desc, users.firstName, users.lastName FROM posts JOIN users ON posts.user_id = users.id WHERE group_id IN (SELECT group_id FROM joined_groups WHERE user_id='$user_id')  ORDER BY id DESC";
             $result = $this->db->select($query);
             if (!$result) {
                 return false;

@@ -26,6 +26,38 @@ if (isset($_POST["postDesc"]) && isset($_POST["group"])) {
     }
 }
 
+if (isset($_POST['likeOrUnlike']) && isset($_POST['postId'])) {
+    if ($_POST['likeOrUnlike'] == "black") {
+        if ($postsControllers->addLike($_SESSION["id"], $_POST['postId'])) {
+            header("location: groupsTimeline.php");
+        } else {
+            $errMsg = $_SESSION["errMsg"];
+        }
+    } else {
+
+        if ($postsControllers->unlike($_POST['postId'], $_SESSION["id"])) {
+            header("location: groupsTimeline.php");
+        } else {
+            $errMsg = $_SESSION["errMsg"];
+        }
+
+    }
+}
+if (isset($_POST['commentText']) && isset($_POST['postId'])) {
+    if (!empty($_POST['commentText']) && !empty($_POST['postId'])) {
+        $Controllers = new PostController;
+        $result = $Controllers->addComment($_SESSION["id"], $_POST["commentText"], $_POST["postId"]);
+        if (!$result) {
+
+
+        } else {
+            header("location: groupsTimeline.php");
+            exit();
+        }
+    } else {
+        $errMsg = "Invalid credentials";
+    }
+}
 ?>
 
 
@@ -109,48 +141,148 @@ if (isset($_POST["postDesc"]) && isset($_POST["group"])) {
                                  </div>
                                 </div>
 
-            <?php 
-            if($posts) {
-                foreach($posts as $key => $post) {
+            <?php
+            $counter = 0;
+            if ($posts) {
+                foreach($posts as $key => $row) {
+
+                    $getComments = $postsControllers->getComments($row["id"]);
+                    $getLikes = $postsControllers->getLikes($row["id"]);
+                    $likeOrUnlike = "black";
+                    if ($getLikes != null) {
+                        foreach ($getLikes as $key2 => $row2) {
+                            if ($row2["id"] == $_SESSION["id"]) {
+                                $likeOrUnlike = "blue";
+                                break;
+                            }
+                        }
+                    }
+                    $commentCounts = 0;
+                    if ($getComments != null) {
+                        $commentCounts = count($getComments);
+                    }
+                    $LikesCounts = 0;
+                    if ($getLikes != null) {
+                        $LikesCounts = count($getLikes);
+                    }
+
                     echo "
                     
-                                            <div class=\"timeline-body\">
-                                                <div class=\"timeline-header\">
-                                                    <span class=\"username\">" . $post["firstName"] . " " . $post["lastName"] ."</span>
-                                                </div>
-                                                <div class=\"timeline-content\">
-                                                    <p>
-                                                        " . $post["desc"] ."
-                                                    </p>
-                                                </div>
-                                                <div class=\"timeline-likes\">
-                                                    <div class=\"stats\">
-                                                        <span class=\"stats-total\">000k</span>
-                                                        <span class=\"fa-stack fa-fw stats-icon\">
-                                                            <i class=\"fa fa-circle fa-stack-2x text-primary\"></i>
-                                                            <i class=\"fa fa-thumbs-up fa-stack-1x fa-inverse\"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class=\"timeline-footer\">
-                                                    <a href=\"javascript:;\" class=\"m-r-15 text-inverse-lighter\"><i class=\"fa fa-thumbs-up fa-fw fa-lg m-r-3\"></i> Like</a>
-                                                </div>
-                                                <div class=\"timeline-comment-box\">
-                                                    <div class=\"input\">
-                                                        <form action=\"\">
-                                                            <div class=\"input-group\">
-                                                                <input type=\"text\" class=\"form-control rounded-corner\" placeholder=\"Write a comment...\">
-                                                                <span class=\"input-group-btn p-l-10\">
-                                                                    <button class=\"btn btn-primary f-s-12 rounded-corner\" type=\"button\">Comment</button>
-                                                                </span>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <div class=\"timeline-body mb-5\">
+                                 <div class=\"timeline-header\">
+                                    <span class=\"username\"><a href=\"javascript:;\">" . $row["firstName"] . " " . $row["lastName"] . "</a></span>
+                                 </div>
+                                 <div class=\"timeline-content\">
+                                    <p>
+                                       " . $row["desc"] . "
+                                    </p>
+                                 </div>
+                                 <div class=\"timeline-likes\">
+                                    <div class=\"stats-right\">
+                                       <span class=\"stats-text\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal" . $counter . "\">" . $commentCounts . " comments</span>
+                                    </div>
+                                    <div class=\"stats\">
+                                       <span class=\"stats-total\"data-bs-toggle=\"modal\" data-bs-target=\"#exampleModalLike" . $counter . "\">" . $LikesCounts . "</span>
+                                       <span class=\"fa-stack fa-fw stats-icon\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModalLike" . $counter . "\">
+                                          <i class=\"fa fa-circle fa-stack-2x text-primary\"></i>
+                                          <i class=\"fa fa-thumbs-up fa-stack-1x fa-inverse\"></i>
+                                       </span>
+                                    </div>
+                                 </div>
+                                 <div class=\"timeline-footer\">
+                                    <form method=\"POST\" action=\"groupsTimeline.php\">
+                                    <input type=\"hidden\" name=\"postId\" value=\"" . $row["id"] . "\">
+                                    <input type=\"hidden\" name=\"likeOrUnlike\" value=\"" . $likeOrUnlike . "\">
+                                    <button type=\"submit\" class=\"m-r-15 btn btn-light\" style=\"color: " . $likeOrUnlike . ";\"><i class=\"fa fa-fw fa-thumbs-o-up\" aria-hidden=\"true\" style=\"color:" . $likeOrUnlike . "\" ></i> Like</button>
+                                    </form>
+                                 </div>
+                                 <div class=\"timeline-comment-box\">
+                                    <div class=\"input\">
+                                          <form method=\"POST\" action=\"groupsTimeline.php\">
+                                          <div class=\"input-group\">
+                                          <input type=\"hidden\" name=\"postId\" value=\"" . $row["id"] . "\">
+                                             <input type=\"text\" class=\"form-control rounded-corner\" name=\"commentText\" placeholder=\"Write a comment...\">
+                                             <span class=\"input-group-btn p-l-10\">
+                                                <button class=\"btn btn-primary f-s-12 rounded-corner\" type=\"submit\">Comment</button>
+                                             </span>
+                                          </div>
+                                       </div>
+                                    </form>
+                                 </div>
+                              </div>
+                              
+                              <!-- modal of comments -->
+                              <div class=\"modal fade\" id=\"exampleModal" . $counter . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"
+                                 aria-hidden=\"true\">
+                                 <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">
+                                    <div class=\"modal-content\">
+                                       <div class=\"modal-header\">
+                                          <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Comments</h5>
+                                          <button type=\"button\" class=\"close\" data-bs-dismiss=\"modal\" aria-label=\"Close\">
+                                             <span aria-hidden=\"true\">&times;</span>
+                                          </button>
+                                       </div>
+                                       <div class=\"modal-body\">";
+                    if ($getComments != null)
+                        foreach ($getComments as $key1 => $row1) {
+                            echo "<h5>" . $row1["firstName"] . " " . $row1["lastName"] . "</h5>
+                                          <p> &thinsp;&thinsp;&thinsp;&thinsp;" . $row1["comment"] . "</p>
+                                          <hr>
+                                       ";
+                        }
+                    echo "</div><div class=\"modal-footer\">
+                                       <div class=\"input-group\">
+                                             <!--<input type=\"text\" class=\"form-control rounded-corner\" placeholder=\"Write a comment...\">
+                                             <span class=\"input-group-btn \">
+                                                <button class=\"btn btn-primary f-s-12 rounded-corner\" onclick=\"addComment()\" type=\"button\">Comment</button>
+                                             </span>-->
+                                             
+                                          
+                                          <button type=\"button\" class=\"btn btn-secondary pl-5 \" data-bs-dismiss=\"modal\">Close</button>
+                                       </div> 
+                                      </div>
+                                    </div>
+                                 </div>
+                              </div>
+
+
+
+                              <!-- modal of like -->
+                              <div class=\"modal fade\" id=\"exampleModalLike" . $counter . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"
+                                 aria-hidden=\"true\">
+                                 <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">
+                                    <div class=\"modal-content\">
+                                       <div class=\"modal-header\">
+                                          <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Likes</h5>
+                                          <button type=\"button\" class=\"close\" data-bs-dismiss=\"modal\" aria-label=\"Close\">
+                                             <span aria-hidden=\"true\">&times;</span>
+                                          </button>
+                                       </div>
+                                       <div class=\"modal-body\">";
+                    if ($getLikes != null)
+                        foreach ($getLikes as $key4 => $row4) {
+                            echo "<h5>" . $row4["firstName"] . " " . $row4["lastName"] . "</h5>
+                                          <hr>
+                                       ";
+                        }
+                    echo "</div><div class=\"modal-footer\">
+                                       <div class=\"input-group\">
+                                             <!--<input type=\"text\" class=\"form-control rounded-corner\" placeholder=\"Write a comment...\">
+                                             <span class=\"input-group-btn \">
+                                                <button class=\"btn btn-primary f-s-12 rounded-corner\" onclick=\"addComment()\" type=\"button\">Likes</button>
+                                             </span>-->
+                                             
+                                          
+                                          <button type=\"button\" class=\"btn btn-secondary pl-5 \" data-bs-dismiss=\"modal\">Close</button>
+                                       </div> 
+                                      </div>
+                                    </div>
+                                 </div>
+                              </div>
                                        
                     ";
-                }
+                    ;
+                    $counter++;}
             }?>
                                     </li>
                                     </ul>
