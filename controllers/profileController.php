@@ -229,9 +229,9 @@ class ProfileController
     public function getConnections($user_id){
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query1 = "SELECT `users`.`firstName`, `users`.`lastName` FROM users INNER join connections on `users`.`id`= `connections`.`user2_id` where `connections`.`user1_id` = '$user_id';";
+            $query1 = "SELECT `users`.`firstName`, `users`.`lastName` FROM users INNER join connections on `users`.`id`= `connections`.`user2_id` where `connections`.`user1_id` = '$user_id' AND `state` = 1;";
             $result1 = $this->db->select($query1);
-            $query2 = "SELECT `users`.`firstName`, `users`.`lastName` FROM users INNER join connections on `users`.`id`= `connections`.`user1_id` where `connections`.`user2_id` = '$user_id';";
+            $query2 = "SELECT `users`.`firstName`, `users`.`lastName` FROM users INNER join connections on `users`.`id`= `connections`.`user1_id` where `connections`.`user2_id` = '$user_id' AND `state` = 1;";
             $result2 = $this->db->select($query2);
             $result = array_merge($result1, $result2);
             if (!$result) {

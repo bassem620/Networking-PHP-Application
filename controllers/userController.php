@@ -126,7 +126,7 @@ class UserController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT `state` FROM connections WHERE (user1_id = $user_id AND user2_id = $conn_id) OR (user2_id = $user_id AND user1_id = $conn_id)";
+            $query = "SELECT * FROM connections WHERE (user1_id = $user_id AND user2_id = $conn_id) OR (user2_id = $user_id AND user1_id = $conn_id)";
             $result = $this->db->select($query);
             if (!$result) {
                 return false;
@@ -139,7 +139,7 @@ class UserController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT u.id, u.firstName, u.lastName, u.email
+            $query = "SELECT u.id, u.firstName, u.lastName
             FROM users u
             INNER JOIN connections c ON u.id = c.user1_id
             WHERE c.user2_id = '$user_id'

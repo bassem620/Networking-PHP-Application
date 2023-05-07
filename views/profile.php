@@ -32,11 +32,14 @@ $profile->about = $result[0]["about"];
 
 $checkResult = $userController->checkConnection($_SESSION["id"], $_GET["id"]);
 $pending = null;
+
 if ($checkResult) {
-    if ($checkResult[0]["state"] == 0) {
-        $pending = true;
+    if ($checkResult[0]["state"] == 0 && $checkResult[0]["user1_id"] == $_SESSION["id"]) {
+        $pending = 1; // Pending
+    } else if ($checkResult[0]["state"] == 0 && $checkResult[0]["user2_id"] == $_SESSION["id"]) {
+        $pending = 2; // Accept
     } else {
-        $pending = false;
+        $pending = 0; // Remove
     }
 }
 
@@ -119,24 +122,33 @@ $connections = $profileController->getConnections($_GET["id"]);
                                 <?php
                                 // Buttons
                                 if ($_GET["id"] == $_SESSION["id"]) { ?>
+                                    <!-- My Profile -->
                                     <a href="editProfile.php" class="get-started-btn">
                                         Edit Profile
                                     </a> <?php
-                                        } else {
-                                            if (!$checkResult) { ?>
+                                } else {
+                                    if (!$checkResult) { ?>
+                                        <!-- No connection -->
                                         <a href=<?php echo "profileLogic.php?fn=connect&id=" . $_GET["id"]; ?> class="get-started-btn">
                                             Connect
                                         </a> <?php
-                                            } else if ($pending) { ?>
+                                    } else if ($pending == 1) { ?>
+                                        <!-- Pending -->
                                         <a href=<?php echo "profileLogic.php?fn=rmRequest&id=" . $_GET["id"]; ?> class="get-started-btn">
                                             Pending
                                         </a> <?php
-                                            } else { ?>
+                                    } else if ($pending == 2) {?>
+                                        <!-- Accept -->
+                                        <a href=<?php echo "profileLogic.php?fn=acceptConnection&id=" . $_GET["id"]; ?> class="get-started-btn">
+                                            Accept
+                                        </a> <?php
+                                    } else if ($pending == 0){ ?>
+                                        <!-- Remove -->
                                         <a href=<?php echo "profileLogic.php?fn=rmRequest&id=" . $_GET["id"]; ?> class="get-started-btn">
                                             Remove
                                         </a> <?php
-                                            }
-                                        }
+                                    }
+                                }
                                         // Subscription 
                                         if ($_GET["id"] == $_SESSION["id"] && $user->profileType == 0) { ?>
                                     <a href="profileLogic.php?fn=upgradeToPremium" class="get-started-btn">
@@ -170,7 +182,14 @@ $connections = $profileController->getConnections($_GET["id"]);
                                     } else {
                                         echo "#exampleModal";
                                     }
-                                    ?>><?php echo count($connections); ?> Connections</span>
+                                    ?>>
+                                    <?php 
+                                    if ($connections){
+                                        echo count($connections);
+                                    } else {
+                                        echo "0";
+                                    }
+                                    ?> Connections</span>
                                 </div>
                             </div>
                         </div>
