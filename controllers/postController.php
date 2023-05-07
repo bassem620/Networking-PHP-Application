@@ -138,7 +138,7 @@ class PostController
         if ($this->db->openConnection()) {
             $query = "delete from post_likes where post_id='$post_id' and user_id='$user_id'";
             $result = $this->db->delete($query);
-            if (!$result || count($result) == 0) {
+            if (!$result) {
                 return false;
             }
             return $result;
@@ -179,7 +179,7 @@ class PostController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT `users`.`firstName` , `users`.`lastName` from `post_likes` inner join `users` on `users`.`id` = `post_likes`.`user_id` where `post_likes`.`post_id` = ".$post_id.";";
+            $query = "SELECT `users`.`firstName` , `users`.`lastName` , `users`.`id`from `post_likes` inner join `users` on `users`.`id` = `post_likes`.`user_id` where `post_likes`.`post_id` = ".$post_id.";";
             $result = $this->db->select($query);
             if (!$result || count($result) == 0) {
                 return null;
