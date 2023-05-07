@@ -229,7 +229,7 @@ $connections = $profileController->getConnections($_GET["id"]);
                     <?php
                     if ($connections != null)
                         foreach ($connections as $key1 => $row1) {
-                            echo "<h5>" . $key1 + 1 . " " . $row1["firstName"] . " " . $row1["lastName"] . "</h5>
+                            echo "<h5>" . $key1 + 1 . ") " . $row1["firstName"] . " " . $row1["lastName"] . "</h5>
                 <hr>
                 ";
                         } ?>

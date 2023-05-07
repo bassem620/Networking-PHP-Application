@@ -12,6 +12,18 @@ if (!isset($_SESSION["id"])) {
 
 $postsControllers = new PostController;
 $post = $postsControllers->getPosts($_SESSION["id"]);
+
+if(isset($_POST["postDesc"])){
+   if(!empty($_POST["postDesc"])){
+      if ($postsControllers->addPost($_SESSION["id"], $_POST['postDesc'])) {
+         header("location: home.php");
+      } else {
+         $errMsg = $_SESSION["errMsg"];
+      }
+   }
+}
+
+
 if(isset($_POST['likeOrUnlike']) && isset($_POST['postId'])){
 if($_POST['likeOrUnlike']=="black"){ 
    if($postsControllers->addLike($_SESSION["id"],$_POST['postId'])){
@@ -80,6 +92,30 @@ if (isset($_POST['commentText']) && isset($_POST['postId'])) {
                      <div class="tab-pane fade active show" id="profile-post">
                         <ul class="timeline">
                            <li>
+                                <div class="timeline-body mb-5">
+                                 <div class="timeline-header">
+                                    <span class="username">Create Post</span>
+                                 </div>
+                                 <div class="timeline-content">
+                                    <form method="POST" action="home.php">
+                                          <div class="input-group">
+                                             <input type="text" class="form-control rounded-corner" name="postDesc" placeholder="add description for post">
+                                          </div>
+                                       
+                                    </div>
+                                    <div class="timeline-comment-box">
+                                    <div class="input">
+                                          
+                                             <span class="input-group-btn p-l-10">
+                                                <button class="btn btn-primary f-s-12 rounded-corner" type="submit">publish post</button>
+                                             </span>
+                                          
+                                       
+                                    
+                                 </form>
+                                 </div>
+                                 </div>
+                                </div>
                               <?php
                               $counter = 0;
                               if ($post) {

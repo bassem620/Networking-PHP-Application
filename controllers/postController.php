@@ -80,11 +80,11 @@ class PostController
     }
 
     // Posts
-    public function addPost($user_id, Post $post)
+    public function addPost($user_id, $desc)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO `posts`(`user_id`, `desc`, `media_url`, `visibility`) VALUES ('$user_id','$post->desc','$post->mediaUrl','$post->visibility')";
+            $query = "INSERT INTO `posts` (`id`, `user_id`, `group_id`, `desc`) VALUES (NULL , '$user_id', NULL,'$desc')";
             $result = $this->db->insert($query);
             if ($result) {
                 return $result;
@@ -150,7 +150,7 @@ class PostController
     public function getPosts($user_id){
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT `users`.`firstName` , `users`.`lastName` , `posts`.`id` , `posts`.`desc` , `posts`.`media_url` FROM posts INNER JOIN users on `users`.`id`= `posts`.`user_id` WHERE `posts`.`group_id` is null AND not `posts`.`user_id` = ".$user_id.";";
+            $query = "SELECT `users`.`firstName` , `users`.`lastName` , `posts`.`id` , `posts`.`desc` FROM posts INNER JOIN users on `users`.`id`= `posts`.`user_id` WHERE `posts`.`group_id` is null AND not `posts`.`user_id` = ".$user_id.";";
             $result = $this->db->select($query);
             if (!$result || count($result) == 0) {
                 return false;
