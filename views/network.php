@@ -118,8 +118,8 @@ if (array_key_exists('search', $_GET)) {
         }
         ?>
         <!-- ======= People ======= -->
-        <section id="popular-courses" class="courses">
-            <div class="section-title">
+        <section id="popular-courses m-0" class="courses">
+            <div class="section-title p-0">
                 <br>
                 <h2>Network</h2>
             </div>
