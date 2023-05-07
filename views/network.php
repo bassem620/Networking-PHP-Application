@@ -75,9 +75,9 @@ if (array_key_exists('connect', $_POST)) {
                             </div>";
                         }
                         echo "
-                        <div class=\"col-lg-4 col-md-6 d-flex mt-4 align-items-stretch\">
+                        <div class=\"col-lg-3 col-md-6 d-flex mt-4 align-items-stretch\">
                         <div class=\"course-item shadow-sm\">
-                            <img src=\"assets/img/course-1.jpg\" class=\"img-fluid\" alt=\"...\">
+                                <img src=\"assets/img/3135768.png\" class=\"img-fluid\" \>
                             <div class=\"course-content\">
                             <h3><a href=\"course-details.html\">" . $row["firstName"] . " " . $row["lastName"] . $premium ."</a></h3>
                             <div class=\"trainer d-flex justify-content-between align-items-center\">
