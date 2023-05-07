@@ -170,7 +170,7 @@ $connections = $profileController->getConnections($_GET["id"]);
                                     } else {
                                         echo "#exampleModal";
                                     }
-                                    ?>><?php echo count($connections); ?> Connections</span>
+                                    ?>><?php if ($connections==false){echo 0;}else{ echo count($connections);} ?> Connections</span>
                                 </div>
                             </div>
                         </div>
