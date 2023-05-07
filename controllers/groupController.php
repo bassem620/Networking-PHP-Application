@@ -110,11 +110,11 @@ class GroupController
         return false;
     }
 
-    public function getGroupsPosts()
+    public function getGroupsPosts($user_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT * from posts WHERE group_id IN (SELECT group_id FROM joined_groups) ORDER BY id DESC";
+            $query = "SELECT * from posts WHERE group_id IN (SELECT group_id FROM joined_groups WHERE user_id='$user_id') ORDER BY id DESC";
             $result = $this->db->select($query);
             if (!$result) {
                 return false;
