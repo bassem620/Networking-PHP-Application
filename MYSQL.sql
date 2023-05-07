@@ -191,9 +191,6 @@ CREATE TABLE `posts` (
   `user_id` int not null,
   `group_id` int,
   `desc` varchar(1000) ,
-  `title` varchar(50),
-  `media_url` varchar(100),
-  `visibility` boolean,
   PRIMARY KEY (`id`),
   foreign key(group_id) references `groups`(id) ON DELETE CASCADE
 );

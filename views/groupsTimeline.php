@@ -116,7 +116,7 @@ if (isset($_POST["postDesc"]) && isset($_POST["group"])) {
                     
                                             <div class=\"timeline-body\">
                                                 <div class=\"timeline-header\">
-                                                    <span class=\"username\">" . $post["title"] ."</span>
+                                                    <span class=\"username\">" . $post["firstName"] . " " . $post["lastName"] ."</span>
                                                 </div>
                                                 <div class=\"timeline-content\">
                                                     <p>
