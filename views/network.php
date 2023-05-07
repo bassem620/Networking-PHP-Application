@@ -1,5 +1,6 @@
 <?php
 require_once "../controllers/userController.php";
+require_once "../controllers/searchController.php";
 
 // Check Session
 if (!isset($_SESSION["id"])) {
@@ -12,14 +13,21 @@ if (!isset($_SESSION["id"])) {
 
 // User
 $userCont = new UserController;
-
+$search = new SearchController;
 $users = $userCont->getNetworkUsers($_SESSION["id"]);
-
+$searchResult = [];
 // Connect Button onClick
 if (array_key_exists('connect', $_POST)) {
     $userCont->connect($_SESSION["id"], $_POST["connect"]);
     header("Location: network.php");
     exit();
+}
+
+// Search Button onClick
+if (array_key_exists('search', $_POST)) {
+    $searchResult = $search->searchMember($_POST["search"]);
+    // header("Location: network.php");
+    // exit();
 }
 
 ?>
@@ -56,18 +64,32 @@ if (array_key_exists('connect', $_POST)) {
 
 <body>
     <?php require_once "components/header.php" ?>
-
-    <!-- ======= People ======= -->
-    <section id="popular-courses" class="courses">
-        <div class="container" data-aos="fade-up">
-            <div class="section-title">
+    <div class="container" data-aos="fade-up">
+        <!-- ======= Search ======= -->
+        <div class="search w-100 mb-3 mt-5">
+            <div class="section-title p-0 pt-4">
                 <br>
-                <h2>Network</h2>
+                <h2>Search</h2>
             </div>
-            <div class="row" data-aos="zoom-in" data-aos-delay="100">
-                <?php
-                if ($users) {
-                    foreach ($users as $key=>$row) {
+            <form action="network.php" method="POST" class="input-group">
+                <div class="form-outline">
+                    <input type="search" id="form1" name="search" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    Search
+                </button>
+            </form>
+        </div>
+        <!-- ======= Search Result ======= -->
+        <?php
+        if ($searchResult) {?>
+            <section id="popular-courses" class="courses">
+                <div class="section-title">
+                    <br>
+                    <h2>Search Results</h2>
+                </div>
+                <div class="row" data-aos="zoom-in" data-aos-delay="100"> <?php
+                    foreach ($searchResult as $key => $row) {
                         $premium = "";
                         if ($row["profile_type"] > 0) {
                             $premium = "<div class=\"d-inline-block ms-3\">
@@ -75,11 +97,48 @@ if (array_key_exists('connect', $_POST)) {
                             </div>";
                         }
                         echo "
-                        <div class=\"col-lg-3 col-md-6 d-flex mt-4 align-items-stretch\">
+                        <div  class=\"col-lg-3 col-md-6 d-flex mt-4 align-items-stretch\">
+                        <a href=\"profile.php?id=" . $row["id"] . "\" >
                         <div class=\"course-item shadow-sm\">
                                 <img src=\"assets/img/3135768.png\" class=\"img-fluid\" \>
                             <div class=\"course-content\">
-                            <h3><a href=\"course-details.html\">" . $row["firstName"] . " " . $row["lastName"] . $premium ."</a></h3>
+                            <h3><a href=\"course-details.html\">" . $row["firstName"] . " " . $row["lastName"] . $premium . "</a></h3>
+                            <div class=\"trainer d-flex justify-content-between align-items-center\">
+                                <div class=\"trainer-rank d-flex align-items-center\">
+                                </div>
+                            </div>
+                            </div>
+                        </div> </a>
+                        </div>
+                        "; 
+                    } ?>
+                </div>
+            </section> <?php
+        }
+        ?>
+        <!-- ======= People ======= -->
+        <section id="popular-courses" class="courses">
+            <div class="section-title">
+                <br>
+                <h2>Network</h2>
+            </div>
+            <div class="row" data-aos="zoom-in" data-aos-delay="100">
+                <?php
+                if ($users) {
+                    foreach ($users as $key => $row) {
+                        $premium = "";
+                        if ($row["profile_type"] > 0) {
+                            $premium = "<div class=\"d-inline-block ms-3\">
+                                <h4>Premium</h4>
+                            </div>";
+                        }
+                        echo "
+                        <div  class=\"col-lg-3 col-md-6 d-flex mt-4 align-items-stretch\">
+                        <a href=\"profile.php?id=" . $row["id"] . "\" >
+                        <div class=\"course-item shadow-sm\">
+                                <img src=\"assets/img/3135768.png\" class=\"img-fluid\" \>
+                            <div class=\"course-content\">
+                            <h3><a href=\"course-details.html\">" . $row["firstName"] . " " . $row["lastName"] . $premium . "</a></h3>
                             <div class=\"trainer d-flex justify-content-between align-items-center\">
                                 <div class=\"trainer-profile d-flex align-items-center\">
                                     <form method=\"POST\" action=\"network.php\" class=\"w-100\">
@@ -90,15 +149,15 @@ if (array_key_exists('connect', $_POST)) {
                                 </div>
                             </div>
                             </div>
-                        </div>
+                        </div> </a>
                         </div>
                         ";
                     }
                 }
                 ?>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <?php require_once "components/script.php" ?>
     <?php require_once "components/footer.php" ?>
