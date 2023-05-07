@@ -41,22 +41,23 @@ if ($_GET["fn"] == "rmRequest") {
 //     }
 // }
 
-// // Cancel Subscription
-// if ($_GET["fn"] == "cancelSubscription") {
-//     if ($result) {
-//         header("Location: profile.php?fn=" . $_SESSION["id"]);
-//         exit();
-//     }
-// }
+// Cancel Subscription
+if ($_GET["fn"] == "cancelSubscription") {
+    $result = $premiumController->cancelPremium($_SESSION["id"]);
+    if ($result) {
+        header("Location: profile.php?id=" . $_SESSION["id"]);
+        exit();
+    }
+}
 
-// // Export Connections
-// if ($_GET["fn"] == "exportConnections") {
-//     $result = $premiumController->exportConnections($_SESSION["id"]);
-//     if ($result) {
-//         header("Location: profile.php?fn=" . $_SESSION["id"]);
-//         exit();
-//     }
-// }
+// Export Connections
+if ($_GET["fn"] == "exportConnections") {
+    $result = $premiumController->exportConnections($_SESSION["id"]);
+    if ($result) {
+        header("Location: profile.php?id=" . $_SESSION["id"]);
+        exit();
+    }
+}
 
 // // Hide Connections
 // if ($_GET["fn"] == "hideConnections") {

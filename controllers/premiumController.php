@@ -49,23 +49,21 @@ class PremiumConrtroller
         return false;
     }
 
-    public function cancelPremium(Premium $premium)
+    public function cancelPremium($premium_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
             if (!isset($_SESSION["id"])) {
                 session_start();
             }
-            $query1 = "UPDATE users SET profile_type = 0 WHERE id = '$premium->id'";
-            $query2 = "DELETE FROM premium WHERE user_id = '$premium->id'";
+            $query1 = "UPDATE users SET profile_type = 0 WHERE id = '$premium_id'";
+            $query2 = "DELETE FROM premium WHERE user_id = '$premium_id'";
             $result1 = $this->db->update($query1);
             if (!$result1) {
                 return false;
             }
             $result2 = $this->db->delete($query2);
             if (!$result2) {
-                $query3 = "UPDATE users SET profile_type = 1 WHERE id = '$premium->id'";
-                $this->db->update($query3);
                 return false;
             }
             return true;
