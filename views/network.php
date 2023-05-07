@@ -11,11 +11,18 @@ if (!isset($_SESSION["id"])) {
     }
 }
 
+
 // User
 $userCont = new UserController;
 $search = new SearchController;
 $users = $userCont->getNetworkUsers($_SESSION["id"]);
 $searchResult = [];
+
+// Search
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $searchResult = $search->searchMember($_POST["search"]);
+}
+
 // Connect Button onClick
 if (array_key_exists('connect', $_POST)) {
     $userCont->connect($_SESSION["id"], $_POST["connect"]);
@@ -24,11 +31,11 @@ if (array_key_exists('connect', $_POST)) {
 }
 
 // Search Button onClick
-if (array_key_exists('search', $_POST)) {
-    $searchResult = $search->searchMember($_POST["search"]);
-    // header("Location: network.php");
-    // exit();
-}
+// if (array_key_exists('search', $_POST)) {
+//     header("Location: network.php");
+//     exit();
+// }
+
 
 ?>
 
@@ -98,7 +105,7 @@ if (array_key_exists('search', $_POST)) {
                         }
                         echo "
                         <div  class=\"col-lg-3 col-md-6 d-flex mt-4 align-items-stretch\">
-                        <a href=\"profile.php?id=" . $row["id"] . "\" >
+                        <a href=\"profile.php?id=" . $row["id"] . "\" target=\"_blank\" >
                         <div class=\"course-item shadow-sm\">
                                 <img src=\"assets/img/3135768.png\" class=\"img-fluid\" \>
                             <div class=\"course-content\">
