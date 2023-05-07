@@ -49,7 +49,7 @@ class PostController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO `posts`(`user_id`, `group_id`, `desc`, `media_url`, `visibility`) VALUES ('$user_id','$group_id','$post->desc','$post->mediaUrl','$post->visibility')";
+            $query = "INSERT INTO `posts`(`user_id`, `group_id`, `desc`) VALUES ('$user_id','$group_id','$post->desc')";
             $result = $this->db->insert($query);
             if ($result) {
                 return $result;
@@ -147,10 +147,10 @@ class PostController
         return false;
     }
 
-    public function getPosts($user_id){
+    public function getPosts(){
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT `users`.`firstName` , `users`.`lastName` , `posts`.`id` , `posts`.`desc` FROM posts INNER JOIN users on `users`.`id`= `posts`.`user_id` WHERE `posts`.`group_id` is null AND not `posts`.`user_id` = ".$user_id.";";
+            $query = "SELECT `users`.`firstName` , `users`.`lastName` , `posts`.`id` , `posts`.`desc` FROM posts INNER JOIN users on `users`.`id`= `posts`.`user_id` WHERE `posts`.`group_id` is null ORDER BY posts.id DESC;";
             $result = $this->db->select($query);
             if (!$result || count($result) == 0) {
                 return false;

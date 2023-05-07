@@ -11,7 +11,7 @@ if (!isset($_SESSION["id"])) {
 }
 
 $postsControllers = new PostController;
-$post = $postsControllers->getPosts($_SESSION["id"]);
+$post = $postsControllers->getPosts();
 
 if(isset($_POST["postDesc"])){
    if(!empty($_POST["postDesc"])){
