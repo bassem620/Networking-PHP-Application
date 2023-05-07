@@ -69,7 +69,6 @@ class GroupController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            // $query = "SELECT * FROM events WHERE id NOT IN (SELECT event_id FROM events_going WHERE user_id = '$user_id') AND user_id != '$user_id'";
             $query = "SELECT * FROM groups AS g WHERE id NOT IN (SELECT group_id FROM joined_groups WHERE user_id = '$user_id') AND g.user_id != '$user_id';";
             $result = $this->db->select($query);
             if (!$result) {
@@ -115,7 +114,7 @@ class GroupController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT * from posts WHERE group_id IN (SELECT group_id FROM joined_groups WHERE user_id='$user_id')";
+            $query = "SELECT * from posts WHERE group_id IN (SELECT group_id FROM joined_groups) ORDER BY id DESC";
             $result = $this->db->select($query);
             if (!$result) {
                 return false;
