@@ -3,6 +3,7 @@
 require_once "../models/users/premium.php";
 require_once "../controllers/DBController.php";
 require_once "../controllers/fpdf/fpdf.php";
+require_once "../controllers/profileController.php";
 
 class PremiumConrtroller
 {
@@ -27,11 +28,13 @@ class PremiumConrtroller
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query1 = "SELECT `users`.`firstName`, `users`.`lastName` FROM users INNER join connections on `users`.`id`= `connections`.`user2_id` where `connections`.`user1_id` = '$user_id';";
-            $result1 = $this->db->select($query1);
-            $query2 = "SELECT `users`.`firstName`, `users`.`lastName` FROM users INNER join connections on `users`.`id`= `connections`.`user1_id` where `connections`.`user2_id` = '$user_id';";
-            $result2 = $this->db->select($query2);
-            $result = array_merge($result1, $result2);
+            $profileConnection = new ProfileController;
+            $result = $profileConnection->getConnections($user_id);
+            // $query1 = "SELECT `users`.`firstName`, `users`.`lastName` FROM users INNER join connections on `users`.`id`= `connections`.`user2_id` where `connections`.`user1_id` = '$user_id';";
+            // $result1 = $this->db->select($query1);
+            // $query2 = "SELECT `users`.`firstName`, `users`.`lastName` FROM users INNER join connections on `users`.`id`= `connections`.`user1_id` where `connections`.`user2_id` = '$user_id';";
+            // $result2 = $this->db->select($query2);
+            // $result = array_merge($result1, $result2);
             ob_end_clean();
             $pdf = new FPDF();
             // Define alias for number of pages
