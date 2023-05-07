@@ -10,23 +10,13 @@ if (!isset($_SESSION["id"])) {
     }
 }
 
-// Events
+// JObs
 $jobCont = new jobController;
 
-// Delete event Button onClick
+// Delete post Button onClick
 if (array_key_exists('delete', $_POST)) {
     $jobCont->deleteJob($_SESSION["id"], $_POST["delete"]);
 }
-
-// Going event Button onClick
-// if (array_key_exists('going', $_POST)) {
-//     $jobCont->goingEvent($_SESSION["id"], $_POST["going"]);
-// }
-
-// // Cancel Going event Button onClick
-// if (array_key_exists('cancelGoing', $_POST)) {
-//     $jobCont->cancelGoingEvent($_SESSION["id"], $_POST["cancelGoing"]);
-// }
 
 ?>
 
@@ -45,9 +35,7 @@ if (array_key_exists('delete', $_POST)) {
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
@@ -83,14 +71,15 @@ if (array_key_exists('delete', $_POST)) {
                 <?php
                 $result = $jobCont->getMyOffers($_SESSION["id"]);
                 if ($result) {
-                    
                     foreach ($result as $row) {
-                        $desc=$row["desc"];
-                        if(strlen($row["desc"])>70)
-                        {$desc = substr($row["desc"], 0, 70) . "...";}
+                        $desc = $row["desc"];
+                        if (strlen($row["desc"]) > 70) {
+                            $desc = substr($row["desc"], 0, 70) . "...";
+                        }
                         $req = $row["req."];
-                        if (strlen($row["req."]) > 70)
-                       {$req = substr($row["req."], 0, 70) . "...";}
+                        if (strlen($row["req."]) > 70) {
+                            $req = substr($row["req."], 0, 70) . "...";
+                        }
                         echo "
                         <tr>
                             <td>" . $row["title"] . "</td>
@@ -113,7 +102,7 @@ if (array_key_exists('delete', $_POST)) {
         </table>
     </div>
 
-        <?php require_once "components/script.php" ?>
+    <?php require_once "components/script.php" ?>
     <?php require_once "components/footer.php" ?>
 </body>
 
