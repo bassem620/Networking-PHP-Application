@@ -2,10 +2,10 @@
 
 class DBController
 {
-    public $dbHost = "localhost";
-    public $dbUser = "root";
-    public $dbPassword = "";
-    public $dbName = "linkedin";
+    private $dbHost = "localhost";
+    private $dbUser = "root";
+    private $dbPassword = "";
+    private $dbName = "linkedin";
     public $connection;
 
     public function openConnection()
