@@ -134,4 +134,22 @@ class UserController
             return $result;
         }
     }
+
+    public function getPendingRequests($user_id)
+    {
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query = "SELECT u.id, u.firstName, u.lastName, u.email
+            FROM users u
+            INNER JOIN connections c ON u.id = c.user1_id
+            WHERE c.user2_id = '$user_id'
+            AND c.state = 0;
+            ";
+            $result = $this->db->select($query);
+            if (!$result) {
+                return false;
+            }
+            return $result;
+        }
+    }
 }

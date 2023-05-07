@@ -24,6 +24,15 @@ if ($_GET["fn"] == "connect") {
     }
 }
 
+// Accept Connection
+if ($_GET["fn"] == "acceptConnection") {
+    $result = $userController->acceptConnect($_SESSION["id"], $_GET["id"]);
+    if ($result) {
+        header("Location: profile.php?id=" .  $_GET["id"]);
+        exit();
+    }
+}
+
 // Pending OR Remove
 if ($_GET["fn"] == "rmRequest") {
     $result = $userController->removeConnect($_SESSION["id"], $_GET["id"]);
