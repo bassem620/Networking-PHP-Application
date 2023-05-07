@@ -18,11 +18,6 @@ $search = new SearchController;
 $users = $userCont->getNetworkUsers($_SESSION["id"]);
 $searchResult = [];
 
-// Search
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $searchResult = $search->searchMember($_POST["search"]);
-}
-
 // Connect Button onClick
 if (array_key_exists('connect', $_POST)) {
     $userCont->connect($_SESSION["id"], $_POST["connect"]);
@@ -31,10 +26,9 @@ if (array_key_exists('connect', $_POST)) {
 }
 
 // Search Button onClick
-// if (array_key_exists('search', $_POST)) {
-//     header("Location: network.php");
-//     exit();
-// }
+if (array_key_exists('search', $_GET)) {
+    $searchResult = $search->searchMember($_GET["search"]);
+}
 
 
 ?>
@@ -78,7 +72,7 @@ if (array_key_exists('connect', $_POST)) {
                 <br>
                 <h2>Search</h2>
             </div>
-            <form action="network.php" method="POST" class="input-group">
+            <form action="network.php" method="GET" class="input-group">
                 <div class="form-outline">
                     <input type="search" id="form1" name="search" class="form-control" />
                 </div>
@@ -105,7 +99,7 @@ if (array_key_exists('connect', $_POST)) {
                         }
                         echo "
                         <div  class=\"col-lg-3 col-md-6 d-flex mt-4 align-items-stretch\">
-                        <a href=\"profile.php?id=" . $row["id"] . "\" target=\"_blank\" >
+                        <a href=\"profile.php?id=" . $row["id"] . "\" >
                         <div class=\"course-item shadow-sm\">
                                 <img src=\"assets/img/3135768.png\" class=\"img-fluid\" \>
                             <div class=\"course-content\">
