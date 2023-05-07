@@ -202,7 +202,7 @@ CREATE TABLE `post_comments` (
   `post_id` int NOT NULL,
   `user_id` int NOT NULL,
   `comment`  varchar(200) NOT NULL,
-  PRIMARY KEY (`post_id`, `user_id`),
+  PRIMARY KEY (`post_id`, `user_id`, `comment`),
   foreign key (post_id) references posts(id) ON DELETE CASCADE,
   foreign key(user_id) references users(id) ON DELETE CASCADE
 );

@@ -20,13 +20,11 @@ if (isset($_POST['commentText']) && isset($_POST['postId'])) {
          $errMsg = $_SESSION["errMsg"];
          
       } else {
-         
-         header("location:/linkedIn/views/home.php");
+         header("location: home.php");
          exit();
       }
    } else {
       $errMsg = "Invalid credentials";
-      
    }
 }
 
@@ -104,7 +102,6 @@ if (isset($_POST['commentText']) && isset($_POST['postId'])) {
                                  </div>
                                  <div class=\"timeline-comment-box\">
                                     <div class=\"input\">
-                                       <form action=\"\">
                                           <div class=\"input-group\">
                                           <form method=\"POST\" action=\"home.php\">
                                           <input type=\"hidden\" name=\"postId\" value=\"".$row["id"]."\">
@@ -112,7 +109,6 @@ if (isset($_POST['commentText']) && isset($_POST['postId'])) {
                                              <span class=\"input-group-btn p-l-10\">
                                                 <button class=\"btn btn-primary f-s-12 rounded-corner\" type=\"submit\">Comment</button>
                                              </span>
-                                          </form>
                                           </div>
                                        </form>
                                     </div>
