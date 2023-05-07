@@ -110,7 +110,7 @@ class GroupController
         return false;
     }
 
-    public function getGroupsPosts($user_id)
+    public function getGroupsPosts()
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
