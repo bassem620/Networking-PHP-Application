@@ -102,16 +102,16 @@ if (isset($_POST['commentText']) && isset($_POST['postId'])) {
                                  </div>
                                  <div class=\"timeline-comment-box\">
                                     <div class=\"input\">
-                                          <div class=\"input-group\">
                                           <form method=\"POST\" action=\"home.php\">
+                                          <div class=\"input-group\">
                                           <input type=\"hidden\" name=\"postId\" value=\"".$row["id"]."\">
                                              <input type=\"text\" class=\"form-control rounded-corner\" name=\"commentText\" placeholder=\"Write a comment...\">
                                              <span class=\"input-group-btn p-l-10\">
                                                 <button class=\"btn btn-primary f-s-12 rounded-corner\" type=\"submit\">Comment</button>
                                              </span>
                                           </div>
-                                       </form>
-                                    </div>
+                                       </div>
+                                    </form>
                                  </div>
                               </div>
                               
