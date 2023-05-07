@@ -147,10 +147,10 @@ class PostController
         return false;
     }
 
-    public function getPosts(){
+    public function getPosts($user_id){
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT `users`.`firstName` , `users`.`lastName` , `posts`.`id` , `posts`.`desc` FROM posts INNER JOIN users on `users`.`id`= `posts`.`user_id` WHERE `posts`.`group_id` is null ORDER BY posts.id DESC;";
+            $query = "SELECT `users`.`firstName` , `users`.`lastName` , `posts`.`id` , `posts`.`desc` FROM posts INNER JOIN users on `users`.`id`= `posts`.`user_id` WHERE `posts`.`group_id` is null AND not `posts`.`user_id` = ".$user_id.";";
             $result = $this->db->select($query);
             if (!$result || count($result) == 0) {
                 return false;
