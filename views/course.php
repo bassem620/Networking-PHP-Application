@@ -13,17 +13,6 @@ if (!isset($_SESSION["id"])) {
 $learn = new LearningController;
 $course = $learn->openEnrolledCourse($_GET["id"], $_SESSION["id"]);
 
-// echo "ID :" . $course[0]['course_id'];
-// echo "<br>";
-// echo "Name :" . $course[0]['name'];
-// echo "<br>";
-// echo "Desc : " . $course[0]['desc'];
-// echo "<br>";
-// echo "Skills : " . $course[0]['skills'];
-// echo "<br>";
-// echo "Hours : " . $course[0]['hours'];
-// echo "<br>";
-// echo "Price : " . $course[0]['price'];
 ?>
 
 <!DOCTYPE html>
@@ -56,13 +45,6 @@ $course = $learn->openEnrolledCourse($_GET["id"], $_SESSION["id"]);
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Mentor
-  * Updated: Mar 10 2023 with Bootstrap v5.2.3
-  * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -73,7 +55,7 @@ $course = $learn->openEnrolledCourse($_GET["id"], $_SESSION["id"]);
     <!-- ======= Breadcrumbs ======= -->
     <div class="breadcrumbs" data-aos="fade-in">
       <div class="container">
-        <h2>Course Details</h2>
+        <h2><?php echo $course[0]["name"]; ?></h2>
       </div>
     </div><!-- End Breadcrumbs -->
 
@@ -83,12 +65,11 @@ $course = $learn->openEnrolledCourse($_GET["id"], $_SESSION["id"]);
 
         <div class="row">
           <div class="col-lg-8">
-            <img src="assets/img/course-details.jpg" class="img-fluid" alt="">
+            <?php echo "<iframe width=\"420\" height=\"315\" src=\"".$course[0]['url']."\"></iframe>"?>
             <h3>description</h3>
             <p>
               <?php echo $course[0]['desc'];?>
             </p>
-            <?php echo "<iframe width=\"420\" height=\"315\" src=\"".$course[0]['url']."\"></iframe>"?>
           </div>
           <div class="col-lg-4">
 
@@ -107,9 +88,6 @@ $course = $learn->openEnrolledCourse($_GET["id"], $_SESSION["id"]);
 
       </div>
     </section><!-- End Cource Details Section -->
-          
-   
-
   </main>
   <!-- End #main -->
 
