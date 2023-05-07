@@ -229,13 +229,6 @@ $connections = $profileController->getConnections($_GET["id"]);
                                             ?>
                             </ul>
                         </div>
-                        <!-- Websites Links -->
-                        <div class="widget user-dashboard-menu">
-                            <h3 class="ms-2 fw-bold">Websites</h3>
-                            <ul>
-                                <li></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>
