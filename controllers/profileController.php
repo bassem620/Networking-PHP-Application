@@ -240,4 +240,31 @@ class ProfileController
             return $result;
         }
     }
+
+    public function userProfile($user_id)
+    {
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query1 = "SELECT * FROM user_skills WHERE user_id = '$user_id'";
+            $skills = $this->db->select($query1);
+
+            $query2 = "SELECT * FROM websites WHERE user_id = '$user_id'";
+            $websites = $this->db->select($query2);
+
+            $query3 = "SELECT * FROM educations WHERE user_id = '$user_id'";
+            $educations = $this->db->select($query3);
+            
+            $query4 = "SELECT * FROM certifications WHERE user_id = '$user_id'";
+            $certificates = $this->db->select($query4);
+            
+            $query5 = "SELECT * FROM positions WHERE user_id = '$user_id'";
+            $positions = $this->db->select($query5);
+            
+            $result = array_merge($skills, $websites, $educations, $certificates, $positions);
+            if (!$result) {
+                return false;
+            }
+            return $result;
+        }
+    }
 }
