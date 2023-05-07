@@ -1,5 +1,6 @@
 <?php
 require_once "../controllers/groupController.php";
+require_once "../controllers/postController.php";
 
 // Check Session
 if (!isset($_SESSION["id"])) {
@@ -13,6 +14,18 @@ if (!isset($_SESSION["id"])) {
 
 $groupCont = new GroupController;
 $posts = $groupCont->getGroupsPosts($_SESSION["id"]);
+$myGroups = $groupCont->getJoinedGroups($_SESSION["id"]);
+$postsControllers = new PostController;
+if (isset($_POST["postDesc"]) && isset($_POST["group"])) {
+    if (!empty($_POST["postDesc"]) && !empty($_POST["group"])) {
+        if ($postsControllers->addPost($_SESSION["id"], $_POST['postDesc'], $_POST["group"])) {
+            header("location: groupsTimeline.php");
+        } else {
+            $errMsg = $_SESSION["errMsg"];
+        }
+    }
+}
+
 ?>
 
 
@@ -34,7 +47,7 @@ $posts = $groupCont->getGroupsPosts($_SESSION["id"]);
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="../views/assets/css_beshoy/style.css" rel="stylesheet">
-    <title>LinkedIn - Home</title>
+    <title>LinkedIn - Group Timeline</title>
 </head>
 
 <body>
@@ -50,20 +63,60 @@ $posts = $groupCont->getGroupsPosts($_SESSION["id"]);
             }
         ?>) </h3>
         <div class="row pt-5">
+            <div class="col-md-12">
+                    <div id="content" class="content content-full-width">
+                        <div class="profile-content">
+                            <div class="tab-content p-0">
+                                <div class="tab-pane fade active show" id="profile-post">
+                                    <ul class="timeline">
+                                        <li>
+                                <div class="timeline-body mb-5">
+                                 <div class="timeline-header">
+                                    <span class="username">Create Post</span>
+                                 </div>
+                                 <div class="timeline-content">
+                                    <form method="POST" action="home.php">
+                                          <div class="input-group">
+                                             <input type="text" class="form-control rounded-corner" name="postDesc" placeholder="add description for post">
+                                          </div>
+                                       
+                                </div>
+                                <div class="widget change-password">
+                                <h3 class="widget-header user">add group</h3>
+                                    <select class="form-select" aria-label="Default select example" name="group">
+                                        <option disabled selected>Select Group</option>
+                                        <?php
+                                            foreach ($myGroups as $key => $group) {
+                                                ?>
+                                                <option value=<?php echo $group["id"] ?>><?php echo $group["name"] ?></option>
+                                                <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    
+                                </div>
+                                    <div class="timeline-comment-box">
+                                    <div class="input">
+                                          
+                                             <span class="input-group-btn p-l-10">
+                                                <button class="btn btn-primary f-s-12 rounded-corner" type="submit">publish post</button>
+                                             </span>
+                                          
+                                       
+                                    
+                                 </form>
+                                 </div>
+                                 </div>
+                                </div>
+
             <?php 
             if($posts) {
                 foreach($posts as $key => $post) {
                     echo "
-                    <div class=\"col-md-12\">
-                    <div id=\"content\" class=\"content content-full-width\">
-                        <div class=\"profile-content\">
-                            <div class=\"tab-content p-0\">
-                                <div class=\"tab-pane fade active show\" id=\"profile-post\">
-                                    <ul class=\"timeline\">
-                                        <li>
+                    
                                             <div class=\"timeline-body\">
                                                 <div class=\"timeline-header\">
-                                                    <span class=\"username\"><a href=\"javascript:;\">" . $post["title"] ."</a></span>
+                                                    <span class=\"username\">" . $post["title"] ."</span>
                                                 </div>
                                                 <div class=\"timeline-content\">
                                                     <p>
@@ -95,17 +148,17 @@ $posts = $groupCont->getGroupsPosts($_SESSION["id"]);
                                                     </div>
                                                 </div>
                                             </div>
-                                        </li>
+                                       
+                    ";
+                }
+            }?>
+                                    </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                    ";
-                }
-            }
-            ?>
         </div>
     </div>
 

@@ -15,7 +15,7 @@ $post = $postsControllers->getPosts($_SESSION["id"]);
 
 if(isset($_POST["postDesc"])){
    if(!empty($_POST["postDesc"])){
-      if ($postsControllers->addPost($_SESSION["id"], $_POST['postDesc'])) {
+      if ($postsControllers->addPost($_SESSION["id"], $_POST['postDesc'], "null")) {
          header("location: home.php");
       } else {
          $errMsg = $_SESSION["errMsg"];

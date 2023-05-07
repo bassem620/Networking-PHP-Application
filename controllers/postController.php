@@ -80,11 +80,11 @@ class PostController
     }
 
     // Posts
-    public function addPost($user_id, $desc)
+    public function addPost($user_id, $desc, $group_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO `posts` (`id`, `user_id`, `group_id`, `desc`) VALUES (NULL , '$user_id', NULL,'$desc')";
+            $query = "INSERT INTO `posts` (`id`, `user_id`, `group_id`, `desc`) VALUES (NULL , '$user_id', '$group_id' ,'$desc');";
             $result = $this->db->insert($query);
             if ($result) {
                 return $result;
