@@ -183,13 +183,13 @@ $connections = $profileController->getConnections($_GET["id"]);
                                         echo "#exampleModal";
                                     }
                                     ?>>
-                                    <?php 
+                                    <?php if ($connections==false){echo 0;}else{ 
                                     if ($connections){
                                         echo count($connections);
                                     } else {
                                         echo "0";
                                     }
-                                    ?> Connections</span>
+                                   } ?> Connections</span>
                                 </div>
                             </div>
                         </div>
