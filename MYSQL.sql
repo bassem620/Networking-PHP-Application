@@ -135,7 +135,7 @@ CREATE TABLE `jobs` (
   `title` varchar(100) NOT NULL,
   `desc` varchar(100)  NOT NULL,
   `req.` varchar(100),
-  `salary` decimal(6,3),
+  `salary` int,
   `company` varchar(50),
   `location` varchar(50),
   `creator_id` int  NOT NULL,
