@@ -147,10 +147,30 @@ class PostController
         return false;
     }
 
-    public function getPosts($user_id){
+    public function getPosts($user_id)
+    {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT `users`.`firstName` , `users`.`lastName` , `posts`.`id` , `posts`.`desc` FROM posts INNER JOIN users on `users`.`id`= `posts`.`user_id` WHERE `posts`.`group_id` is null ORDER BY `users`.`id` DESC;";
+            $query = "SELECT users.firstName, users.lastName, posts.id, posts.desc
+            FROM posts
+            INNER JOIN users ON users.id = posts.user_id
+            WHERE posts.user_id IN (
+                SELECT user2_id
+                FROM connections
+                WHERE user1_id = '$user_id' AND state = 1
+                UNION
+                SELECT user1_id
+                FROM connections
+                WHERE user2_id = '$user_id' AND state = 1
+            )
+            UNION
+            SELECT users.firstName, users.lastName, posts.id, posts.desc
+            FROM posts
+            INNER JOIN users ON users.id = posts.user_id
+            WHERE posts.user_id = '$user_id'
+            ORDER BY id DESC;
+            
+            ";
             $result = $this->db->select($query);
             if (!$result || count($result) == 0) {
                 return false;
@@ -165,7 +185,7 @@ class PostController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "select `users`.`firstName` , `users`.`lastName` , `post_comments`.`comment` from post_comments inner join users on `users`.`id` = `post_comments`.`user_id` where `post_id` =".$post_id.";";
+            $query = "select `users`.`firstName` , `users`.`lastName` , `post_comments`.`comment` from post_comments inner join users on `users`.`id` = `post_comments`.`user_id` where `post_id` =" . $post_id . ";";
             $result = $this->db->select($query);
             if (!$result || count($result) == 0) {
                 return null;
@@ -179,7 +199,7 @@ class PostController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT `users`.`firstName` , `users`.`lastName` , `users`.`id`from `post_likes` inner join `users` on `users`.`id` = `post_likes`.`user_id` where `post_likes`.`post_id` = ".$post_id.";";
+            $query = "SELECT `users`.`firstName` , `users`.`lastName` , `users`.`id`from `post_likes` inner join `users` on `users`.`id` = `post_likes`.`user_id` where `post_likes`.`post_id` = " . $post_id . ";";
             $result = $this->db->select($query);
             if (!$result || count($result) == 0) {
                 return null;
