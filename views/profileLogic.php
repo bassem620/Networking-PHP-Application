@@ -32,6 +32,14 @@ if ($_GET["fn"] == "cancelSubscription") {
     }
 }
 
+// Export Connections
+if ($_GET["fn"] == "exportConnections") {
+    if ($result) {
+        header("Location: profile.php?id=" . $_SESSION["id"]);
+        exit();
+    }
+}
+
 // Hide Connections
 if ($_GET["fn"] == "hideConnections") {
     if ($result) {

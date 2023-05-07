@@ -141,6 +141,9 @@ if ($checkResult) {
                                     <a href="profileLogic.php?fn=cancelSubscription" class="get-started-btn">
                                         Cancel Subscription
                                     </a>
+                                    <a href="profileLogic.php?fn=exportConnections" class="get-started-btn">
+                                        Export Connections
+                                    </a>
                                     <?php
                                             if ($user->profileType == 1) { ?>
                                         <a href="profileLogic.php?fn=hideConnections" class="get-started-btn">
