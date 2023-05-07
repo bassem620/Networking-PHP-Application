@@ -119,15 +119,15 @@ if ($checkResult) {
                                     </a> <?php
                                         } else {
                                             if (!$checkResult) { ?>
-                                        <a href="profileLogic.php?fn=connect" class="get-started-btn">
+                                        <a href=<?php echo "profileLogic.php?fn=connect&id=" . $_GET["id"] ; ?> class="get-started-btn">
                                             Connect
                                         </a> <?php
                                             } else if ($pending) { ?>
-                                        <a href="profileLogic.php?fn=rmRequest" class="get-started-btn">
+                                        <a href=<?php echo "profileLogic.php?fn=rmRequest&id=" . $_GET["id"] ; ?> class="get-started-btn">
                                             Pending
                                         </a> <?php
                                             } else { ?>
-                                        <a href="profileLogic.php?fn=rmRequest" class="get-started-btn">
+                                        <a href=<?php echo "profileLogic.php?fn=rmRequest&id=" . $_GET["id"] ; ?> class="get-started-btn">
                                             Remove
                                         </a> <?php
                                             }
