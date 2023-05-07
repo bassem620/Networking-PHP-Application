@@ -3,6 +3,7 @@
 require_once "../controllers/userController.php";
 require_once "../models/profile/profile.php";
 require_once "../models/users/user.php";
+require_once "../controllers/profileController.php";
 
 // Check Session
 if (!isset($_SESSION["id"])) {
@@ -173,6 +174,10 @@ if ($checkResult) {
                                     </li><?php
                                         }
                                             ?>
+                                <li class="m-3">
+                                    <span class="stats-text" data-bs-toggle="modal" data-bs-target="#exampleModal">connection</span>
+                                    <!-- <h6 class="d-inline">Email: </h6> <?php echo $user->email; ?> -->
+                                </li>
                                 <?php
                                 if ($user->openTo) { ?>
                                     <li class="m-3">
@@ -200,6 +205,36 @@ if ($checkResult) {
                 </div>
             </div>
     </section>
+
+    <!-- modal of comments -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Connections</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <?php
+                $profileController = new ProfileController;
+                $result = $profileController->getConnections($_GET["id"]);
+            if($result!=null)
+            foreach ($result as $key1=>$row1) {
+                echo "<h5>".$row1["firstName"]." ". $row1["lastName"]."</h5>
+                <hr>
+            ";}?>
+            </div><div class="modal-footer">
+            <div class="input-group">
+                <button type="button" class="btn btn-secondary pl-5 " data-bs-dismiss="modal">Close</button>
+            </div> 
+            </div>
+        </div>
+        </div>
+    </div>
+
 
     <!-- Essential Scripts -->
     <script src="plugins/jquery/jquery.min.js"></script>
