@@ -40,6 +40,10 @@ if ($checkResult) {
     }
 }
 
+// Connections
+$profileController = new ProfileController;
+$connections = $profileController->getConnections($_GET["id"]);
+
 ?>
 
 <!DOCTYPE html>
@@ -120,15 +124,15 @@ if ($checkResult) {
                                     </a> <?php
                                         } else {
                                             if (!$checkResult) { ?>
-                                        <a href=<?php echo "profileLogic.php?fn=connect&id=" . $_GET["id"] ; ?> class="get-started-btn">
+                                        <a href=<?php echo "profileLogic.php?fn=connect&id=" . $_GET["id"]; ?> class="get-started-btn">
                                             Connect
                                         </a> <?php
                                             } else if ($pending) { ?>
-                                        <a href=<?php echo "profileLogic.php?fn=rmRequest&id=" . $_GET["id"] ; ?> class="get-started-btn">
+                                        <a href=<?php echo "profileLogic.php?fn=rmRequest&id=" . $_GET["id"]; ?> class="get-started-btn">
                                             Pending
                                         </a> <?php
                                             } else { ?>
-                                        <a href=<?php echo "profileLogic.php?fn=rmRequest&id=" . $_GET["id"] ; ?> class="get-started-btn">
+                                        <a href=<?php echo "profileLogic.php?fn=rmRequest&id=" . $_GET["id"]; ?> class="get-started-btn">
                                             Remove
                                         </a> <?php
                                             }
@@ -159,6 +163,15 @@ if ($checkResult) {
                                             }
                                         }
                                 ?>
+                                <div class="m-3">
+                                    <span class="stats-text fw-bold text-decoration-underline" data-bs-toggle="modal" data-bs-target=<?php 
+                                    if($user->profileType == 2 && $_SESSION["id"] != $user->id) {
+                                        echo "";
+                                    } else {
+                                        echo "#exampleModal";
+                                    }
+                                    ?>><?php echo count($connections); ?> Connections</span>
+                                </div>
                             </div>
                         </div>
                         <!-- Dashboard Links -->
@@ -174,10 +187,6 @@ if ($checkResult) {
                                     </li><?php
                                         }
                                             ?>
-                                <li class="m-3">
-                                    <span class="stats-text" data-bs-toggle="modal" data-bs-target="#exampleModal">connection</span>
-                                    <!-- <h6 class="d-inline">Email: </h6> <?php echo $user->email; ?> -->
-                                </li>
                                 <?php
                                 if ($user->openTo) { ?>
                                     <li class="m-3">
@@ -197,8 +206,8 @@ if ($checkResult) {
                                     <li class="m-3">
                                         <h6 class="d-inline">About: </h6> <?php echo $profile->about; ?>
                                     </li><?php
-                                }
-                                ?>
+                                        }
+                                            ?>
                             </ul>
                         </div>
                     </div>
@@ -206,32 +215,31 @@ if ($checkResult) {
             </div>
     </section>
 
-    <!-- modal of comments -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-        aria-hidden="true">
+    <!-- modal of connections -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Connections</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <?php
-                $profileController = new ProfileController;
-                $result = $profileController->getConnections($_GET["id"]);
-            if($result!=null)
-            foreach ($result as $key1=>$row1) {
-                echo "<h5>".$row1["firstName"]." ". $row1["lastName"]."</h5>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Connections</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <?php
+                    if ($connections != null)
+                        foreach ($connections as $key1 => $row1) {
+                            echo "<h5>" . $key1 + 1 . " " . $row1["firstName"] . " " . $row1["lastName"] . "</h5>
                 <hr>
-            ";}?>
-            </div><div class="modal-footer">
-            <div class="input-group">
-                <button type="button" class="btn btn-secondary pl-5 " data-bs-dismiss="modal">Close</button>
-            </div> 
+                ";
+                        } ?>
+                </div>
+                <div class="modal-footer">
+                    <div class="input-group">
+                        <button type="button" class="btn btn-secondary pl-5 " data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 
