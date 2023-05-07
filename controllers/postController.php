@@ -45,11 +45,11 @@ class PostController
     }
 
     // Group Posts
-    public function addPostGroup($user_id, Post $post, $group_id)
+    public function addPostGroup($user_id, $desc, $group_id)
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO `posts`(`user_id`, `group_id`, `desc`) VALUES ('$user_id','$group_id','$post->desc')";
+            $query = "INSERT INTO `posts` (`id`, `user_id`, `group_id`, `desc`) VALUES (null , '$user_id', '$group_id' ,'$desc');";
             $result = $this->db->insert($query);
             if ($result) {
                 return $result;
@@ -84,7 +84,7 @@ class PostController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO `posts` (`id`, `user_id`, `group_id`, `desc`) VALUES (NULL , '$user_id', '$group_id' ,'$desc');";
+            $query = "INSERT INTO `posts` (`id`, `user_id`, `group_id`, `desc`) VALUES (null , '$user_id', null ,'$desc');";
             $result = $this->db->insert($query);
             if ($result) {
                 return $result;
