@@ -17,6 +17,7 @@ $userCont = new UserController;
 $search = new SearchController;
 $users = $userCont->getNetworkUsers($_SESSION["id"]);
 $searchResult = [];
+$pending = $userCont->getPendingRequests($_SESSION["id"]);
 
 // Connect Button onClick
 if (array_key_exists('connect', $_POST)) {
@@ -30,9 +31,7 @@ if (array_key_exists('search', $_GET)) {
     $searchResult = $search->searchMember($_GET["search"]);
 }
 
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,38 +65,45 @@ if (array_key_exists('search', $_GET)) {
 <body>
     <?php require_once "components/header.php" ?>
     <div class="container" data-aos="fade-up">
-        <!-- ======= Search ======= -->
+        <!-- ======= Search & Pending Btn ======= -->
         <div class="search w-100 mb-3 mt-5">
-            <div class="section-title p-0 pt-4">
-                <br>
-                <h2>Search</h2>
-            </div>
-            <form action="network.php" method="GET" class="input-group">
-                <div class="form-outline">
-                    <input type="search" id="form1" name="search" class="form-control" />
+            <form action="network.php" method="GET" class="input-group d-flex justify-content-between align=items-center">
+                <div>
+                    <div class="section-title p-0 pt-4">
+                        <br>
+                        <h2>Search</h2>
+                    </div>
+                    <div class="form-outline">
+                        <input type="search" id="form1" name="search" class="form-control" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Search
+                    </button>
                 </div>
-                <button type="submit" class="btn btn-primary">
-                    Search
-                </button>
+                <div>
+                    <span class="btn btn-warning mt-5" data-bs-toggle="modal" data-bs-target="#exampleModalLike">
+                        Show Pending
+                    </span>
+                </div>
             </form>
         </div>
         <!-- ======= Search Result ======= -->
         <?php
-        if ($searchResult) {?>
+        if ($searchResult) { ?>
             <section id="popular-courses" class="courses">
                 <div class="section-title">
                     <br>
                     <h2>Search Results</h2>
                 </div>
                 <div class="row" data-aos="zoom-in" data-aos-delay="100"> <?php
-                    foreach ($searchResult as $key => $row) {
-                        $premium = "";
-                        if ($row["profile_type"] > 0) {
-                            $premium = "<div class=\"d-inline-block ms-3\">
+                                                                            foreach ($searchResult as $key => $row) {
+                                                                                $premium = "";
+                                                                                if ($row["profile_type"] > 0) {
+                                                                                    $premium = "<div class=\"d-inline-block ms-3\">
                                 <h4>Premium</h4>
                             </div>";
-                        }
-                        echo "
+                                                                                }
+                                                                                echo "
                         <div  class=\"col-lg-3 col-md-6 d-flex mt-4 align-items-stretch\">
                         <a href=\"profile.php?id=" . $row["id"] . "\" >
                         <div class=\"course-item shadow-sm\">
@@ -111,12 +117,12 @@ if (array_key_exists('search', $_GET)) {
                             </div>
                         </div> </a>
                         </div>
-                        "; 
-                    } ?>
+                        ";
+                                                                            } ?>
                 </div>
             </section> <?php
-        }
-        ?>
+                    }
+                        ?>
         <!-- ======= People ======= -->
         <section id="popular-courses m-0" class="courses">
             <div class="section-title p-0">
@@ -158,6 +164,38 @@ if (array_key_exists('search', $_GET)) {
                 ?>
             </div>
         </section>
+    </div>
+
+    <!-- ======= Modal of Pending ======= -->
+    <div class="modal fade" id="exampleModalLike" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Pending Requests</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"> <?php
+                    if($pending) {
+                        foreach ($pending as $key=>$row1) {
+                            echo "
+                            <div class=\"d-flex justify-content-between align-items-center\">
+                                <h5 class=\"mr-3\">" .  $key + 1 . ") " .  $row1["firstName"] . " " . $row1["lastName"] . "</h5>
+                                <a href=\"profileLogic.php?fn=acceptConnection&id=" . $row1["id"] . "\"class=\"btn btn-success\">Accept</a>
+                            </div>
+                            <hr>
+                        ";}
+                    }
+                    ?>
+                </div>
+                <div class="modal-footer">
+                    <div class="input-group">
+                        <button type="button" class="btn btn-secondary pl-5 " data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <?php require_once "components/script.php" ?>
