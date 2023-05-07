@@ -14,7 +14,7 @@ class PostController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO post_comments(`post_id`, `user_id`, `comment`) VALUES ('$post_id','$user_id','$comment')";
+            $query = "INSERT INTO `post_comments` (`post_id`, `user_id`, `comment`) VALUES ('$post_id','$user_id','$comment')";
             $result = $this->db->insert($query);
             if ($result) {
                 return $result;

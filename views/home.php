@@ -12,6 +12,23 @@ if (!isset($_SESSION["id"])) {
 
 $postsControllers = new PostController;
 $post = $postsControllers->getPosts($_SESSION["id"]);
+if (isset($_POST['commentText']) && isset($_POST['postId'])) {
+   if (!empty($_POST['commentText']) && !empty($_POST['postId'])) {
+      $Controllers = new PostController;
+      $result = $Controllers->addComment($_SESSION["id"],$_POST["commentText"],$_POST["postId"]);
+      if (!$result) {
+         $errMsg = $_SESSION["errMsg"];
+         
+      } else {
+         
+         header("location:/linkedIn/views/home.php");
+         exit();
+      }
+   } else {
+      $errMsg = "Invalid credentials";
+      
+   }
+}
 
 ?>
 
@@ -89,10 +106,13 @@ $post = $postsControllers->getPosts($_SESSION["id"]);
                                     <div class=\"input\">
                                        <form action=\"\">
                                           <div class=\"input-group\">
-                                             <input type=\"text\" class=\"form-control rounded-corner\" placeholder=\"Write a comment...\">
+                                          <form method=\"POST\" action=\"home.php\">
+                                          <input type=\"hidden\" name=\"postId\" value=\"".$row["id"]."\">
+                                             <input type=\"text\" class=\"form-control rounded-corner\" name=\"commentText\" placeholder=\"Write a comment...\">
                                              <span class=\"input-group-btn p-l-10\">
-                                                <button class=\"btn btn-primary f-s-12 rounded-corner\" type=\"button\">Comment</button>
+                                                <button class=\"btn btn-primary f-s-12 rounded-corner\" type=\"submit\">Comment</button>
                                              </span>
+                                          </form>
                                           </div>
                                        </form>
                                     </div>
@@ -119,10 +139,10 @@ $post = $postsControllers->getPosts($_SESSION["id"]);
                                        ";}
                                        echo "</div><div class=\"modal-footer\">
                                        <div class=\"input-group\">
-                                             <input type=\"text\" class=\"form-control rounded-corner\" placeholder=\"Write a comment...\">
+                                             <!--<input type=\"text\" class=\"form-control rounded-corner\" placeholder=\"Write a comment...\">
                                              <span class=\"input-group-btn \">
                                                 <button class=\"btn btn-primary f-s-12 rounded-corner\" onclick=\"addComment()\" type=\"button\">Comment</button>
-                                             </span>
+                                             </span>-->
                                              
                                           
                                           <button type=\"button\" class=\"btn btn-secondary pl-5 \" data-bs-dismiss=\"modal\">Close</button>
