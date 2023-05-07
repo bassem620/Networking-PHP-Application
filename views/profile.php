@@ -111,38 +111,53 @@ if ($checkResult) {
                                     }
                                         ?>
                             <div class="d-flex justify-content-center align-items-center">
-                                <!-- Buttons -->
                                 <?php
+                                // Buttons
                                 if ($_GET["id"] == $_SESSION["id"]) { ?>
                                     <a href="editProfile.php" class="get-started-btn">
                                         Edit Profile
                                     </a> <?php
                                         } else {
                                             if (!$checkResult) { ?>
-                                        <a href="auth/logout.php" class="get-started-btn">
+                                        <a href="profileLogic.php?fn=connect" class="get-started-btn">
                                             Connect
                                         </a> <?php
                                             } else if ($pending) { ?>
-                                        <a href="auth/logout.php" class="get-started-btn">
+                                        <a href="profileLogic.php?fn=rmRequest" class="get-started-btn">
                                             Pending
                                         </a> <?php
                                             } else { ?>
-                                        <a href="auth/logout.php" class="get-started-btn">
+                                        <a href="profileLogic.php?fn=rmRequest" class="get-started-btn">
                                             Remove
                                         </a> <?php
                                             }
                                         }
-                                        // Subscription
+                                        // Subscription 
                                         if ($_GET["id"] == $_SESSION["id"] && $user->profileType == 0) { ?>
-                                    <a href="auth/logout.php" class="get-started-btn">
+                                    <a href="profileLogic.php?fn=upgradeToPremium" class="get-started-btn">
                                         Upgrade To Premium
                                     </a> <?php
-                                        } else if ($_GET["id"] == $_SESSION["id"]) { ?>
-                                    <a href="auth/logout.php" class="get-started-btn">
+                                        } else if ($_GET["id"] == $_SESSION["id"] && $user->profileType > 0) { ?>
+                                    <a href="profileLogic.php?fn=cancelSubscription" class="get-started-btn">
                                         Cancel Subscription
-                                    </a> <?php
+                                    </a>
+                                    <a href="profileLogic.php?fn=exportConnections" class="get-started-btn">
+                                        Export Connections
+                                    </a>
+                                    <?php
+                                            if ($user->profileType == 1) { ?>
+                                        <a href="profileLogic.php?fn=hideConnections" class="get-started-btn">
+                                            Hide Connections
+                                        </a>
+                                    <?php
+                                            } else { ?>
+                                        <a href="profileLogic.php?fn=showConnections" class="get-started-btn">
+                                            Show Connections
+                                        </a>
+                                <?php
+                                            }
                                         }
-                                            ?>
+                                ?>
                             </div>
                         </div>
                         <!-- Dashboard Links -->
@@ -177,8 +192,8 @@ if ($checkResult) {
                                     <li class="m-3">
                                         <h6 class="d-inline">About: </h6> <?php echo $profile->about; ?>
                                     </li><?php
-                                        }
-                                            ?>
+                                }
+                                ?>
                             </ul>
                         </div>
                     </div>

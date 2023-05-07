@@ -99,7 +99,7 @@ class UserController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT * FROM users WHERE id <> '$user_id' AND id NOT IN ( SELECT user2_id FROM connections WHERE user1_id = '$user_id' UNION SELECT user1_id FROM connections WHERE user2_id = '$user_id');";
+            $query = "SELECT id, firstName, lastName, profile_type, open_to  FROM users WHERE id <> '$user_id' AND id NOT IN ( SELECT user2_id FROM connections WHERE user1_id = '$user_id' UNION SELECT user1_id FROM connections WHERE user2_id = '$user_id');";
             $result = $this->db->select($query);
             if (!$result) {
                 return false;
