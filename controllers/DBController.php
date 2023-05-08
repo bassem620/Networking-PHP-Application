@@ -6,7 +6,7 @@ class DBController
     private $dbUser = "root";
     private $dbPassword = "";
     private $dbName = "linkedin";
-    public $connection;
+    private $connection;
 
     public function openConnection()
     {
