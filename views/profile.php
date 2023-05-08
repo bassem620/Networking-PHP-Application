@@ -215,6 +215,52 @@ $getUserProfile = $profileController->userProfile($_GET["id"]);
                             </div>
                         </div>
 
+
+                        <div class="widget user-dashboard-menu">
+                            <ul>
+                                <li class="m-3">
+                                    <h6 class="d-inline">Email: </h6>
+                                    <?php echo $user->email; ?>
+                                </li>
+                                <?php
+                                if ($profile->birthday) { ?>
+                                    <li class="m-3">
+                                        <h6 class="d-inline">Birthday: </h6>
+                                        <?php echo $profile->birthday; ?>
+                                    </li>
+                                    <?php
+                                }
+                                ?>
+                                <?php
+                                if ($user->openTo) { ?>
+                                    <li class="m-3">
+                                        <h6 class="d-inline">Open To: </h6>
+                                        <?php echo $user->openTo; ?>
+                                    </li>
+                                    <?php
+                                }
+                                ?>
+                                <?php
+                                if ($profile->phone) { ?>
+                                    <li class="m-3">
+                                        <h6 class="d-inline">Phone: </h6>
+                                        <?php echo "+20" . $profile->phone; ?>
+                                    </li>
+                                    <?php
+                                }
+                                ?>
+                                <?php
+                                if ($profile->about) { ?>
+                                    <li class="m-3">
+                                        <h6 class="d-inline">About: </h6>
+                                        <?php echo $profile->about; ?>
+                                    </li>
+                                    <?php
+                                }
+                                ?>
+                            </ul>
+                        </div>
+
                         <div class="card shadow-sm mb-3">
                             <div class="card-body">
                                 <h3>Education</h3>
@@ -353,48 +399,7 @@ $getUserProfile = $profileController->userProfile($_GET["id"]);
 
 
                         <!-- Dashboard Links -->
-                        <!-- <div class="widget user-dashboard-menu">
-                            <ul>
-                                <li class="m-3">
-                                    <h6 class="d-inline">Email: </h6> <?php echo $user->email; ?>
-                                </li>
-                                <?php
-                                if ($profile->birthday) { ?>
-                                    <li class="m-3">
-                                        <h6 class="d-inline">Birthday: </h6> <?php echo $profile->birthday; ?>
-                                    </li><?php
-                                }
-                                ?>
-                                <?php
-                                if ($user->openTo) { ?>
-                                    <li class="m-3">
-                                        <h6 class="d-inline">Open To: </h6> <?php echo $user->openTo; ?>
-                                    </li><?php
-                                }
-                                ?>
-                                <?php
-                                if ($profile->phone) { ?>
-                                    <li class="m-3">
-                                        <h6 class="d-inline">Phone: </h6> <?php echo "+20" . $profile->phone; ?>
-                                    </li><?php
-                                }
-                                ?>
-                                <?php
-                                if ($profile->about) { ?>
-                                    <li class="m-3">
-                                        <h6 class="d-inline">About: </h6> <?php echo $profile->about; ?>
-                                    </li><?php
-                                }
-                                ?>
-                            </ul>
-                        </div> -->
-                        <!-- Websites Links -->
-                        <!-- <div class="widget user-dashboard-menu">
-                            <h3 class="ms-2 fw-bold">Websites</h3>
-                            <ul>
-                                <li></li>
-                            </ul>
-                        </div> -->
+
                     </div>
                 </div>
             </div>
