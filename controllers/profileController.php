@@ -260,7 +260,12 @@ class ProfileController
             $query5 = "SELECT * FROM positions WHERE user_id = '$user_id'";
             $positions = $this->db->select($query5);
             
-            $result = array_merge($skills, $websites, $educations, $certificates, $positions);
+            $result["skills"] = $skills;
+            $result["websites"] = $websites;
+            $result["educations"] = $educations;
+            $result["certificates"] = $certificates;
+            $result["positions"] = $positions;
+            
             if (!$result) {
                 return false;
             }
