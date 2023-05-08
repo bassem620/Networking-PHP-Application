@@ -25,12 +25,12 @@ CREATE TABLE `websites` (
   `user_id` int NOT NULL,
   `link` varchar(100) NOT NULL,
   `type` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`, `user_id`),
+  PRIMARY KEY (`id`),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `educations` (
-  `id` int NOT NULL,
+  `id` int AUTO_INCREMENT NOT NULL,
   `user_id` int NOT NULL,
   `school` varchar(50) NOT NULL,
   `degree` varchar(50) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE `educations` (
   `start_date` date NOT NULL,
   `end_date` date,
   `grade` varchar(50),
-  PRIMARY KEY (`id`, `user_id`),
+  PRIMARY KEY (`id`),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
@@ -53,7 +53,7 @@ CREATE TABLE `positions` (
   `end_date` date,
   `currently_working` boolean DEFAULT 1 NOT NULL,
   `industry` varchar(50),
-  PRIMARY KEY (`id`, `user_id`),
+  PRIMARY KEY (`id`),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
@@ -66,7 +66,7 @@ CREATE TABLE `certifications` (
   `exp_date` date,
   `cred_id` varchar(50)  NOT NULL,
   `cred_url` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`, `user_id`),
+  PRIMARY KEY (`id`),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
@@ -154,7 +154,7 @@ CREATE TABLE `applied_jobs` (
 CREATE TABLE `groups` (
   `id` int AUTO_INCREMENT NOT NULL,
   `name` varchar(50),
-  `desc` vcarchar(150),
+  `desc` varchar(150),
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -199,7 +199,6 @@ CREATE TABLE `post_comments` (
   `post_id` int NOT NULL,
   `user_id` int NOT NULL,
   `comment`  varchar(200) NOT NULL,
-  PRIMARY KEY (`post_id`, `user_id`, `comment`),
   foreign key (post_id) references posts(id) ON DELETE CASCADE,
   foreign key(user_id) references users(id) ON DELETE CASCADE
 );

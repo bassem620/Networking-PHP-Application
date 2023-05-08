@@ -41,7 +41,9 @@ $mySkills = $profileController->getMySkills($_SESSION["id"]);
 
 <head>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
     <link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -87,7 +89,9 @@ $mySkills = $profileController->getMySkills($_SESSION["id"]);
                             <div class="image d-flex justify-content-center">
                                 <img src="../views/assets/img/about.jpg" alt="" class="">
                             </div>
-                            <h5 class="text-center"><?php echo $user->firstName . " " . $user->lastName; ?></h5>
+                            <h5 class="text-center">
+                                <?php echo $user->firstName . " " . $user->lastName; ?>
+                            </h5>
                         </div>
                     </div>
                 </div>
@@ -134,7 +138,8 @@ $mySkills = $profileController->getMySkills($_SESSION["id"]);
                                     </div>
                                     <div class="form-group">
                                         <label for="floatingTextarea2">About</label>
-                                        <textarea class="form-control" id="floatingTextarea2" name="about" style="height: 100px">value=<?php echo $profile->about; ?></textarea>
+                                        <textarea class="form-control" id="floatingTextarea2" name="about"
+                                            style="height: 100px"><?php echo $profile->about; ?></textarea>
                                     </div>
                                     <button type="submit" class="btn btn-transparent">Update</button>
                                 </form>
@@ -151,9 +156,11 @@ $mySkills = $profileController->getMySkills($_SESSION["id"]);
                                         <option disabled selected>Select Skill</option>
                                         <?php
                                         foreach ($skills as $key => $skill) {
-                                        ?><option value=<?php echo $skill["id"] ?>><?php echo $skill["name"] ?></option><?php
-                                                                                                                    }
-                                                                                                                        ?>
+                                            ?>
+                                            <option value=<?php echo $skill["id"] ?>><?php echo $skill["name"] ?></option>
+                                            <?php
+                                        }
+                                        ?>
                                     </select>
                                     <button type="submit" class="btn btn-transparent">Add</button>
                                 </form>
@@ -167,9 +174,11 @@ $mySkills = $profileController->getMySkills($_SESSION["id"]);
                                         <option disabled selected>Select Skill</option>
                                         <?php
                                         foreach ($mySkills as $key => $skill) {
-                                        ?><option value=<?php echo $skill["id"] ?>><?php echo $skill["name"] ?></option><?php
-                                                                                                                    }
-                                                                                                                        ?>
+                                            ?>
+                                            <option value=<?php echo $skill["id"] ?>><?php echo $skill["name"] ?></option>
+                                            <?php
+                                        }
+                                        ?>
                                     </select>
                                     <button type="submit" class="btn btn-transparent">Remove</button>
                                 </form>
