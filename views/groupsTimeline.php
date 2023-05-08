@@ -29,20 +29,21 @@ if (isset($_POST["postDesc"]) && isset($_POST["group"])) {
 if (isset($_POST['likeOrUnlike']) && isset($_POST['postId'])) {
     if ($_POST['likeOrUnlike'] == "black") {
         if ($postsControllers->addLike($_SESSION["id"], $_POST['postId'])) {
-            header("location: groupsTimeline.php");
+            header("location: groupsTimeline.php#" . $_POST["postId"] . "");
         } else {
             $errMsg = $_SESSION["errMsg"];
         }
     } else {
 
         if ($postsControllers->unlike($_POST['postId'], $_SESSION["id"])) {
-            header("location: groupsTimeline.php");
+            header("location: groupsTimeline.php#" . $_POST["postId"] . "");
         } else {
             $errMsg = $_SESSION["errMsg"];
         }
 
     }
 }
+
 if (isset($_POST['commentText']) && isset($_POST['postId'])) {
     if (!empty($_POST['commentText']) && !empty($_POST['postId'])) {
         $Controllers = new PostController;
@@ -51,7 +52,7 @@ if (isset($_POST['commentText']) && isset($_POST['postId'])) {
 
 
         } else {
-            header("location: groupsTimeline.php");
+            header("location: groupsTimeline.php#" . $_POST["postId"] . "");
             exit();
         }
     } else {
@@ -68,7 +69,9 @@ if (isset($_POST['commentText']) && isset($_POST['postId'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
     <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
     <link href="assets/vendor/aos/aos.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -87,86 +90,91 @@ if (isset($_POST['commentText']) && isset($_POST['postId'])) {
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <div class="container-lg pt-5">
-        <h3 class="pt-4 fw-bold">Groups Posts (<?php 
-            if($posts) {
-                echo count($posts); 
+        <h3 class="pt-4 fw-bold">Groups Posts (
+            <?php
+            if ($posts) {
+                echo count($posts);
             } else {
                 echo "0";
             }
-        ?>) </h3>
+            ?>)
+        </h3>
         <div class="row pt-5">
             <div class="col-md-12">
-                    <div id="content" class="content content-full-width">
-                        <div class="profile-content">
-                            <div class="tab-content p-0">
-                                <div class="tab-pane fade active show" id="profile-post">
-                                    <ul class="timeline">
-                                        <li>
-                                <div class="timeline-body mb-5">
-                                 <div class="timeline-header">
-                                    <span class="username">Create Post</span>
-                                 </div>
-                                 <div class="timeline-content">
-                                    <form method="POST" action="groupsTimeline.php">
-                                          <div class="input-group">
-                                             <input type="text" class="form-control rounded-corner" name="postDesc" placeholder="add description for post">
-                                          </div>
-                                       
-                                </div>
-                                <div class="widget change-password">
-                                <h3 class="widget-header user">add group</h3>
-                                    <select class="form-select" aria-label="Default select example" name="group">
-                                        <option disabled selected>Select Group</option>
+                <div id="content" class="content content-full-width">
+                    <div class="profile-content">
+                        <div class="tab-content p-0">
+                            <div class="tab-pane fade active show" id="profile-post">
+                                <ul class="timeline">
+                                    <li>
+                                        <div class="timeline-body mb-5">
+                                            <div class="timeline-header">
+                                                <span class="username">Create Post</span>
+                                            </div>
+                                            <div class="timeline-content">
+                                                <form method="POST" action="groupsTimeline.php">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control rounded-corner"
+                                                            name="postDesc" placeholder="add description for post">
+                                                    </div>
+
+                                            </div>
+                                            <div class="widget change-password">
+                                                <h3 class="widget-header user">add group</h3>
+                                                <select class="form-select" aria-label="Default select example"
+                                                    name="group">
+                                                    <option disabled selected>Select Group</option>
+                                                    <?php
+                                                    foreach ($myGroups as $key => $group) {
+                                                        ?>
+                                                        <option value=<?php echo $group["id"] ?>><?php echo $group["name"] ?></option>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </select>
+
+                                            </div>
+                                            <div class="timeline-comment-box">
+                                                <div class="input">
+
+                                                    <span class="input-group-btn p-l-10">
+                                                        <button class="btn btn-primary f-s-12 rounded-corner"
+                                                            type="submit">publish post</button>
+                                                    </span>
+
+
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <?php
-                                            foreach ($myGroups as $key => $group) {
-                                                ?>
-                                                <option value=<?php echo $group["id"] ?>><?php echo $group["name"] ?></option>
-                                                <?php
-                                            }
-                                            ?>
-                                        </select>
-                                    
-                                </div>
-                                    <div class="timeline-comment-box">
-                                    <div class="input">
-                                          
-                                             <span class="input-group-btn p-l-10">
-                                                <button class="btn btn-primary f-s-12 rounded-corner" type="submit">publish post</button>
-                                             </span>
-                                          
-                                       
-                                    
-                                 </form>
-                                 </div>
-                                 </div>
-                                </div>
+                                        $counter = 0;
+                                        if ($posts) {
+                                            foreach ($posts as $key => $row) {
 
-            <?php
-            $counter = 0;
-            if ($posts) {
-                foreach($posts as $key => $row) {
+                                                $getComments = $postsControllers->getComments($row["id"]);
+                                                $getLikes = $postsControllers->getLikes($row["id"]);
+                                                $likeOrUnlike = "black";
+                                                if ($getLikes != null) {
+                                                    foreach ($getLikes as $key2 => $row2) {
+                                                        if ($row2["id"] == $_SESSION["id"]) {
+                                                            $likeOrUnlike = "blue";
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                                $commentCounts = 0;
+                                                if ($getComments != null) {
+                                                    $commentCounts = count($getComments);
+                                                }
+                                                $LikesCounts = 0;
+                                                if ($getLikes != null) {
+                                                    $LikesCounts = count($getLikes);
+                                                }
 
-                    $getComments = $postsControllers->getComments($row["id"]);
-                    $getLikes = $postsControllers->getLikes($row["id"]);
-                    $likeOrUnlike = "black";
-                    if ($getLikes != null) {
-                        foreach ($getLikes as $key2 => $row2) {
-                            if ($row2["id"] == $_SESSION["id"]) {
-                                $likeOrUnlike = "blue";
-                                break;
-                            }
-                        }
-                    }
-                    $commentCounts = 0;
-                    if ($getComments != null) {
-                        $commentCounts = count($getComments);
-                    }
-                    $LikesCounts = 0;
-                    if ($getLikes != null) {
-                        $LikesCounts = count($getLikes);
-                    }
-
-                    echo "
+                                                echo "
                     
                                             <div class=\"timeline-body mb-5\">
                                  <div class=\"timeline-header\">
@@ -223,14 +231,14 @@ if (isset($_POST['commentText']) && isset($_POST['postId'])) {
                                           </button>
                                        </div>
                                        <div class=\"modal-body\">";
-                    if ($getComments != null)
-                        foreach ($getComments as $key1 => $row1) {
-                            echo "<h5>" . $row1["firstName"] . " " . $row1["lastName"] . "</h5>
+                                                if ($getComments != null)
+                                                    foreach ($getComments as $key1 => $row1) {
+                                                        echo "<h5>" . $row1["firstName"] . " " . $row1["lastName"] . "</h5>
                                           <p> &thinsp;&thinsp;&thinsp;&thinsp;" . $row1["comment"] . "</p>
                                           <hr>
                                        ";
-                        }
-                    echo "</div><div class=\"modal-footer\">
+                                                    }
+                                                echo "</div><div class=\"modal-footer\">
                                        <div class=\"input-group\">
                                              <!--<input type=\"text\" class=\"form-control rounded-corner\" placeholder=\"Write a comment...\">
                                              <span class=\"input-group-btn \">
@@ -259,13 +267,13 @@ if (isset($_POST['commentText']) && isset($_POST['postId'])) {
                                           </button>
                                        </div>
                                        <div class=\"modal-body\">";
-                    if ($getLikes != null)
-                        foreach ($getLikes as $key4 => $row4) {
-                            echo "<h5>" . $row4["firstName"] . " " . $row4["lastName"] . "</h5>
+                                                if ($getLikes != null)
+                                                    foreach ($getLikes as $key4 => $row4) {
+                                                        echo "<h5>" . $row4["firstName"] . " " . $row4["lastName"] . "</h5>
                                           <hr>
                                        ";
-                        }
-                    echo "</div><div class=\"modal-footer\">
+                                                    }
+                                                echo "</div><div class=\"modal-footer\">
                                        <div class=\"input-group\">
                                              <!--<input type=\"text\" class=\"form-control rounded-corner\" placeholder=\"Write a comment...\">
                                              <span class=\"input-group-btn \">
@@ -281,16 +289,17 @@ if (isset($_POST['commentText']) && isset($_POST['postId'])) {
                               </div>
                                        
                     ";
-                    ;
-                    $counter++;}
-            }?>
+                                                ;
+                                                $counter++;
+                                            }
+                                        } ?>
                                     </li>
-                                    </ul>
-                                </div>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 
@@ -301,7 +310,7 @@ if (isset($_POST['commentText']) && isset($_POST['postId'])) {
     <script src="assets/vendor/php-email-form/validate.js"></script>
     <script src="assets/js/main.js"></script>
     <?php require_once "components/footer.php"
-    ?>
+        ?>
 </body>
 
 </html>
