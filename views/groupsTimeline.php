@@ -14,7 +14,16 @@ if (!isset($_SESSION["id"])) {
 
 $groupCont = new GroupController;
 $posts = $groupCont->getGroupsPosts($_SESSION["id"]);
-$myGroups = $groupCont->getJoinedGroups($_SESSION["id"]);
+$myJoinedGroup = $groupCont->getJoinedGroups($_SESSION["id"]);
+$myGroups = $groupCont->getMyGroups($_SESSION["id"]);
+$groupsList = null;
+if ($myJoinedGroup == false) {
+    $groupsList = $myGroups;
+} elseif ($myGroups == false) {
+    $groupsList = $myJoinedGroup;
+} else {
+    $groupsList = array_merge($myJoinedGroup, $myGroups);
+}
 $postsControllers = new PostController;
 if (isset($_POST["postDesc"]) && isset($_POST["group"])) {
     if (!empty($_POST["postDesc"]) && !empty($_POST["group"])) {
@@ -125,7 +134,7 @@ if (isset($_POST['commentText']) && isset($_POST['postId'])) {
                                                     name="group">
                                                     <option disabled selected>Select Group</option>
                                                     <?php
-                                                    foreach ($myGroups as $key => $group) {
+                                                    foreach ($groupsList as $key => $group) {
                                                         ?>
                                                         <option value=<?php echo $group["id"] ?>><?php echo $group["name"] ?></option>
                                                         <?php
@@ -176,7 +185,7 @@ if (isset($_POST['commentText']) && isset($_POST['postId'])) {
 
                                                 echo "
                     
-                                            <div class=\"timeline-body mb-5\">
+                                            <div class=\"timeline-body mb-5\" id=\"" . $row["id"] . "\">
                                  <div class=\"timeline-header\">
                                     <span class=\"username\"><a href=\"javascript:;\">" . $row["firstName"] . " " . $row["lastName"] . "</a></span>
                                  </div>
