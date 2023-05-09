@@ -8,8 +8,6 @@ INSERT INTO skills (name) VALUES
 ('Data Structures'),
 ('Algorithms'),
 ('Object-Oriented Programming'),
-('Operating Systems'),
 ('Computer Networks'),
-('Databases'),
 ('Web Development'),
 ('Mobile Development');

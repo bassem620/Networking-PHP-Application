@@ -226,7 +226,8 @@ class ProfileController
         return false;
     }
 
-    public function getConnections($user_id){
+    public function getConnections($user_id)
+    {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
             $query1 = "SELECT `users`.`firstName`, `users`.`lastName` FROM users INNER join connections on `users`.`id`= `connections`.`user2_id` where `connections`.`user1_id` = '$user_id' AND `state` = 1;";
@@ -245,7 +246,7 @@ class ProfileController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query1 = "SELECT * FROM user_skills WHERE user_id = '$user_id'";
+            $query1 = "SELECT `skills`.`name` FROM `skills` INNER join `user_skills` on `skills`.`id` = `user_skills`.`skill_id` WHERE `user_skills`.`user_id` = '$user_id'";
             $skills = $this->db->select($query1);
 
             $query2 = "SELECT * FROM websites WHERE user_id = '$user_id'";
@@ -253,19 +254,19 @@ class ProfileController
 
             $query3 = "SELECT * FROM educations WHERE user_id = '$user_id'";
             $educations = $this->db->select($query3);
-            
+
             $query4 = "SELECT * FROM certifications WHERE user_id = '$user_id'";
             $certificates = $this->db->select($query4);
-            
+
             $query5 = "SELECT * FROM positions WHERE user_id = '$user_id'";
             $positions = $this->db->select($query5);
-            
+
             $result["skills"] = $skills;
             $result["websites"] = $websites;
             $result["educations"] = $educations;
             $result["certificates"] = $certificates;
             $result["positions"] = $positions;
-            
+
             if (!$result) {
                 return false;
             }

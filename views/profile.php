@@ -395,6 +395,30 @@ $getUserProfile = $profileController->userProfile($_GET["id"]);
                                 </div>
                             </div>
                         </div>
+                        <div class="card shadow-sm mb-3">
+                            <div class="card-body">
+                                <h3>Skills</h3>
+                            </div>
+                            <div class="container overflow-hidden">
+                                <div class="row">
+                                    <?php if ($getUserProfile["skills"]) {
+                                        foreach ($getUserProfile["skills"] as $key => $row) { ?>
+                                            <div class="col-3">
+                                                <div class="card  mb-2">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">
+                                                            <img src=<?php echo "../views/assets/img/" . $row["name"] . ".png" ?>
+                                                                 style="width:30%">
+                                                            <?php echo $row["name"] ?>
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php }
+                                    } ?>
+                                </div>
+                            </div>
+                        </div>
 
 
 
