@@ -8,5 +8,6 @@ class User
     public $lastName;
     public $profileType;
     public $openTo;
+    public $appliedJobs;
 }
 ?>
