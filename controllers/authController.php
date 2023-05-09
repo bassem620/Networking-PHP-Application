@@ -31,6 +31,12 @@ class AuthController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
+            $checkQuery = "SELECT * FROM users WHERE email = '$user->email'";
+            $checkResult = $this->db->select($checkQuery);
+            if($checkResult) {
+                $_SESSION["errMsg"] = "User with this email already exists";
+                return false;
+            }
             $query = "insert into users values ('','$user->firstName','$user->lastName','$user->email','$user->password','','','0','','')";
             $result = $this->db->insert($query);
             session_start();
@@ -49,16 +55,4 @@ class AuthController
         return false;
     }
 
-    public function getAllEmails()
-    {
-        $this->db = new DBController;
-        if ($this->db->openConnection()) {
-            $query = "SELECT `email` FROM users;";
-            $result = $this->db->select($query);
-            if (!$result) {
-                return false;
-            }
-            return $result;
-        }
-    }
 }
