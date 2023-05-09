@@ -17,6 +17,7 @@ $eventCont = new EventController;
 
 $errMsg = "";
 
+
 if (isset($_POST['title']) && isset($_POST['desc']) && isset($_POST['date'])) {
     if (!empty($_POST['title']) && !empty($_POST['desc']) && !empty($_POST['date'])) {
         $event = new Event;
@@ -73,7 +74,7 @@ if (isset($_POST['title']) && isset($_POST['desc']) && isset($_POST['date'])) {
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Date</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="date">
+                    <input type="date" class="form-control" name="date">
                 </div>
             </div>
 
@@ -86,12 +87,12 @@ if (isset($_POST['title']) && isset($_POST['desc']) && isset($_POST['date'])) {
                 </div>
             </div>
             <p class="text-danger">
-                <?php 
-                    if($errMsg !== "") {
-                        echo $errMsg;
-                    } else {
-                        echo "";
-                    }
+                <?php
+                if ($errMsg !== "") {
+                    echo $errMsg;
+                } else {
+                    echo "";
+                }
                 ?>
             </p>
         </form>
