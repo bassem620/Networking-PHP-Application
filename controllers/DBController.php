@@ -43,7 +43,7 @@ class DBController
             echo "Error : " . mysqli_error($this->connection);
             return false;
         }
-        return true;
+        return $this->connection->insert_id;
     }
 
     public function update($qry)
