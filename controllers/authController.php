@@ -41,7 +41,8 @@ class AuthController
             $result = $this->db->insert($query);
             session_start();
             if (isset($result)) {
-                $_SESSION["id"] = $result;
+                $result2 = $this->db->select("SELECT id FROM users WHERE email = '$user->email'");
+                $_SESSION["id"] = $result2[0]["id"];
                 $_SESSION["email"] = $user->email;
                 $_SESSION["profileType"] = 0;
                 $this->db->closeConnection();
