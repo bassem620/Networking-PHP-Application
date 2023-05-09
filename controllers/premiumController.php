@@ -18,7 +18,7 @@ class PremiumConrtroller
             if (!$result) {
                 return false;
             }
-            $_SESSION["profileType"] = 2; 
+            $_SESSION["profileType"] = 2;
             return true;
         }
         echo "Error in Database Connection";
@@ -34,7 +34,7 @@ class PremiumConrtroller
             if (!$result) {
                 return false;
             }
-            $_SESSION["profileType"] = 1; 
+            $_SESSION["profileType"] = 1;
             return true;
         }
         echo "Error in Database Connection";
@@ -52,10 +52,12 @@ class PremiumConrtroller
             $pdf->AddPage();
             $pdf->SetFont('Times', '', 14);
             $counter = 1;
-            foreach ($result as $row) {
-                $pdf->Cell(0, 10, $counter . ") "
-                    . $row["firstName"] . " " . $row["lastName"], 0, 1);
-                $counter++;
+            if ($result) {
+                foreach ($result as $row) {
+                    $pdf->Cell(0, 10, $counter . ") "
+                        . $row["firstName"] . " " . $row["lastName"], 0, 1);
+                    $counter++;
+                }
             }
             $pdf->Output();
         }
@@ -80,7 +82,7 @@ class PremiumConrtroller
             if (!$result2) {
                 return false;
             }
-            $_SESSION["profileType"] = 0; 
+            $_SESSION["profileType"] = 0;
             return true;
         }
         echo "Error in Database Connection";
