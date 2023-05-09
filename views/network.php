@@ -29,7 +29,7 @@ if (array_key_exists('connect', $_POST)) {
 // Search Button onClick
 if (array_key_exists('search', $_GET)) {
     if ($_GET["search"] != "") {
-        $searchResult = $search->searchMember($_GET["search"], $_SESSION["id"]);
+        $searchResult = $search->searchMember($_SESSION["id"], $_GET["search"]);
     }
 }
 
