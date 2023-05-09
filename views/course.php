@@ -3,11 +3,11 @@ require_once "../controllers/learningController.php";
 
 // Check Session
 if (!isset($_SESSION["id"])) {
-    session_start();
-    if (!isset($_SESSION["id"])) {
-        header("Location: auth/login.php");
-        exit();
-    }
+  session_start();
+  if (!isset($_SESSION["id"])) {
+    header("Location: auth/login.php");
+    exit();
+  }
 }
 
 $learn = new LearningController;
@@ -31,7 +31,9 @@ $course = $learn->openEnrolledCourse($_GET["id"], $_SESSION["id"]);
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -55,7 +57,9 @@ $course = $learn->openEnrolledCourse($_GET["id"], $_SESSION["id"]);
     <!-- ======= Breadcrumbs ======= -->
     <div class="breadcrumbs" data-aos="fade-in">
       <div class="container">
-        <h2><?php echo $course[0]["name"]; ?></h2>
+        <h2>
+          <?php echo $course[0]["name"]; ?>
+        </h2>
       </div>
     </div><!-- End Breadcrumbs -->
 
@@ -65,22 +69,36 @@ $course = $learn->openEnrolledCourse($_GET["id"], $_SESSION["id"]);
 
         <div class="row">
           <div class="col-lg-8">
-            <?php echo "<iframe width=\"420\" height=\"315\" src=\"".$course[0]['url']."\"></iframe>"?>
+            <?php echo "<iframe width=\"420\" height=\"315\" src=\"" . $course[0]['url'] . "\"></iframe>" ?>
             <h3>description</h3>
             <p>
-              <?php echo $course[0]['desc'];?>
+              <?php echo $course[0]['desc']; ?>
             </p>
           </div>
           <div class="col-lg-4">
 
             <div class="course-info d-flex justify-content-between align-items-center">
               <h5>Course Fee</h5>
-              <p><?php echo $course[0]['price']; ?></p>
+              <p>
+                <?php echo $course[0]['price']; ?>
+              </p>
             </div>
 
             <div class="course-info d-flex justify-content-between align-items-center">
               <h5>Schedule</h5>
               <p>online</p>
+            </div>
+            <div class="course-info d-flex justify-content-between align-items-center">
+              <h5>Hours</h5>
+              <p>
+                <?php echo $course[0]['hours']; ?>
+              </p>
+            </div>
+            <div class="course-info d-flex justify-content-between align-items-center">
+              <h5>Skills</h5>
+              <p>
+                <?php echo $course[0]['skills']; ?>
+              </p>
             </div>
 
           </div>
@@ -92,7 +110,8 @@ $course = $learn->openEnrolledCourse($_GET["id"], $_SESSION["id"]);
   <!-- End #main -->
 
   <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
@@ -103,7 +122,7 @@ $course = $learn->openEnrolledCourse($_GET["id"], $_SESSION["id"]);
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-<?php require_once "components/footer.php" ?>
+  <?php require_once "components/footer.php" ?>
 </body>
 
 </html>
