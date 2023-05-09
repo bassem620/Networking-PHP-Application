@@ -28,7 +28,9 @@ if (array_key_exists('connect', $_POST)) {
 
 // Search Button onClick
 if (array_key_exists('search', $_GET)) {
-    $searchResult = $search->searchMember($_GET["search"]);
+    if ($_GET["search"] != "") {
+        $searchResult = $search->searchMember($_GET["search"], $_SESSION["id"]);
+    }
 }
 
 ?>
@@ -47,7 +49,9 @@ if (array_key_exists('search', $_GET)) {
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
@@ -67,7 +71,8 @@ if (array_key_exists('search', $_GET)) {
     <div class="container" data-aos="fade-up">
         <!-- ======= Search & Pending Btn ======= -->
         <div class="search w-100 mb-3 mt-5">
-            <form action="network.php" method="GET" class="input-group d-flex justify-content-between align=items-center">
+            <form action="network.php" method="GET"
+                class="input-group d-flex justify-content-between align=items-center">
                 <div>
                     <div class="section-title p-0 pt-4">
                         <br>
@@ -95,15 +100,16 @@ if (array_key_exists('search', $_GET)) {
                     <br>
                     <h2>Search Results</h2>
                 </div>
-                <div class="row" data-aos="zoom-in" data-aos-delay="100"> <?php
-                                                                            foreach ($searchResult as $key => $row) {
-                                                                                $premium = "";
-                                                                                if ($row["profile_type"] > 0) {
-                                                                                    $premium = "<div class=\"d-inline-block ms-3\">
+                <div class="row" data-aos="zoom-in" data-aos-delay="100">
+                    <?php
+                    foreach ($searchResult as $key => $row) {
+                        $premium = "";
+                        if ($row["profile_type"] > 0) {
+                            $premium = "<div class=\"d-inline-block ms-3\">
                                 <h4>Premium</h4>
                             </div>";
-                                                                                }
-                                                                                echo "
+                        }
+                        echo "
                         <div  class=\"col-lg-3 col-md-6 d-flex mt-4 align-items-stretch\">
                         <a href=\"profile.php?id=" . $row["id"] . "\" >
                         <div class=\"course-item shadow-sm\">
@@ -118,11 +124,12 @@ if (array_key_exists('search', $_GET)) {
                         </div> </a>
                         </div>
                         ";
-                                                                            } ?>
+                    } ?>
                 </div>
-            </section> <?php
-                    }
-                        ?>
+            </section>
+            <?php
+        }
+        ?>
         <!-- ======= People ======= -->
         <section id="popular-courses m-0" class="courses">
             <div class="section-title p-0">
@@ -167,7 +174,8 @@ if (array_key_exists('search', $_GET)) {
     </div>
 
     <!-- ======= Modal of Pending ======= -->
-    <div class="modal fade" id="exampleModalLike" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal fade" id="exampleModalLike" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -176,16 +184,18 @@ if (array_key_exists('search', $_GET)) {
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body"> <?php
-                    if($pending) {
-                        foreach ($pending as $key=>$row1) {
+                <div class="modal-body">
+                    <?php
+                    if ($pending) {
+                        foreach ($pending as $key => $row1) {
                             echo "
                             <div class=\"d-flex justify-content-between align-items-center\">
-                                <h5 class=\"mr-3\">" .  $key + 1 . ") " .  $row1["firstName"] . " " . $row1["lastName"] . "</h5>
+                                <h5 class=\"mr-3\">" . $key + 1 . ") " . $row1["firstName"] . " " . $row1["lastName"] . "</h5>
                                 <a href=\"profileLogic.php?fn=acceptConnection&id=" . $row1["id"] . "\"class=\"btn btn-success\">Accept</a>
                             </div>
                             <hr>
-                        ";}
+                        ";
+                        }
                     }
                     ?>
                 </div>
