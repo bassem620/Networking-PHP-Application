@@ -48,4 +48,17 @@ class AuthController
         echo "Error in Database Connection";
         return false;
     }
+
+    public function getAllEmails()
+    {
+        $this->db = new DBController;
+        if ($this->db->openConnection()) {
+            $query = "SELECT `email` FROM users;";
+            $result = $this->db->select($query);
+            if (!$result) {
+                return false;
+            }
+            return $result;
+        }
+    }
 }
