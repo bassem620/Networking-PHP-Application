@@ -17,19 +17,22 @@ if (isset($_POST['title']) && isset($_POST['desc']) && isset($_POST['req']) && i
     if (!empty($_POST['title']) && !empty($_POST['desc']) && !empty($_POST['req']) && !empty($_POST['salary']) && !empty($_POST['company']) && !empty($_POST['location'])) {
         $job = new Job;
         $controller = new JobController;
+        if (is_numeric($_POST['salary'])) {
+            $job->title = $_POST['title'];
+            $job->desc = $_POST['desc'];
+            $job->req = $_POST['req'];
+            $job->salary = $_POST['salary'];
+            $job->company = $_POST['company'];
+            $job->location = $_POST['location'];
 
-        $job->title = $_POST['title'];
-        $job->desc = $_POST['desc'];
-        $job->req = $_POST['req'];
-        $job->salary = $_POST['salary'];
-        $job->company = $_POST['company'];
-        $job->location = $_POST['location'];
-
-        if (!$controller->offerJob($_SESSION["id"], $job)) {
-            $errMsg = $_SESSION["errMsg"];
+            if (!$controller->offerJob($_SESSION["id"], $job)) {
+                $errMsg = $_SESSION["errMsg"];
+            } else {
+                header("location:/linkedIn/views/postJob.php");
+                exit();
+            }
         } else {
-            header("location:/linkedIn/views/postJob.php");
-            exit();
+            $errMsg = "Invalid credentials";
         }
     } else {
         $errMsg = "Invalid credentials";

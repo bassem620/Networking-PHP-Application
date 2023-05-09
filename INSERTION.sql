@@ -5,9 +5,7 @@ INSERT INTO skills (name) VALUES
 ('C++'),
 ('JavaScript'),
 ('SQL'),
-('Data Structures'),
 ('Algorithms'),
-('Object-Oriented Programming'),
-('Computer Networks'),
-('Web Development'),
-('Mobile Development');
+('Ruby'),
+('PHP'),
+('Kotlin');
