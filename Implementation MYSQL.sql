@@ -73,7 +73,7 @@ CREATE TABLE `certifications` (
 CREATE TABLE `connections` (
   `user1_id` int,
   `user2_id` int,
-  `state` enum('0', '1') NOT NULL DEFAULT '0',
+  `state` boolean DEFAULT 0,
   PRIMARY KEY (`user1_id`, `user2_id`),
   FOREIGN KEY (user1_id) REFERENCES users(id) ON DELETE CASCADE,
   FOREIGN KEY (user2_id) REFERENCES users(id) ON DELETE CASCADE
