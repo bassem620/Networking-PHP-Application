@@ -34,7 +34,7 @@ class ProfileController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "DELETE FROM certifications WHERE user_id = '$user_id' AND cert_id = '$cert_id'";
+            $query = "DELETE FROM certifications WHERE user_id = '$user_id' AND id = '$cert_id'";
             $result = $this->db->delete($query);
             if (!$result) {
                 $_SESSION["errMsg"] = "Somthing went wrong... try again";
@@ -51,7 +51,7 @@ class ProfileController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "INSERT INTO educations(`user_id`, `school`, `degree`, `field of study`, `start_date`, `end_date`, `grade`) VALUES ('$user_id','$edu->school','$edu->degree','$edu->field_of_study','$edu->start_date','$edu->end_date','$edu->grade')";
+            $query = "INSERT INTO educations(`user_id`, `school`, `degree`, `field_of_study`, `start_date`, `end_date`, `grade`) VALUES ('$user_id','$edu->school','$edu->degree','$edu->field_of_study','$edu->start_date','$edu->end_date','$edu->grade')";
             $result = $this->db->insert($query);
             if ($result) {
                 return $result;
@@ -246,7 +246,7 @@ class ProfileController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query1 = "SELECT `skills`.`name` FROM `skills` INNER join `user_skills` on `skills`.`id` = `user_skills`.`skill_id` WHERE `user_skills`.`user_id` = '$user_id'";
+            $query1 = "SELECT `skills`.`name` , `user_skills`.`skill_id` FROM `skills` INNER join `user_skills` on `skills`.`id` = `user_skills`.`skill_id` WHERE `user_skills`.`user_id` = '$user_id'";
             $skills = $this->db->select($query1);
 
             $query2 = "SELECT * FROM websites WHERE user_id = '$user_id'";

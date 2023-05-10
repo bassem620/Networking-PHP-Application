@@ -49,6 +49,52 @@ if ($checkResult) {
 $profileController = new ProfileController;
 $connections = $profileController->getConnections($_GET["id"]);
 $getUserProfile = $profileController->userProfile($_GET["id"]);
+
+//delete edu data card
+if (isset($_POST["educationId"])) {
+    if ($profileController->deleteEducation($_GET["id"], $_POST['educationId'])) {
+        header("location: profile.php?id=" . $_GET["id"] . "");
+    } else {
+        $errMsg = $_SESSION["errMsg"];
+    }
+}
+
+//delete website data card
+if(isset($_POST["websiteId"])){
+    if ($profileController->deleteWebsite($_GET["id"], $_POST['websiteId'])) {
+        header("location: profile.php?id=".$_GET["id"]."");
+    } else {
+        $errMsg = $_SESSION["errMsg"];
+    }
+}
+
+//delete position data card
+if (isset($_POST["positionId"])) {
+    if ($profileController->deletePosition($_GET["id"], $_POST['positionId'])) {
+        header("location: profile.php?id=" . $_GET["id"] . "");
+    } else {
+        $errMsg = $_SESSION["errMsg"];
+    }
+}
+
+//delete cert data card
+if (isset($_POST["certId"])) {
+    if ($profileController->deleteCertification($_GET["id"], $_POST['certId'])) {
+        header("location: profile.php?id=" . $_GET["id"] . "");
+    } else {
+        $errMsg = $_SESSION["errMsg"];
+    }
+}
+
+//delete skill data card
+if (isset($_POST["skillId"])) {
+    if ($profileController->deleteSkill($_GET["id"], $_POST['skillId'])) {
+        header("location: profile.php?id=" . $_GET["id"] . "");
+    } else {
+        $errMsg = $_SESSION["errMsg"];
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -279,7 +325,7 @@ $getUserProfile = $profileController->userProfile($_GET["id"]);
                                                             <i class="bx bx-chevron-right"></i>Degree:
                                                             <?php echo $row["degree"] ?><br>
                                                             <i class="bx bx-chevron-right"></i>Field of study:
-                                                            <?php echo $row["field of study"] ?><br>
+                                                            <?php echo $row["field_of_study"] ?><br>
                                                             <i class="bx bx-chevron-right"></i>Start date:
                                                             <?php echo $row["start_date"] ?><br>
                                                             <i class="bx bx-chevron-right"></i>End date:
@@ -287,9 +333,17 @@ $getUserProfile = $profileController->userProfile($_GET["id"]);
                                                             <i class="bx bx-chevron-right"></i>Grade:
                                                             <?php echo $row["grade"] ?><br>
                                                         </p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                        <form method="POST" action="profile.php?id=<?php echo $_GET["id"] ?>">
+                                                                    <?php if ($_GET["id"] == $_SESSION["id"]) {
+                                                                        echo "
+                                                        <input type=\"hidden\" name=\"educationId\" value=" . $row["id"] . ">
+                                                        <button type=\"submit\" class=\"btn btn-danger\">Delete</button>
+                                                        ";
+                                                                    } ?>
+                                                                </form>
+                                                            </div>
+                                                     </div>
+                                             </div>
                                         <?php }
                                     } ?>
                                 </div>
@@ -299,26 +353,36 @@ $getUserProfile = $profileController->userProfile($_GET["id"]);
                             <div class="card-body">
                                 <h3>Websites</h3>
                             </div>
+                           
                             <div class="container overflow-hidden text-center">
                                 <div class="row">
                                     <?php if ($getUserProfile["websites"]) {
                                         foreach ($getUserProfile["websites"] as $key => $row) { ?>
-                                            <div class="col-3">
-                                                <div class="card  mb-2">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title"><a href=<?php echo $row["link"] ?>
+                                         
+                                                    <div class="col-3">
+                                                        <div class="card  mb-2">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title"><a href=<?php echo $row["link"] ?>
                                                                 class="card-link">Link to my
                                                                 website</a></h5>
                                                         <h6 class="card-subtitle mb-2 text-body-secondary">Type:
                                                             <?php echo $row["type"] ?>
                                                         </h6>
+                                                        <form method="POST" action="profile.php?id=<?php echo $_GET["id"] ?>">
+                                                        <?php if($_GET["id"]==$_SESSION["id"]){ echo "
+                                                        <input type=\"hidden\" name=\"websiteId\" value=".$row["id"].">
+                                                        <button type=\"submit\" class=\"btn btn-danger\">Delete</button>
+                                                        ";}?>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
+                                            
                                         <?php }
                                     } ?>
                                 </div>
                             </div>
+                            
                         </div>
                         <div class="card shadow-sm mb-3">
                             <div class="card-body">
@@ -352,9 +416,17 @@ $getUserProfile = $profileController->userProfile($_GET["id"]);
                                                             <i class="bx bx-chevron-right"></i>Industry:
                                                             <?php echo $row["industry"] ?><br>
                                                         </p>
+                                                        <form method="POST" action="profile.php?id=<?php echo $_GET["id"] ?>">
+                                                                    <?php if ($_GET["id"] == $_SESSION["id"]) {
+                                                                        echo "
+                                                        <input type=\"hidden\" name=\"positionId\" value=" . $row["id"] . ">
+                                                        <button type=\"submit\" class=\"btn btn-danger\">Delete</button>
+                                                        ";
+                                                                    } ?>
+                                                                </form>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
                                         <?php }
                                     } ?>
                                 </div>
@@ -387,6 +459,14 @@ $getUserProfile = $profileController->userProfile($_GET["id"]);
                                                             <i class="bx bx-chevron-right"></i>Credential URL:
                                                             <?php echo $row["cred_url"] ?><br>
                                                         </p>
+                                                        <form method="POST" action="profile.php?id=<?php echo $_GET["id"] ?>">
+                                                                    <?php if ($_GET["id"] == $_SESSION["id"]) {
+                                                                        echo "
+                                                        <input type=\"hidden\" name=\"certId\" value=" . $row["id"] . ">
+                                                        <button type=\"submit\" class=\"btn btn-danger\">Delete</button>
+                                                        ";
+                                                                    } ?>
+                                                                </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -406,6 +486,14 @@ $getUserProfile = $profileController->userProfile($_GET["id"]);
                                             <div class="col-3">
                                                 <div class="card  mb-2">
                                                     <div class="card-body">
+                                                        <form method="POST" action="profile.php?id=<?php echo $_GET["id"] ?>">
+                                                                    <?php if ($_GET["id"] == $_SESSION["id"]) {
+                                                                        echo "
+                                                        <input type=\"hidden\" name=\"skillId\" value=" . $row["skill_id"] . ">
+                                                        <button type=\"submit\" class=\"btn-close float-right\" aria-label=\"Close\"></button>
+                                                        ";
+                                                                    } ?>
+                                                                </form>
                                                         <h5 class="card-title">
                                                             <img src=<?php echo "../views/assets/img/" . $row["name"] . ".png" ?>
                                                                  style="width:30%">
