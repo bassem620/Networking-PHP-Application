@@ -24,6 +24,13 @@ INSERT INTO `premium` (`user_id`, `start_date`, `exp_date`) VALUES
 (1, '2023-05-01', '2023-06-01'),
 (2, '2023-05-05', '2023-06-05');
 
+-- Connections
+INSERT INTO `connections` (`user1_id`, `user2_id`, `state`) VALUES 
+('1', '4', '1'),
+('3', '1', '1'),
+('1', '2', '0'),
+('3', '4', '0');
+
 -- --------------------------------------------------------
 
 -- User Profile
@@ -117,6 +124,15 @@ INSERT INTO `events` (`title`, `desc`, `date`, `user_id`) VALUES
 ('RiseUp', '"RiseUp 2023" - A career fair and conference connecting job seekers with employers and industry leaders.', '2023-11-9', '3'),
 ('RevItUp 2023', '"Racing Event" - A thrilling competition of speed and skill between drivers and their high-performance vehicles.', '2023-11-9', '4');
 
+-- --------------------------------------------------------
+
 -- Going Events
 INSERT INTO `events_going` (`user_id`, `event_id`) VALUES 
 ('1', '2'), ('2', '1'), ('3', '4'), ('4', '3');
+
+-- Jobs
+INSERT INTO `jobs` (`title`, `desc`, `req.`, `salary`, `company`, `location`, `creator_id`) VALUES 
+('Backend', '"Backend Job" - Developing and maintaining server-side applications, databases, and APIs to power web and mobile applications.', 'Node.JS - Express.js - MongoDB', '15800', 'Orange', 'Smart Village', '1'),
+('Full Stack', '"Full Stack - MERN Job" - Developing and maintaining server-side applications, databases, and APIs to power web and mobile applications.', 'React.JS - Node.JS - Express.js - MongoDB', '15800', 'Orange', 'Smart Village', '2'),
+('Frontend', '"Frontend Job" - Developing and maintaining server-side applications, databases, and APIs to power web and mobile applications.', 'React.JS, Node.JS', '15800', 'Orange', 'Smart Village', '3'),
+('Middlewares - Integration', '"DevOps Job" - Developing and maintaining server-side applications, databases, and APIs to power web and mobile applications.', 'Node.JS - Express.js - MongoDB', '15800', 'Orange', 'Smart Village', '4');
