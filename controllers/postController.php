@@ -151,25 +151,15 @@ class PostController
     {
         $this->db = new DBController;
         if ($this->db->openConnection()) {
-            $query = "SELECT users.firstName, users.lastName, posts.id, posts.desc
-            FROM posts
-            INNER JOIN users ON users.id = posts.user_id
-            WHERE posts.user_id IN (
-                SELECT user2_id
-                FROM connections
-                WHERE user1_id = '$user_id' AND state = 1
+            $query = "
+            SELECT p.id, p.desc, users.firstName, users.lastName FROM posts AS p
+            INNER JOIN users ON users.id = p.user_id
+            WHERE p.group_id IS NULL AND ((p.user_id IN (
+                SELECT `user1_id` AS id from `connections` WHERE `user2_id` = '$user_id' AND `state` = 1
                 UNION
-                SELECT user1_id
-                FROM connections
-                WHERE user2_id = '$user_id' AND state = 1
-            )
-            UNION
-            SELECT users.firstName, users.lastName, posts.id, posts.desc
-            FROM posts
-            INNER JOIN users ON users.id = posts.user_id
-            WHERE posts.user_id = '$user_id'
+                select `user2_id` AS id from `connections` WHERE `user1_id` = '$user_id' AND `state` = 1
+            )) OR p.user_id = '$user_id')
             ORDER BY id DESC;
-            
             ";
             $result = $this->db->select($query);
             if (!$result || count($result) == 0) {
